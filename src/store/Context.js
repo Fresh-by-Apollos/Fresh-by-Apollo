@@ -9,14 +9,15 @@ export const useStorage = () => {
 
 function GlobalProvider({ children }) {
   const [state, dispatch] = useReducer(reducers, initialState);
+
+  const globalState = {
+    fridgeState: state.fridgeState,
+    state,
+    dispatch,
+  }; // <--- Add all Pieces of state here
+
   return (
-    <GlobalContext.Provider
-      value={{
-        fridgeState: state.fridgeState,
-        state,
-        dispatch,
-      }}
-    >
+    <GlobalContext.Provider value={globalState}>
       {children}
     </GlobalContext.Provider>
   );
