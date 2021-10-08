@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useStorage } from "../store/Context";
 import { View, Text, Button } from "react-native";
 import firebase from "../firebase/firebase";
 
 function TestingScreen() {
   const [text, setText] = useState("Press Testing Button");
-  const { products } = useStorage(); // *Important, grabbing info from React Hooks Redux clone
 
   const testCallToFirestore = async () => {
     try {
@@ -43,11 +41,6 @@ function TestingScreen() {
 
   return (
     <View>
-      <Text>
-        {"Testing React Hooks Substitute for Redux: " +
-          JSON.stringify(products[0].title)}
-      </Text>
-
       <Text style={{ marginTop: 20 }}>{text}</Text>
 
       <Button onPress={testCallToFirestore} title="Firestore  <-- Click Me" />

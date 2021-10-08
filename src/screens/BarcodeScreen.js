@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import axios from "axios";
-import { useStorage } from "../store/Context";
 import TestingScreen from "./TestingScreen";
 
 //  070662035016  <-- Ramen Noodles Barcode:
