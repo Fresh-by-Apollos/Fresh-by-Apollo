@@ -1,6 +1,5 @@
-import React, { createContext, useReducer, useContext, Children } from "react";
+import React, { createContext, useReducer, useContext } from "react";
 import { initialState, reducers } from "./reducers";
-import { fridgeState } from "./reducers/fridgeReducer";
 
 const GlobalContext = createContext();
 
@@ -9,11 +8,12 @@ export const useStorage = () => {
 };
 
 function GlobalProvider({ children }) {
-  const [state, dispatch] = useReducer(reducers, { fridgeState });
+  const [state, dispatch] = useReducer(reducers, initialState);
   return (
     <GlobalContext.Provider
       value={{
         fridgeState: state.fridgeState,
+        state,
         dispatch,
       }}
     >

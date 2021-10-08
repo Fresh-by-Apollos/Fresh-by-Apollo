@@ -17,5 +17,5 @@ const combineReducers = (reducers) => {
 };
 
 export const reducers = combineReducers({
-  fridge: fridgeReducer,
+  fridgeReducer,
 });

@@ -31,14 +31,13 @@ export const fetchFridgeItems = async (dispatch) => {
       allergens: doc.data().allergens,
     });
   });
-  //   console.log(resultArr, "<-------------------");
   dispatch(_setFridge(resultArr));
 };
 
 const fridgeReducer = (state = fridgeState, action) => {
   switch (action.type) {
     case SET_FRIDGE: {
-      return [action.items];
+      return { ...state, fridgeState: action.items };
     }
     default:
       return state;
