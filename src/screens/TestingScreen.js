@@ -18,7 +18,7 @@ function TestingScreen() {
   };
 
   // Similar to Component did mount;
-  // Will be called agian is variable in brackets change
+  // Will be called agian if variable in brackets change
   useEffect(() => {
     fetchFridgeItems(dispatch);
   }, [fridgeState]);
