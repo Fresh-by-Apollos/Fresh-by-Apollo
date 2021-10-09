@@ -1,47 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Button } from "react-native";
-import firebase from "../firebase/firebase";
+import { useStorage } from "../store/Context";
+import { fetchFridgeItems } from "../store/reducers/fridgeReducer";
 
 function TestingScreen() {
-  const [text, setText] = useState("Press Testing Button");
+  const { fridgeState, dispatch } = useStorage();
+
+  const [fridgeText, setFridgeText] = useState("Testing state management..");
 
   const testCallToFirestore = async () => {
     try {
-      const userId = "2SbLcxDpmJHXKpJ7bEqV";
-
-      const fridgeRef = firebase
-        .firestore()
-        .collection(`/users/${userId}/currentFridge`);
-
-      const userRef = firebase.firestore().collection("users").doc(userId);
-
-      const userSnapshot = await userRef.get();
-      const snapshot = await fridgeRef.get();
-
-      let resultArr = [];
-
-      resultArr.push({
-        FirstName: userSnapshot.data().firstName,
-        allergies: userSnapshot.data().allergies,
-      });
-
-      snapshot.forEach((doc) => {
-        resultArr.push({
-          FridgeItem: doc.data().name,
-          allergens: doc.data().allergens,
-        });
-      });
-
-      setText(JSON.stringify(resultArr));
+      setFridgeText(JSON.stringify(fridgeState));
     } catch (err) {
-      setText(JSON.stringify(err));
+      setFridgeText(JSON.stringify(err));
       console.log(err);
     }
   };
 
+  // Similar to Component did mount;
+  // Will be called agian if variable in brackets change
+  useEffect(() => {
+    fetchFridgeItems(dispatch);
+  }, [fridgeState]);
+
   return (
     <View>
-      <Text style={{ marginTop: 20 }}>{text}</Text>
+      <Text style={{ marginTop: 20 }}>{fridgeText}</Text>
+
+      <Text style={{ marginTop: 20 }}>Press the button below</Text>
 
       <Button onPress={testCallToFirestore} title="Firestore  <-- Click Me" />
     </View>
