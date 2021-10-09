@@ -1,50 +1,26 @@
-import { addToCart, signup, login, logout } from './actionCreators';
-import React, {
-  createContext,
-  useState,
-  useReducer,
-  useEffect,
-  useContext,
-} from 'react';
+import React, { createContext, useReducer, useContext } from 'react';
+import { initialState, reducers } from './reducers';
 
-import initialState from './initialState';
-import { auth } from '../firebase/firebase';
-import reducers from './reducers';
-
-export const GlobalContext = createContext();
+const GlobalContext = createContext();
 
 export const useStorage = () => {
   return useContext(GlobalContext);
 };
 
-export const GlobalProvider = ({ children }) => {
+function GlobalProvider({ children }) {
   const [state, dispatch] = useReducer(reducers, initialState);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log('Being Called');
-      dispatch({ type: 'SET_USER', payload: user });
-
-      setLoading(false);
-    });
-    return unsubscribe;
-  }, []);
+  const globalState = {
+    fridgeState: state.fridgeState,
+    state,
+    dispatch,
+  }; // <--- Add all Pieces of state here
 
   return (
-    <GlobalContext.Provider
-      value={{
-        products: state.products,
-        cart: state.cart,
-        currentUser: state.currentUser,
-        login,
-        logout,
-        signup,
-        addToCart,
-        dispatch,
-      }}
-    >
-      {!loading && children}
+    <GlobalContext.Provider value={globalState}>
+      {children}
     </GlobalContext.Provider>
   );
-};
+}
+
+export default GlobalProvider;

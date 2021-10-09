@@ -1,5 +1,9 @@
-import cartReducer from "./cartReducer";
-import authReducer from "./authReducer";
+import fridgeReducer from "./fridgeReducer";
+import { fridgeState } from "./fridgeReducer";
+
+export const initialState = {
+  fridgeState,
+};
 
 const combineReducers = (reducers) => {
   return (state, action) => {
@@ -12,9 +16,6 @@ const combineReducers = (reducers) => {
   };
 };
 
-const reducers = combineReducers({
-  auth: authReducer,
-  cart: cartReducer,
+export const reducers = combineReducers({
+  fridgeReducer,
 });
-
-export default reducers;
