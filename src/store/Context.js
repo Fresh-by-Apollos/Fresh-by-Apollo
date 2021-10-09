@@ -1,15 +1,15 @@
-import { addToCart, signup, login, logout } from "./actionCreators";
+import { addToCart, signup, login, logout } from './actionCreators';
 import React, {
   createContext,
   useState,
   useReducer,
   useEffect,
   useContext,
-} from "react";
+} from 'react';
 
-import initialState from "./initialState";
-import { auth } from "../firebase/firebase";
-import reducers from "./reducers";
+import initialState from './initialState';
+import { auth } from '../firebase/firebase';
+import reducers from './reducers';
 
 export const GlobalContext = createContext();
 
@@ -23,8 +23,8 @@ export const GlobalProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log("Being Called");
-      dispatch({ type: "SET_USER", payload: user });
+      console.log('Being Called');
+      dispatch({ type: 'SET_USER', payload: user });
 
       setLoading(false);
     });

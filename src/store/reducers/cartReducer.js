@@ -1,17 +1,22 @@
-import initialState from "../initialState";
+// Action Constant
+const ADD_TO_CART = 'ADD_TO_CART';
 
-const cartReducer = (state = initialState, action) => {
+// Action Creators
+const addToCart = (item, dispatch) => {
+  dispatch({ type: ADD_TO_CART, payload: item });
+};
+
+export const cartState = [];
+
+const cartReducer = (state = cartState, action) => {
   switch (action.type) {
-    case "ADD_TO_CART": {
-      console.log(state);
+    case 'ADD_TO_CART': {
       return {
-        ...state,
         cart: [...state.cart, action.payload],
       };
     }
-    case "UPDATE_CART_ITEM": {
+    case 'UPDATE_CART_ITEM': {
       return {
-        ...state,
         cart: action.payload,
       };
     }
