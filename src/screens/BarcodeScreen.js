@@ -64,7 +64,7 @@ export default function BarcodeScreen() {
   // Return the View
   return (
     <View style={styles.container}>
-      <TestingScreen />
+      {/* <TestingScreen /> */}
       <View style={styles.barcodebox}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
