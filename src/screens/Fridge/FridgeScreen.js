@@ -25,10 +25,10 @@ function FridgeScreen() {
               <View style={styles.fridgeItems}>
                 <Image style={styles.image} source={{uri: item.imageUrl}} />
                 <Text>{item.name}</Text>
-                <Text>{item.quantity}</Text>
-                {/* <Text>{item.expirationDate.date}</Text> */}
-                <Text>{item.allergens}</Text>
-                <Text>{item.dietFlags}</Text>
+                <Text>Number of Servings: {item.quantity}</Text>
+                <Text>Expiration Date: {new Date(item.expirationDate.seconds * 1000).toLocaleDateString("en-US")}</Text>
+                <Text>Allergens: {item.allergens}</Text>
+                <Text>Diet Flags: {item.dietFlags}</Text>
               </View>
             ))}
           </View>

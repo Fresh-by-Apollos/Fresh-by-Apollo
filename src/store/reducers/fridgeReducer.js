@@ -30,7 +30,7 @@ export const fetchFridgeItems = async(dispatch) => {
         imageUrl: doc.data().image,
         name: doc.data().name,
         quantity: doc.data().quantity,
-        // expirationDate: doc.data().expirationDate.toDate(),
+        expirationDate: doc.data().expirationDate,
         allergens: doc.data().allergens,
         dietFlags: doc.data().dietFlags
       })
