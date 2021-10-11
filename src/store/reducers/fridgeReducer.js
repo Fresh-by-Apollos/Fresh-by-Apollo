@@ -22,7 +22,8 @@ export const fetchFridgeItems = async(dispatch) => {
     const userId = 'S0VN3xoK05MwlPlPzPWr' // User backup
     const fridgeRef = firebase
       .firestore()
-      .collection(`/users/${userId}/currentFridge`);
+      .collection(`/users/${userId}/currentFridge`)
+      .orderBy('expirationDate', 'desc')
     const snapshot = await fridgeRef.get();
     const resultArray = [];
     snapshot.forEach((doc) => {
