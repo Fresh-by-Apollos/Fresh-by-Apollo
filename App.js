@@ -10,7 +10,7 @@ export default function App() {
     <GlobalProvider>
       <SingleFridgeItemScreen />
       {/* <BarcodeScreen /> */}
-      <FridgeScreen />
+      {/* <FridgeScreen /> */}
     </GlobalProvider>
   );
 }
