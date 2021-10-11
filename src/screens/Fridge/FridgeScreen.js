@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import { fridgeState } from '../../store/reducers/fridgeReducer';
+// import { fetchFridgeItems } from "../store/reducers/fridgeReducer";
 
 function FridgeScreen() {
   return (
