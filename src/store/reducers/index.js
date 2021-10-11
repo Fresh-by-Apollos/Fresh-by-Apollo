@@ -1,8 +1,11 @@
 import fridgeReducer from "./fridgeReducer";
+import singleFridgeItemReducer from "./singleFridgeItemReducer";
 import { fridgeState } from "./fridgeReducer";
+import { singleFridgeItemState } from "./singleFridgeItemReducer";
 
 export const initialState = {
   fridgeState,
+  singleFridgeItemState
 };
 
 const combineReducers = (reducers) => {
@@ -18,4 +21,5 @@ const combineReducers = (reducers) => {
 
 export const reducers = combineReducers({
   fridgeReducer,
+  singleFridgeItemReducer
 });

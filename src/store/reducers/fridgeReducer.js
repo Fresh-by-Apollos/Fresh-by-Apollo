@@ -16,7 +16,13 @@ const _setFridge = (items) => {
 
 // Fake Thunk
 export const fetchFridgeItems = async (dispatch) => {
-  const userId = "2SbLcxDpmJHXKpJ7bEqV";
+
+  //firebase main
+  // const userId = "2SbLcxDpmJHXKpJ7bEqV";
+
+  //firebase backup
+  const userId = "S0VN3xoK05MwlPlPzPWr"
+
   const fridgeRef = firebase
     .firestore()
     .collection(`/users/${userId}/currentFridge`);
