@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, Image } from 'react-native'
 import { useStorage } from '../../store/Context';
 import { fetchFridgeItems } from '../../store/reducers/fridgeReducer'
+import styles from './fridge-style'
 
 function FridgeScreen() {
   const { fridgeState, dispatch } = useStorage();
 
   useEffect(() => {
     fetchFridgeItems(dispatch)
-  }, [fridgeState])
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,33 +37,5 @@ function FridgeScreen() {
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create ({
-  container: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 40,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 40,
-    backgroundColor: '#4C956C',
-    color: 'white',
-    fontWeight: 'bold'
-  },
-  scrollView: {},
-  isEmpty: {
-    fontSize: 20
-  },
-  notEmpty: {
-    flex: 1,
-    flexDirection: 'column'
-  },
-  image: {
-    height: 100,
-    width: 100
-  },
-  fridgeItems: {}
-})
 
 export default FridgeScreen

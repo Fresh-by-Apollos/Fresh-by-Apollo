@@ -17,14 +17,14 @@ const _setFridge = (items) => {
 // Thunks
 export const fetchFridgeItems = async(dispatch) => {
   try {
-    const userId = "2SbLcxDpmJHXKpJ7bEqV"; // User with fridge items
+    // const userId = "2SbLcxDpmJHXKpJ7bEqV"; // User with fridge items
     // const userId = 'rQ4o3TKBdlFrtlCpFoel' // User with empty fridge
+    const userId = 'S0VN3xoK05MwlPlPzPWr' // User backup
     const fridgeRef = firebase
       .firestore()
       .collection(`/users/${userId}/currentFridge`);
     const snapshot = await fridgeRef.get();
     const resultArray = [];
-
     snapshot.forEach((doc) => {
       resultArray.push({
         imageUrl: doc.data().image,
@@ -36,7 +36,6 @@ export const fetchFridgeItems = async(dispatch) => {
       })
     })
     dispatch(_setFridge(resultArray))
-
   } catch (error) {
     return `Error: ${error.message} || fetchFridgeItems`
   }
