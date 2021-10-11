@@ -21,7 +21,7 @@ const firebaseConfig = {
   storageBucket: "fresh-by-apollos-backup.appspot.com",
   messagingSenderId: "315276456405",
   appId: "1:315276456405:web:43bc576a5654a947dacd5c",
-  measurementId: "G-YCM179LEBL",
+  measurementId: "G-YCM179LEBL"
 };
 
 if (!firebase.apps.length) {
