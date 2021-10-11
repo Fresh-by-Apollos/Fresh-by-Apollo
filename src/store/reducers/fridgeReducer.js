@@ -41,7 +41,6 @@ export const fetchFridgeItems = async(dispatch) => {
     return `Error: ${error.message} || fetchFridgeItems`
   }
 }
->>>>>>> main
 
 // Reducers
 const fridgeReducer = (state = fridgeState, action) => {
