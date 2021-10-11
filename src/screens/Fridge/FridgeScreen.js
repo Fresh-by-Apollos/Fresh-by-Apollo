@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native'
 import { useStorage } from '../../store/Context';
 import { fetchFridgeItems } from '../../store/reducers/fridgeReducer'
 
@@ -22,6 +22,7 @@ function FridgeScreen() {
           <View style={styles.notEmpty}>
             {fridgeState.map((item) => (
               <View style={styles.fridgeItems}>
+                <Image style={styles.image} source={{uri: item.imageUrl}} />
                 <Text>{item.name}</Text>
                 <Text>{item.quantity}</Text>
                 {/* <Text>{item.expirationDate.date}</Text> */}
@@ -56,6 +57,10 @@ const styles = StyleSheet.create ({
   notEmpty: {
     flex: 1,
     flexDirection: 'column'
+  },
+  image: {
+    height: 100,
+    width: 100
   },
   fridgeItems: {}
 })

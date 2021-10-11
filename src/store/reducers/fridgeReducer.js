@@ -27,6 +27,7 @@ export const fetchFridgeItems = async(dispatch) => {
 
     snapshot.forEach((doc) => {
       resultArray.push({
+        imageUrl: doc.data().image,
         name: doc.data().name,
         quantity: doc.data().quantity,
         expirationDate: doc.data().expirationDate,
