@@ -1,26 +1,63 @@
 import React, { useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { fridgeState } from '../../store/reducers/fridgeReducer';
-// import { fetchFridgeItems } from "../store/reducers/fridgeReducer";
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import { useStorage } from '../../store/Context';
+import { fetchFridgeItems } from '../../store/reducers/fridgeReducer'
 
 function FridgeScreen() {
+  const { fridgeState, dispatch } = useStorage();
+
+  useEffect(() => {
+    fetchFridgeItems(dispatch)
+  }, [fridgeState])
+
   return (
-    <View style={styles.container}>
-      <Text style={[styles.testText]}>Hello World!</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>My Fridge</Text>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        {fridgeState.length === 0 ? (
+          <View>
+            <Text style={styles.isEmpty}>Your fridge is empty!</Text>
+          </View>
+        ) : (
+          <View style={styles.notEmpty}>
+            {fridgeState.map((item) => (
+              <View style={styles.fridgeItems}>
+                <Text>{item.name}</Text>
+                <Text>{item.quantity}</Text>
+                {/* <Text>{item.expirationDate.date}</Text> */}
+                <Text>{item.allergens}</Text>
+                <Text>{item.dietFlags}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
   },
-
-  testText: {
+  title: {
+    fontSize: 40,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 40,
+    backgroundColor: '#4C956C',
+    color: 'white',
     fontWeight: 'bold'
-  }
+  },
+  scrollView: {},
+  isEmpty: {
+    fontSize: 20
+  },
+  notEmpty: {
+    flex: 1,
+    flexDirection: 'column'
+  },
+  fridgeItems: {}
 })
 
 export default FridgeScreen

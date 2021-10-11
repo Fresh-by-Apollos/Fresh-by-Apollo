@@ -15,28 +15,9 @@ const _setFridge = (items) => {
 };
 
 // Thunks
-// export const fetchFridgeItems = async (dispatch) => {
-//   const userId = "2SbLcxDpmJHXKpJ7bEqV";
-//   const fridgeRef = firebase
-//     .firestore()
-//     .collection(`/users/${userId}/currentFridge`);
-
-//   const snapshot = await fridgeRef.get();
-
-//   let resultArr = [];
-
-//   snapshot.forEach((doc) => {
-//     resultArr.push({
-//       FridgeItem: doc.data().name,
-//       allergens: doc.data().allergens,
-//     });
-//   });
-//   dispatch(_setFridge(resultArr));
-// };
-
 export const fetchFridgeItems = async(dispatch) => {
   try {
-    const userId = "2SbLcxDpmJHXKpJ7bEqV";
+    const userId = "2SbLcxDpmJHXKpJ7bEqV"; // User with fridge items
     const fridgeRef = firebase
       .firestore()
       .collection(`/users/${userId}/currentFridge`);
