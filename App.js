@@ -1,7 +1,7 @@
 import React from "react";
 import BarcodeScreen from "./src/screens/BarcodeScreen";
 import GlobalProvider from "./src/store/Context";
-import SingleFridgeItemScreen from "./src/screens/SingleFridgeItemScreen.js";
+import SingleFridgeItemScreen from "./src/screens/SingleFridgeItemScreen/SingleFridgeItemScreen.js";
 
 export default function App() {
   return (
