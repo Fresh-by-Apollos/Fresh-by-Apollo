@@ -1,18 +1,33 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  loginContainer: {
-    flex: 4,
+  container: {
+    flex: 5,
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'column',
-    maxHeight: 400,
+    height: '100%',
+    width: '100%',
+  },
+  titleContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   titleText: {
-    fontSize: 30,
+    fontSize: 45,
     margin: 10,
     fontWeight: 'bold',
     color: '#4C956C',
+  },
+  captionText: {
+    fontSize: 17,
+  },
+  formContainer: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    marginBottom: '50%',
   },
   inputStyle: {
     height: 40,
@@ -24,11 +39,11 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   submitButton: {
-    flex: 0.2,
+    flex: 0.15,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '75%',
-    height: '10%',
+    width: 300,
+    height: '20%',
     backgroundColor: '#4C956C',
     borderRadius: 20,
   },
