@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import axios from "axios";
-import TestingScreen from "./TestingScreen";
+// import TestingScreen from "./TestingScreen";
 
 //  070662035016  <-- Ramen Noodles Barcode:
 export default function BarcodeScreen() {
@@ -64,7 +64,7 @@ export default function BarcodeScreen() {
   // Return the View
   return (
     <View style={styles.container}>
-      <TestingScreen />
+      {/* <TestingScreen /> */}
       <View style={styles.barcodebox}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
