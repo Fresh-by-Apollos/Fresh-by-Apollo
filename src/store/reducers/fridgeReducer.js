@@ -17,7 +17,8 @@ const _setFridge = (items) => {
 // Thunks
 export const fetchFridgeItems = async(dispatch) => {
   try {
-    const userId = "2SbLcxDpmJHXKpJ7bEqV"; // User with fridge items
+    // const userId = "2SbLcxDpmJHXKpJ7bEqV"; // User with fridge items
+    const userId = 'rQ4o3TKBdlFrtlCpFoel' // User with empty fridge
     const fridgeRef = firebase
       .firestore()
       .collection(`/users/${userId}/currentFridge`);
