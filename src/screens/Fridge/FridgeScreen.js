@@ -48,8 +48,12 @@ function FridgeScreen({ navigation }) {
                     navigation.navigate("SingleFridgeItemScreen", {
                       name: item.name,
                       expiration: item.expirationDate.seconds * 1000,
-                      quantity: item.quantity,
-
+                      servings: item.servings,
+                      allergens: item.allergens,
+                      dietFlags: item.dietFlags,
+                      protein: item.protein,
+                      carbs: item.carbs,
+                      fat: item.fat
                     });
                   }}
                 />
