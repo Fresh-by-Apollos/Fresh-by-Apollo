@@ -4,19 +4,49 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  title: {
-    fontSize: 40,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 40,
-    backgroundColor: "#4C956C",
-    color: "white",
-    fontWeight: "bold",
+  nutritionText: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  baseText: {
+    fontSize: 18
+  },
+  // title: {
+  //   fontSize: 40,
+  //   paddingTop: 10,
+  //   paddingBottom: 10,
+  //   paddingLeft: 40,
+  //   backgroundColor: "#4C956C",
+  //   color: "white",
+  //   fontWeight: "bold",
+  // },
+  imageContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   image: {
-    height: 100,
-    width: 100
+    height: 250,
+    width: 250,
+    marginTop: 10,
+    marginBottom: 10
   },
+  nutrientsContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    height: '10%',
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  otherData: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    marginLeft: 20,
+    marginTop: 10,
+    marginBottom: 10,
+  }
+
 });
 
 // const styles = StyleSheet.create({

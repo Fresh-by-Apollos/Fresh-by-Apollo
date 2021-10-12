@@ -23,21 +23,29 @@ function SingleFridgeItemScreen({ route }) {
     <SafeAreaView style={styles.container}>
       {/* <Text style={styles.title}>Selected Item</Text> */}
       <ScrollView>
-        <View style={styles.fridgeItems}>
-          <Image style={styles.image} source={{ uri: imageUrl }} />
-          <Text>{name}</Text>
-          <Text>Servings: {servings}</Text>
-          <Text>
-            Expiration Date:{" "}
-            {new Date(expirationDate.seconds * 1000).toLocaleDateString(
-              "en-US"
-            )}
-          </Text>
-          <Text>Allergens: {allergens}</Text>
-          <Text>Diet Flags: {dietFlags}</Text>
-          <Text>Protein: {protein}g</Text>
-          <Text>Carbs: {carbs}g</Text>
-          <Text>Fat: {fat}g</Text>
+        <View>
+          <SafeAreaView style={styles.nutrientsContainer}>
+              <Text style={styles.nutritionText}>Protein: {protein}g</Text>
+              <Text style={styles.nutritionText}>Carbs: {carbs}g</Text>
+              <Text style={styles.nutritionText}>Fat: {fat}g</Text>
+          </SafeAreaView>
+          <SafeAreaView style={styles.imageContainer}>
+            <Image style={styles.image} source={{ uri: imageUrl }} />
+          </SafeAreaView>
+          <SafeAreaView style={styles.otherData}>
+              <Text style={styles.baseText}>Item Name: {name}</Text>
+              <Text> </Text>
+              <Text style={styles.baseText}>Servings: {servings}</Text>
+              <Text style={styles.baseText}>
+                Expiration Date:{" "}
+                {new Date(expirationDate.seconds * 1000).toLocaleDateString(
+                  "en-US"
+                )}
+              </Text>
+              <Text> </Text>
+              <Text style={styles.baseText}>Allergens: {allergens}</Text>
+              <Text style={styles.baseText}>Diet Flags: {dietFlags}</Text>
+          </SafeAreaView>
         </View>
       </ScrollView>
     </SafeAreaView>
