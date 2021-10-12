@@ -21,7 +21,7 @@ function SingleFridgeItemScreen({ route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Selected Item</Text>
+      {/* <Text style={styles.title}>Selected Item</Text> */}
       <ScrollView>
         <View style={styles.fridgeItems}>
           <Image style={styles.image} source={{ uri: imageUrl }} />

@@ -8,9 +8,9 @@ const FridgeStack = createNativeStackNavigator();
 export default function FridgeNav() {
   return (
     <FridgeStack.Navigator>
-      <FridgeStack.Screen name="FridgeScreen" component={FridgeScreen} />
+      <FridgeStack.Screen name="My Fridge" component={FridgeScreen} />
       <FridgeStack.Screen
-        name="SingleFridgeItemScreen"
+        name="Selected Item"
         component={SingleFridgeItemScreen}
       />
     </FridgeStack.Navigator>
