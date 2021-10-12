@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   SafeAreaView,
   Text,
-  Switch,
   TextInput,
   TouchableOpacity,
   Alert,
@@ -14,9 +13,10 @@ const LoginScreen = () => {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
-  function onSubmit(emailInput, passwordInput) {
+  async function onSubmit(emailInput, passwordInput) {
     try {
       login(emailInput, passwordInput);
+      console.log(currentUser);
     } catch (err) {
       console.log(err);
     }
