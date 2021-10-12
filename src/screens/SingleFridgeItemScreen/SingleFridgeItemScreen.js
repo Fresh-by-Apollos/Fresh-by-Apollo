@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, ScrollView } from "react-native";
 import { useStorage } from "../../store/Context";
 import { fetchSingleFridgeItem } from "../../store/reducers/singleFridgeItemReducer";
 import styles from "./single-fridge-item-style";
