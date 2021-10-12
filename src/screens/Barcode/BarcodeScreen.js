@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
-import { BarCodeScanner } from "expo-barcode-scanner";
-import axios from "axios";
-// import TestingScreen from "./TestingScreen";
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, Button } from 'react-native';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import axios from 'axios';
 
 //  070662035016  <-- Ramen Noodles Barcode:
 export default function BarcodeScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState("Not yet scanned");
+  const [text, setText] = useState('Not yet scanned');
 
   const askForCameraPermission = () => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === "granted");
+      setHasPermission(status === 'granted');
     })();
   };
 
@@ -24,7 +23,7 @@ export default function BarcodeScreen() {
       );
       let name = JSON.stringify(result.data.items[0].name);
       let code = JSON.stringify(result.data.items[0].barcode);
-      setText("Barcode: " + code + "  Name" + name);
+      setText('Barcode: ' + code + '  Name' + name);
     } catch (error) {
       console.log(error);
     }
@@ -54,17 +53,15 @@ export default function BarcodeScreen() {
       <View style={styles.container}>
         <Text style={{ margin: 10 }}>No access to camera</Text>
         <Button
-          title={"Allow Camera"}
+          title={'Allow Camera'}
           onPress={() => askForCameraPermission()}
         />
       </View>
     );
   }
-
   // Return the View
   return (
     <View style={styles.container}>
-      {/* <TestingScreen /> */}
       <View style={styles.barcodebox}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
@@ -74,7 +71,7 @@ export default function BarcodeScreen() {
       <Text style={styles.maintext}>{text}</Text>
       {scanned && (
         <Button
-          title={"Scan again?"}
+          title={'Scan again?'}
           onPress={() => setScanned(false)}
           color="tomato"
         />
@@ -86,21 +83,21 @@ export default function BarcodeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   maintext: {
     fontSize: 16,
     margin: 20,
   },
   barcodebox: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 300,
     width: 300,
-    overflow: "hidden",
+    overflow: 'hidden',
     borderRadius: 30,
-    backgroundColor: "tomato",
+    backgroundColor: 'tomato',
   },
 });
