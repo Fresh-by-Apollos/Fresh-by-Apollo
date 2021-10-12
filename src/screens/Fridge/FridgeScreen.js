@@ -1,15 +1,22 @@
-import React, { useEffect } from 'react'
-import { View, Text, SafeAreaView, ScrollView, Image } from 'react-native'
-import { useStorage } from '../../store/Context';
-import { fetchFridgeItems } from '../../store/reducers/fridgeReducer'
-import styles from './fridge-style'
+import React, { useEffect } from "react";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  Image,
+  Button,
+} from "react-native";
+import { useStorage } from "../../store/Context";
+import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
+import styles from "./fridge-style";
 
-function FridgeScreen() {
+function FridgeScreen({ navigation }) {
   const { fridgeState, dispatch } = useStorage();
 
   useEffect(() => {
-    fetchFridgeItems(dispatch)
-  }, [])
+    fetchFridgeItems(dispatch);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -22,20 +29,35 @@ function FridgeScreen() {
         ) : (
           <View style={styles.notEmpty}>
             {fridgeState.map((item) => (
-              <View style={styles.fridgeItems}>
-                <Image style={styles.image} source={{uri: item.imageUrl}} />
+              <View key={item.name} style={styles.fridgeItems}>
+                <Image style={styles.image} source={{ uri: item.imageUrl }} />
                 <Text>{item.name}</Text>
                 <Text>Number of Servings: {item.quantity}</Text>
-                <Text>Expiration Date: {new Date(item.expirationDate.seconds * 1000).toLocaleDateString("en-US")}</Text>
+                <Text>
+                  Expiration Date:{" "}
+                  {new Date(
+                    item.expirationDate.seconds * 1000
+                  ).toLocaleDateString("en-US")}
+                </Text>
                 <Text>Allergens: {item.allergens}</Text>
                 <Text>Diet Flags: {item.dietFlags}</Text>
+                <Button
+                  title="show"
+                  onPress={() => {
+                    /* 1. Navigate to the Details route with params */
+                    navigation.navigate("SingleFridgeScreen", {
+                      name: item.name,
+                      expiration: item.expirationDate.seconds * 1000,
+                    });
+                  }}
+                />
               </View>
             ))}
           </View>
         )}
       </ScrollView>
     </SafeAreaView>
-  )
+  );
 }
 
-export default FridgeScreen
+export default FridgeScreen;
