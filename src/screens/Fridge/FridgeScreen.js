@@ -20,7 +20,7 @@ function FridgeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>My Fridge</Text>
+      {/* <Text style={styles.title}>My Fridge</Text> */}
       <ScrollView contentContainerStyle={styles.scrollView}>
         {fridgeState.length === 0 ? (
           <View>
@@ -45,9 +45,16 @@ function FridgeScreen({ navigation }) {
                   title="show"
                   onPress={() => {
                     /* 1. Navigate to the Details route with params */
-                    navigation.navigate('SingleFridgeScreen', {
+                    navigation.navigate("Selected Item", {
                       name: item.name,
-                      expiration: item.expirationDate.seconds * 1000,
+                      expirationDate: item.expirationDate,
+                      servings: item.servings,
+                      allergens: item.allergens,
+                      dietFlags: item.dietFlags,
+                      protein: item.protein,
+                      carbs: item.carbs,
+                      fat: item.fat,
+                      imageUrl: item.imageUrl,
                     });
                   }}
                 />

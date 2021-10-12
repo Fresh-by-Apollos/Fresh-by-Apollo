@@ -34,9 +34,12 @@ export const fetchFridgeItems = async (dispatch) => {
         expirationDate: doc.data().expirationDate,
         allergens: doc.data().allergens,
         dietFlags: doc.data().dietFlags,
-      });
-    });
-    dispatch(_setFridge(resultArray));
+        protein: doc.data().protein,
+        carbs: doc.data().protein,
+        fat: doc.data().fat
+      })
+    })
+    dispatch(_setFridge(resultArray))
   } catch (error) {
     return `Error: ${error.message} || fetchFridgeItems`;
   }
