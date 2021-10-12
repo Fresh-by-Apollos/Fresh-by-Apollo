@@ -47,13 +47,14 @@ function FridgeScreen({ navigation }) {
                     /* 1. Navigate to the Details route with params */
                     navigation.navigate("SingleFridgeItemScreen", {
                       name: item.name,
-                      expiration: item.expirationDate.seconds * 1000,
+                      expirationDate: item.expirationDate,
                       servings: item.servings,
                       allergens: item.allergens,
                       dietFlags: item.dietFlags,
                       protein: item.protein,
                       carbs: item.carbs,
-                      fat: item.fat
+                      fat: item.fat,
+                      imageUrl: item.imageUrl,
                     });
                   }}
                 />

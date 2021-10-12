@@ -13,6 +13,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
   },
+  image: {
+    height: 100,
+    width: 100
+  },
 });
 
 // const styles = StyleSheet.create({
