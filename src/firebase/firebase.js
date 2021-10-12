@@ -13,14 +13,8 @@ const firebaseConfig = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
-
-  // Tracking if there is a user
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      firebase.auth().setPersistence('local');
-      currentUser = user;
-    }
-  });
+  firebase.auth().setPersistence('local');
+  console.log('Initialized firebase..');
 } else {
   firebase.app(); // if already initialized, use that one
 }

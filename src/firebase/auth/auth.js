@@ -13,6 +13,16 @@ export const getToken = async (key) => {
 export const login = async (email, password) => {
   try {
     await auth.signInWithEmailAndPassword(email, password);
+    console.log('Signed In Successfully');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const signOut = async () => {
+  try {
+    await auth.signOut();
+    console.log('Signed Out Successfully');
   } catch (error) {
     console.error(error);
   }

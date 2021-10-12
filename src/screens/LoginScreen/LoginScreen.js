@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useStorage } from '../../store/Context';
 import {
   SafeAreaView,
   Text,
@@ -7,16 +8,16 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { login } from '../../firebase/auth/auth';
+import { login, signOut } from '../../firebase/auth/auth';
 
 const LoginScreen = () => {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+  const { userState } = useStorage();
 
   async function onSubmit(emailInput, passwordInput) {
     try {
       login(emailInput, passwordInput);
-      console.log(currentUser);
     } catch (err) {
       console.log(err);
     }
