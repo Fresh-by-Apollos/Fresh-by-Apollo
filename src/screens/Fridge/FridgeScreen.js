@@ -12,10 +12,10 @@ import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
 import styles from './fridge-style';
 
 function FridgeScreen({ navigation }) {
-  const { fridgeState, dispatch } = useStorage();
+  const { fridgeState, dispatch, userState } = useStorage();
 
   useEffect(() => {
-    fetchFridgeItems(dispatch);
+    fetchFridgeItems(dispatch, userState.uid);
   }, []);
 
   return (
