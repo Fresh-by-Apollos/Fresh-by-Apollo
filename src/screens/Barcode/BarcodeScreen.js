@@ -1,7 +1,7 @@
-// import React, { useState, useEffect } from "react";
-// import { Text, View, StyleSheet, Button } from "react-native";
-// import { BarCodeScanner } from "expo-barcode-scanner";
-// import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, Button } from 'react-native';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import axios from 'axios';
 // import TestingScreen from "./TestingScreen";
 
 // //  070662035016  <-- Ramen Noodles Barcode:
@@ -60,47 +60,23 @@
 //       </View>
 //     );
 //   }
-
-//   // Return the View
-//   return (
-//     <View style={styles.container}>
-//       <TestingScreen />
-//       <View style={styles.barcodebox}>
-//         <BarCodeScanner
-//           onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-//           style={{ height: 400, width: 400 }}
-//         />
-//       </View>
-//       <Text style={styles.maintext}>{text}</Text>
-//       {scanned && (
-//         <Button
-//           title={"Scan again?"}
-//           onPress={() => setScanned(false)}
-//           color="tomato"
-//         />
-//       )}
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   maintext: {
-//     fontSize: 16,
-//     margin: 20,
-//   },
-//   barcodebox: {
-//     alignItems: "center",
-//     justifyContent: "center",
-//     height: 300,
-//     width: 300,
-//     overflow: "hidden",
-//     borderRadius: 30,
-//     backgroundColor: "tomato",
-//   },
-// });
+// Return the View
+return (
+  <View style={styles.container}>
+    {/* <TestingScreen /> */}
+    <View style={styles.barcodebox}>
+      <BarCodeScanner
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        style={{ height: 400, width: 400 }}
+      />
+    </View>
+    <Text style={styles.maintext}>{text}</Text>
+    {scanned && (
+      <Button
+        title={'Scan again?'}
+        onPress={() => setScanned(false)}
+        color="tomato"
+      />
+    )}
+  </View>
+);
