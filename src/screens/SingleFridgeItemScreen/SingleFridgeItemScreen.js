@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, Text, SafeAreaView, ScrollView } from "react-native";
-import { useStorage } from "../../store/Context";
-import { fetchSingleFridgeItem } from "../../store/reducers/singleFridgeItemReducer";
 import styles from "./single-fridge-item-style";
 
 //firebase main
 
 //firebase backup
 
-export default function SingleFridgeItemScreen() {
+function SingleFridgeItemScreen() {
   const { name, expiration, allergens, dietFlags, protein, carbs, fat } = route.params
 
   return (
