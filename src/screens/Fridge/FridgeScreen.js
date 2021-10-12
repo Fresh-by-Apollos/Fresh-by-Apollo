@@ -45,7 +45,7 @@ function FridgeScreen({ navigation }) {
                   title="show"
                   onPress={() => {
                     /* 1. Navigate to the Details route with params */
-                    navigation.navigate("SingleFridgeScreen", {
+                    navigation.navigate("SingleFridgeItemScreen", {
                       name: item.name,
                       expiration: item.expirationDate.seconds * 1000,
                     });

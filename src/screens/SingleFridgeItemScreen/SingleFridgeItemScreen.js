@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { useStorage } from "../../store/Context";
 import { fetchSingleFridgeItem } from "../../store/reducers/singleFridgeItemReducer";
-import styles from "./styles";
+import styles from "./single-fridge-item-style";
 
 //firebase main
 

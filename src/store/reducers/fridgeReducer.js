@@ -33,7 +33,10 @@ export const fetchFridgeItems = async(dispatch) => {
         quantity: doc.data().quantity,
         expirationDate: doc.data().expirationDate,
         allergens: doc.data().allergens,
-        dietFlags: doc.data().dietFlags
+        dietFlags: doc.data().dietFlags,
+        protein: doc.data().protein,
+        carbs: doc.data().protein,
+        fat: doc.data().fat
       })
     })
     dispatch(_setFridge(resultArray))
