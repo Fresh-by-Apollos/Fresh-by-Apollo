@@ -32,7 +32,7 @@ function FridgeScreen({ navigation }) {
               <View key={item.name} style={styles.fridgeItems}>
                 <Image style={styles.image} source={{ uri: item.imageUrl }} />
                 <Text>{item.name}</Text>
-                <Text>Number of Servings: {item.quantity}</Text>
+                <Text>Servings: {item.servings}</Text>
                 <Text>
                   Expiration Date:{" "}
                   {new Date(
