@@ -1,8 +1,10 @@
-import fridgeReducer from "./fridgeReducer";
-import { fridgeState } from "./fridgeReducer";
+import fridgeReducer from './fridgeReducer';
+import { fridgeState } from './fridgeReducer';
+import userReducer, { userState } from './userReducer';
 
 export const initialState = {
-  fridgeState
+  fridgeState,
+  userState,
 };
 
 const combineReducers = (reducers) => {
@@ -18,4 +20,5 @@ const combineReducers = (reducers) => {
 
 export const reducers = combineReducers({
   fridgeReducer,
+  userReducer,
 });

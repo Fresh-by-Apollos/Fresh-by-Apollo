@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,10 +6,10 @@ import {
   ScrollView,
   Image,
   Button,
-} from "react-native";
-import { useStorage } from "../../store/Context";
-import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
-import styles from "./fridge-style";
+} from 'react-native';
+import { useStorage } from '../../store/Context';
+import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
+import styles from './fridge-style';
 
 function FridgeScreen({ navigation }) {
   const { fridgeState, dispatch } = useStorage();
@@ -34,10 +34,10 @@ function FridgeScreen({ navigation }) {
                 <Text>{item.name}</Text>
                 <Text>Servings: {item.servings}</Text>
                 <Text>
-                  Expiration Date:{" "}
+                  Expiration Date:{' '}
                   {new Date(
                     item.expirationDate.seconds * 1000
-                  ).toLocaleDateString("en-US")}
+                  ).toLocaleDateString('en-US')}
                 </Text>
                 <Text>Allergens: {item.allergens}</Text>
                 <Text>Diet Flags: {item.dietFlags}</Text>
