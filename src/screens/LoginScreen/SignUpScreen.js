@@ -7,14 +7,16 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { login } from '../../firebase/auth/auth';
+import { signUp } from '../../firebase/auth/auth';
 
-const LoginScreen = ({ navigation }) => {
+const SignUpScreen = ({ navigation }) => {
+  const [firstNameInput, setFirstNameInput] = useState('');
+  const [lastNameInput, setLastNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
-  function onSubmit(email, password) {
-    login(email, password);
+  function onSubmit(firstName, lastName, email, password) {
+    signUp(firstName, lastName, email, password);
   }
 
   return (
@@ -23,11 +25,31 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.titleText}>FRESH</Text>
         <Text style={styles.captionText}>Your personal fridge manager</Text>
       </SafeAreaView>
-      <SafeAreaView style={styles.loginFormContainer}>
-        <Text style={styles.formTitle}>Log In</Text>
+      <SafeAreaView style={styles.signupFormContainer}>
+        <Text style={styles.formTitle}>Sign Up</Text>
         <TextInput
           style={styles.inputStyle}
           autoFocus={true}
+          clearButtonMode="always"
+          placeholder="First Name"
+          value={firstNameInput}
+          onChangeText={setFirstNameInput}
+          autoCapitalize="words"
+          autoCompleteType="name"
+          textContentType="name"
+        />
+        <TextInput
+          style={styles.inputStyle}
+          clearButtonMode="always"
+          placeholder="Last Name"
+          value={lastNameInput}
+          onChangeText={setLastNameInput}
+          autoCapitalize="words"
+          autoCompleteType="name"
+          textContentType="name"
+        />
+        <TextInput
+          style={styles.inputStyle}
           clearButtonMode="always"
           placeholder="Email"
           value={emailInput}
@@ -43,7 +65,7 @@ const LoginScreen = ({ navigation }) => {
           placeholder="Password"
           value={passwordInput}
           onChangeText={setPasswordInput}
-          secureTextEntry={true}
+          secureTextEntry={false}
           keyboardType="visible-password"
           autoCapitalize="none"
           autoCompleteType="password"
@@ -51,14 +73,16 @@ const LoginScreen = ({ navigation }) => {
         />
         <Text
           onPress={() => {
-            navigation.navigate('SignUpScreen');
+            navigation.navigate('LoginScreen');
           }}
         >
-          Need an Account? Sign Up
+          Already have an account? Log In
         </Text>
         <TouchableOpacity
-          style={styles.loginButton}
-          onPress={() => onSubmit(emailInput, passwordInput)}
+          style={styles.signupButton}
+          onPress={() =>
+            onSubmit(firstNameInput, lastNameInput, emailInput, passwordInput)
+          }
         >
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
@@ -67,4 +91,4 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
+export default SignUpScreen;

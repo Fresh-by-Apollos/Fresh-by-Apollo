@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useStorage } from './src/store/Context';
-import { fetchUser } from './src/store/reducers/userReducer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import LoginScreen from './src/screens/LoginScreen/LoginScreen';
-import firebase from './src/firebase/firebase';
+import LoginNav from './src/screens/LoginScreen/LoginNav';
 
 // Navigation
 import FridgeNav from './src/screens/Fridge/FridgeNav';
@@ -23,9 +21,12 @@ export default function Navigation() {
   return (
     <>
       {!userState ? (
-        <LoginScreen />
+        <NavigationContainer>
+          <LoginNav />
+        </NavigationContainer>
       ) : (
         <NavigationContainer>
+          {console.log(userState)}
           <Tab.Navigator
             screenOptions={{
               tabBarActiveTintColor: '#4C956C',
