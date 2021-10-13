@@ -23,11 +23,22 @@ const styles = StyleSheet.create({
   captionText: {
     fontSize: 17,
   },
-  formContainer: {
+  loginFormContainer: {
     flex: 2,
     alignItems: 'center',
     justifyContent: 'space-evenly',
     marginBottom: '50%',
+  },
+  signupFormContainer: {
+    flex: 3,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    marginBottom: '25%',
+  },
+  formTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#4C956C',
   },
   inputStyle: {
     height: 40,
@@ -38,7 +49,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 15,
   },
-  submitButton: {
+  loginButton: {
+    flex: 0.15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 300,
+    height: '20%',
+    backgroundColor: '#4C956C',
+    borderRadius: 20,
+  },
+  signupButton: {
     flex: 0.15,
     justifyContent: 'center',
     alignItems: 'center',

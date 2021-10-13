@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useStorage } from '../../store/Context';
 import {
   SafeAreaView,
   Text,
@@ -8,19 +7,12 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { login } from '../../firebase/auth/auth';
 
-const LoginScreen = () => {
+const SignUpScreen = () => {
+  const [firstNameInput, setFirstNameInput] = useState('');
+  const [lastNameInput, setLastNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
-
-  async function onSubmit(emailInput, passwordInput) {
-    try {
-      login(emailInput, passwordInput);
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -28,11 +20,31 @@ const LoginScreen = () => {
         <Text style={styles.titleText}>FRESH</Text>
         <Text style={styles.captionText}>Your personal fridge manager</Text>
       </SafeAreaView>
-      <SafeAreaView style={styles.loginFormContainer}>
-        <Text style={styles.formTitle}>Log In</Text>
+      <SafeAreaView style={styles.signupFormContainer}>
+        <Text style={styles.formTitle}>Sign Up</Text>
         <TextInput
           style={styles.inputStyle}
           autoFocus={true}
+          clearButtonMode="always"
+          placeholder="First Name"
+          value={firstNameInput}
+          onChangeText={setFirstNameInput}
+          autoCapitalize="words"
+          autoCompleteType="name"
+          textContentType="name"
+        />
+        <TextInput
+          style={styles.inputStyle}
+          clearButtonMode="always"
+          placeholder="Last Name"
+          value={lastNameInput}
+          onChangeText={setLastNameInput}
+          autoCapitalize="words"
+          autoCompleteType="name"
+          textContentType="name"
+        />
+        <TextInput
+          style={styles.inputStyle}
           clearButtonMode="always"
           placeholder="Email"
           value={emailInput}
@@ -54,13 +66,10 @@ const LoginScreen = () => {
           autoCompleteType="password"
           textContentType="password"
         />
-        <Text onPress={() => Alert.alert('imagine you go to sign up page')}>
-          Need an Account? Sign Up
+        <Text onPress={() => Alert.alert('imagine you go to log in page')}>
+          Already have an account? Log In
         </Text>
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={() => onSubmit(emailInput, passwordInput)}
-        >
+        <TouchableOpacity style={styles.signupButton}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -68,4 +77,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default SignUpScreen;
