@@ -4,8 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import SignUpScreen from './src/screens/LoginScreen/SignUpScreen';
-import LoginScreen from './src/screens/LoginScreen/LoginScreen';
+import LoginNav from './src/screens/LoginScreen/LoginNav';
 
 // Navigation
 import FridgeNav from './src/screens/Fridge/FridgeNav';
@@ -22,7 +21,9 @@ export default function Navigation() {
   return (
     <>
       {!userState ? (
-        <SignUpScreen />
+        <NavigationContainer>
+          <LoginNav />
+        </NavigationContainer>
       ) : (
         <NavigationContainer>
           {console.log(userState)}

@@ -7,12 +7,17 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
+import { signUp } from '../../firebase/auth/auth';
 
-const SignUpScreen = () => {
+const SignUpScreen = ({ navigation }) => {
   const [firstNameInput, setFirstNameInput] = useState('');
   const [lastNameInput, setLastNameInput] = useState('');
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+
+  function onSubmit(firstName, lastName, email, password) {
+    signUp(firstName, lastName, email, password);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,16 +65,25 @@ const SignUpScreen = () => {
           placeholder="Password"
           value={passwordInput}
           onChangeText={setPasswordInput}
-          secureTextEntry={true}
+          secureTextEntry={false}
           keyboardType="visible-password"
           autoCapitalize="none"
           autoCompleteType="password"
           textContentType="password"
         />
-        <Text onPress={() => Alert.alert('imagine you go to log in page')}>
+        <Text
+          onPress={() => {
+            navigation.navigate('LoginScreen');
+          }}
+        >
           Already have an account? Log In
         </Text>
-        <TouchableOpacity style={styles.signupButton}>
+        <TouchableOpacity
+          style={styles.signupButton}
+          onPress={() =>
+            onSubmit(firstNameInput, lastNameInput, emailInput, passwordInput)
+          }
+        >
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       </SafeAreaView>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useStorage } from '../../store/Context';
 import {
   SafeAreaView,
   Text,
@@ -10,16 +9,12 @@ import {
 import styles from './styles';
 import { login } from '../../firebase/auth/auth';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
-  async function onSubmit(emailInput, passwordInput) {
-    try {
-      login(emailInput, passwordInput);
-    } catch (err) {
-      console.log(err);
-    }
+  function onSubmit(email, password) {
+    login(email, password);
   }
 
   return (
@@ -54,7 +49,11 @@ const LoginScreen = () => {
           autoCompleteType="password"
           textContentType="password"
         />
-        <Text onPress={() => Alert.alert('imagine you go to sign up page')}>
+        <Text
+          onPress={() => {
+            navigation.navigate('SignUpScreen');
+          }}
+        >
           Need an Account? Sign Up
         </Text>
         <TouchableOpacity
