@@ -12,6 +12,7 @@ function GlobalProvider({ children }) {
 
   const globalState = {
     fridgeState: state.fridgeState,
+    scannedItem: state.scannedItem,
     state,
     dispatch,
   }; // <--- Add all Pieces of state here

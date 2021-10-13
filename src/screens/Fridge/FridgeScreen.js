@@ -47,7 +47,9 @@ function FridgeScreen({ navigation }) {
                     /* 1. Navigate to the Details route with params */
                     navigation.navigate("SingleFridgeScreen", {
                       name: item.name,
-                      expiration: item.expirationDate.seconds * 1000,
+                      expiration: new Date(
+                        item.expirationDate.seconds * 1000
+                      ).toLocaleDateString("en-US"),
                     });
                   }}
                 />
