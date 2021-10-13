@@ -14,10 +14,10 @@ import styles from "./fridge-style";
 import { formatDistance } from "date-fns";
 
 function FridgeScreen({ navigation }) {
-  const { fridgeState, dispatch, userState } = useStorage();
+  const { fridgeState, dispatch } = useStorage();
 
   useEffect(() => {
-    fetchFridgeItems(dispatch, userState.uid);
+    fetchFridgeItems(dispatch);
   }, []);
 
   return (
