@@ -7,7 +7,7 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { signUp } from '../../firebase/auth/auth';
+import { signUp, getToken } from '../../firebase/auth/auth';
 
 const SignUpScreen = ({ navigation }) => {
   const [firstNameInput, setFirstNameInput] = useState('');
@@ -15,7 +15,7 @@ const SignUpScreen = ({ navigation }) => {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
-  function onSubmit(firstName, lastName, email, password) {
+  async function onSubmit(firstName, lastName, email, password) {
     signUp(firstName, lastName, email, password);
   }
 

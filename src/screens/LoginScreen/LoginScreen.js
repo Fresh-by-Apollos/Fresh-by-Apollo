@@ -7,14 +7,14 @@ import {
   Alert,
 } from 'react-native';
 import styles from './styles';
-import { login } from '../../firebase/auth/auth';
+import { login, getToken } from '../../firebase/auth/auth';
 
 const LoginScreen = ({ navigation }) => {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
 
-  function onSubmit(email, password) {
-    login(email, password);
+  async function onSubmit(email, password) {
+    await login(email, password);
   }
 
   return (

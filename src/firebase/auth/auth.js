@@ -8,15 +8,20 @@ export const saveToken = async (key, value) => {
 };
 
 export const getToken = async (key) => {
-  return await SecureStore.getItemAsync('token');
+  return await SecureStore.getItemAsync(key);
 };
 
-// Handle Authentication
+export const deleteToken = async (key) => {
+  await SecureStore.deleteItemAsync(key);
+};
+
+// Sign Up (firstTime = true)
 export const signUp = async (firstName, lastName, email, password) => {
   try {
     await auth
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
+        saveToken('firstTime', 'true');
         const uid = response.user.uid;
         const data = {
           dietRestrictions: [],
@@ -39,9 +44,11 @@ export const signUp = async (firstName, lastName, email, password) => {
   }
 };
 
+// Login (firstTime = false)
 export const login = async (email, password) => {
   try {
     await auth.signInWithEmailAndPassword(email, password);
+    await saveToken('firstTime', 'false');
     console.log('Signed In Successfully');
   } catch (error) {
     alert(error);
@@ -51,6 +58,7 @@ export const login = async (email, password) => {
 export const signOut = async () => {
   try {
     await auth.signOut();
+    await deleteToken('firstTime');
     console.log('Signed Out Successfully');
   } catch (error) {
     alert(error);

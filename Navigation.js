@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginNav from './src/screens/LoginScreen/LoginNav';
+import DietRestrictions from './src/screens/UserOnboarding/DietRestrictions';
 
 // Navigation
 import FridgeNav from './src/screens/Fridge/FridgeNav';
@@ -21,9 +22,7 @@ export default function Navigation() {
   return (
     <>
       {!userState ? (
-        <NavigationContainer>
-          <LoginNav />
-        </NavigationContainer>
+        <DietRestrictions />
       ) : (
         <NavigationContainer>
           {console.log(userState)}
