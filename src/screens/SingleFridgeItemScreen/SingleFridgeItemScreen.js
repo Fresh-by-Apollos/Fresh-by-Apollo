@@ -1,10 +1,7 @@
 import React from "react";
 import { View, Text, SafeAreaView, ScrollView, Image } from "react-native";
 import styles from "./single-fridge-item-style";
-
-//firebase main
-
-//firebase backup
+import { formatDistance } from "date-fns";
 
 function SingleFridgeItemScreen({ route }) {
   const {
@@ -37,11 +34,13 @@ function SingleFridgeItemScreen({ route }) {
             <Text> </Text>
             <Text style={styles.baseText}>Servings: {servings}</Text>
             <Text style={styles.baseText}>
-              Expiration Date:{" "}
-              {new Date(expirationDate.seconds * 1000).toLocaleDateString(
-                "en-US"
-              )}
-            </Text>
+                    Expires:{" "}
+                    {formatDistance(
+                      new Date(expirationDate.seconds * 1000),
+                      new Date(),
+                      { addSuffix: true }
+                    )}
+                  </Text>
             <Text> </Text>
             <Text style={styles.baseText}>Allergens: {allergens.length ? allergens.join(', ') : 'N/A'}</Text>
             <Text style={styles.baseText}>
