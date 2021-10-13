@@ -12,10 +12,10 @@ import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
 import styles from './fridge-style';
 
 function FridgeScreen({ navigation }) {
-  const { fridgeState, dispatch } = useStorage();
+  const { fridgeState, dispatch, userState } = useStorage();
 
   useEffect(() => {
-    fetchFridgeItems(dispatch);
+    fetchFridgeItems(dispatch, userState.uid);
   }, []);
 
   return (
@@ -30,7 +30,9 @@ function FridgeScreen({ navigation }) {
           <View style={styles.notEmpty}>
             {fridgeState.map((item) => (
               <View key={item.name} style={styles.fridgeItems}>
-                <Image style={styles.image} source={{ uri: item.imageUrl }} />
+                <SafeAreaView style={styles.imageContainer}>
+                  <Image style={styles.image} source={{ uri: item.imageUrl }} />
+                </SafeAreaView>
                 <Text>{item.name}</Text>
                 <Text>Servings: {item.servings}</Text>
                 <Text>
@@ -42,7 +44,7 @@ function FridgeScreen({ navigation }) {
                 <Text>Allergens: {item.allergens}</Text>
                 <Text>Diet Flags: {item.dietFlags}</Text>
                 <Button
-                  title="show"
+                  title="Expand"
                   onPress={() => {
                     /* 1. Navigate to the Details route with params */
                     navigation.navigate("Selected Item", {
