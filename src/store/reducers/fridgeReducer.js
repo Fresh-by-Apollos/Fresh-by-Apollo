@@ -33,7 +33,8 @@ export const fetchFridgeItems = async (dispatch, uid) => {
         dietFlags: doc.data().dietFlags,
         protein: doc.data().protein,
         carbs: doc.data().protein,
-        fat: doc.data().fat
+        fat: doc.data().fat,
+        upcCode: doc.data().upcCode
       })
     })
     dispatch(_setFridge(resultArray))

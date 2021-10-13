@@ -29,7 +29,20 @@ function FridgeScreen({ navigation }) {
         ) : (
           <View style={styles.notEmpty}>
             {fridgeState.map((item) => (
-              <View key={item.name} style={styles.fridgeItems}>
+              <View key={item.name} style={styles.fridgeItems} onPress={() => {
+                /* 1. Navigate to the Details route with params */
+                navigation.navigate("Selected Item", {
+                  name: item.name,
+                  expirationDate: item.expirationDate,
+                  servings: item.servings,
+                  allergens: item.allergens,
+                  dietFlags: item.dietFlags,
+                  protein: item.protein,
+                  carbs: item.carbs,
+                  fat: item.fat,
+                  imageUrl: item.imageUrl,
+                });
+              }}>
                 <SafeAreaView style={styles.imageContainer}>
                   <Image style={styles.image} source={{ uri: item.imageUrl }} />
                 </SafeAreaView>
@@ -54,23 +67,6 @@ function FridgeScreen({ navigation }) {
                     Diet Flags:{" "}
                     {item.dietFlags.length ? item.dietFlags.join(", ") : "N/A"}
                   </Text>
-                  <Button
-                    title="Expand"
-                    onPress={() => {
-                      /* 1. Navigate to the Details route with params */
-                      navigation.navigate("Selected Item", {
-                        name: item.name,
-                        expirationDate: item.expirationDate,
-                        servings: item.servings,
-                        allergens: item.allergens,
-                        dietFlags: item.dietFlags,
-                        protein: item.protein,
-                        carbs: item.carbs,
-                        fat: item.fat,
-                        imageUrl: item.imageUrl,
-                      });
-                    }}
-                  />
                 </SafeAreaView>
               </View>
             ))}
