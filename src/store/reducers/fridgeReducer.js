@@ -20,7 +20,7 @@ export const fetchFridgeItems = async (dispatch, uid) => {
     const fridgeRef = firebase
       .firestore()
       .collection(`/users/${uid}/currentFridge`)
-      .orderBy('expirationDate', 'desc');
+      .orderBy('expirationDate', 'asc');
     const snapshot = await fridgeRef.get();
     const resultArray = [];
     snapshot.forEach((doc) => {

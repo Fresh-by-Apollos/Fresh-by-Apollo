@@ -25,26 +25,29 @@ function SingleFridgeItemScreen({ route }) {
       <ScrollView>
         <View>
           <SafeAreaView style={styles.nutrientsContainer}>
-              <Text style={styles.nutritionText}>Protein: {protein}g</Text>
-              <Text style={styles.nutritionText}>Carbs: {carbs}g</Text>
-              <Text style={styles.nutritionText}>Fat: {fat}g</Text>
+            <Text style={styles.nutritionText}>Protein: {protein}g</Text>
+            <Text style={styles.nutritionText}>Carbs: {carbs}g</Text>
+            <Text style={styles.nutritionText}>Fat: {fat}g</Text>
           </SafeAreaView>
           <SafeAreaView style={styles.imageContainer}>
             <Image style={styles.image} source={{ uri: imageUrl }} />
           </SafeAreaView>
           <SafeAreaView style={styles.otherData}>
-              <Text style={styles.baseText}>Item Name: {name}</Text>
-              <Text> </Text>
-              <Text style={styles.baseText}>Servings: {servings}</Text>
-              <Text style={styles.baseText}>
-                Expiration Date:{" "}
-                {new Date(expirationDate.seconds * 1000).toLocaleDateString(
-                  "en-US"
-                )}
-              </Text>
-              <Text> </Text>
-              <Text style={styles.baseText}>Allergens: {allergens}</Text>
-              <Text style={styles.baseText}>Diet Flags: {dietFlags}</Text>
+            <Text style={styles.baseText}>Item Name: {name}</Text>
+            <Text> </Text>
+            <Text style={styles.baseText}>Servings: {servings}</Text>
+            <Text style={styles.baseText}>
+              Expiration Date:{" "}
+              {new Date(expirationDate.seconds * 1000).toLocaleDateString(
+                "en-US"
+              )}
+            </Text>
+            <Text> </Text>
+            <Text style={styles.baseText}>Allergens: {allergens.length ? allergens.join(', ') : 'N/A'}</Text>
+            <Text style={styles.baseText}>
+              Diet Flags:{" "}
+              {dietFlags.length ? dietFlags.join(", ") : "N/A"}
+            </Text>
           </SafeAreaView>
         </View>
       </ScrollView>

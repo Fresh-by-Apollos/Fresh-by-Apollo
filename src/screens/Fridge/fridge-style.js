@@ -13,6 +13,22 @@ const styles = StyleSheet.create ({
     color: 'white',
     fontWeight: 'bold'
   },
+  imageContainer: {
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  otherData: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    marginLeft: 20,
+    marginTop: 10,
+    marginBottom: 10,
+    flexShrink: 1
+  },
   scrollView: {},
   isEmpty: {
     fontSize: 20
@@ -25,7 +41,21 @@ const styles = StyleSheet.create ({
     height: 100,
     width: 100
   },
-  fridgeItems: {}
+  fridgeItems: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    flexDirection: 'row',
+    backgroundColor: 'blanchedalmond'
+  },
+  baseText: {
+    flexShrink: 1
+  },
+  itemNameText: {
+    fontWeight: 'bold'
+  }
+
 })
 
 export default styles
