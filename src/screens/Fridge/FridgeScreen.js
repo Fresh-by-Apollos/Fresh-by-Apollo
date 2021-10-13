@@ -12,15 +12,15 @@ import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
 import styles from './fridge-style';
 
 function FridgeScreen({ navigation }) {
-  const { fridgeState, dispatch } = useStorage();
+  const { fridgeState, dispatch, userState } = useStorage();
 
   useEffect(() => {
-    fetchFridgeItems(dispatch);
+    fetchFridgeItems(dispatch, userState.uid);
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>My Fridge</Text>
+      {/* <Text style={styles.title}>My Fridge</Text> */}
       <ScrollView contentContainerStyle={styles.scrollView}>
         {fridgeState.length === 0 ? (
           <View>
@@ -30,7 +30,9 @@ function FridgeScreen({ navigation }) {
           <View style={styles.notEmpty}>
             {fridgeState.map((item) => (
               <View key={item.name} style={styles.fridgeItems}>
-                <Image style={styles.image} source={{ uri: item.imageUrl }} />
+                <SafeAreaView style={styles.imageContainer}>
+                  <Image style={styles.image} source={{ uri: item.imageUrl }} />
+                </SafeAreaView>
                 <Text>{item.name}</Text>
                 <Text>Servings: {item.servings}</Text>
                 <Text>
@@ -42,12 +44,19 @@ function FridgeScreen({ navigation }) {
                 <Text>Allergens: {item.allergens}</Text>
                 <Text>Diet Flags: {item.dietFlags}</Text>
                 <Button
-                  title="show"
+                  title="Expand"
                   onPress={() => {
                     /* 1. Navigate to the Details route with params */
-                    navigation.navigate('SingleFridgeScreen', {
+                    navigation.navigate("Selected Item", {
                       name: item.name,
-                      expiration: item.expirationDate.seconds * 1000,
+                      expirationDate: item.expirationDate,
+                      servings: item.servings,
+                      allergens: item.allergens,
+                      dietFlags: item.dietFlags,
+                      protein: item.protein,
+                      carbs: item.carbs,
+                      fat: item.fat,
+                      imageUrl: item.imageUrl,
                     });
                   }}
                 />

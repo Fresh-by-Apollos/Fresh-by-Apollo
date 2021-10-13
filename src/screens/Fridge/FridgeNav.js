@@ -1,17 +1,17 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FridgeScreen from "./FridgeScreen";
-import SingleFridgeScreen from "../SingleFridgeItem";
+import SingleFridgeItemScreen from "../SingleFridgeItemScreen/SingleFridgeItemScreen";
 
 const FridgeStack = createNativeStackNavigator();
 
 export default function FridgeNav() {
   return (
     <FridgeStack.Navigator>
-      <FridgeStack.Screen name="FridgeScreen" component={FridgeScreen} />
+      <FridgeStack.Screen name="My Fridge" component={FridgeScreen} />
       <FridgeStack.Screen
-        name="SingleFridgeScreen"
-        component={SingleFridgeScreen}
+        name="Selected Item"
+        component={SingleFridgeItemScreen}
       />
     </FridgeStack.Navigator>
   );
