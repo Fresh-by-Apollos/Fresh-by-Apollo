@@ -33,16 +33,22 @@ export const addFridgeItem = async (info) => {
       });
     });
 
+    const dateParsed = `${
+      info.expirationDate.getMonth() + 1
+    }/${info.expirationDate.getDate()}/${info.expirationDate.getFullYear()}`;
+
     const resultArray = result.filter(
-      (doc) => Number(doc.barcode) === Number(info.barcode)
+      (doc) =>
+        Number(doc.barcode) === Number(info.barcode) &&
+        new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
+          "en-US"
+        ) == dateParsed
     );
-    // const resultArray = result.filter((doc) =>
-    //   console.log(Number(doc.barcode), Number(info.barcode))
-    // );
-    console.log(resultArray);
+
+    // console.log(resultArray);
 
     if (resultArray.length > 0) {
-      console.log(resultArray);
+      // console.log(resultArray);
       const fridgeItem = firebase
         .firestore()
         .collection(`/users/${userId}/currentFridge`)
@@ -89,13 +95,13 @@ export const getFoodData = async (barcode_num, dispatch) => {
   try {
     /*-------- !IMPORTANT! uncomment below to REAL data ---------*/
 
-    // let result = await axios.get(
-    //   `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=AzytazSl0UlIf1Kym&code=${barcode_num}`
-    // );
-    // let imageResult = await axios.get(
-    //   `https://api.barcodespider.com/v1/lookup?token=ea377961c5a80992486d&upc=${barcode_num}`
-    // );
-    // const imageUrl = imageResult.data.item_attributes.image;
+    let result = await axios.get(
+      `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=AzytazSl0UlIf1Kym&code=${barcode_num}`
+    );
+    let imageResult = await axios.get(
+      `https://api.barcodespider.com/v1/lookup?token=ea377961c5a80992486d&upc=${barcode_num}`
+    );
+    const imageUrl = imageResult.data.item_attributes.image;
 
     /*-------- !IMPORTANT! uncomment *Above to REAL data ---------*/
 
@@ -103,9 +109,9 @@ export const getFoodData = async (barcode_num, dispatch) => {
 
     /*-------- !IMPORTANT! uncomment Below to use DUMMY data ---------*/
 
-    let result = barcodeSnapshot;
-    const imageUrl =
-      "https://d2d8wwwkmhfcva.cloudfront.net/800x/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_203d8e83-8084-4983-a480-d87c2662555e.jpeg";
+    // let result = barcodeSnapshot;
+    // const imageUrl =
+    //   "https://d2d8wwwkmhfcva.cloudfront.net/800x/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_203d8e83-8084-4983-a480-d87c2662555e.jpeg";
 
     /*-------- !IMPORTANT! uncomment *ABOVE to use DUMMY data ---------*/
 
