@@ -47,7 +47,7 @@ function FridgeScreen({ navigation }) {
                     expirationDate: item.expirationDate,
                     servings: item.servings,
                     allergens: item.allergens,
-                    dietFlags: item.dietFlags,
+                    // dietFlags: item.dietFlags,
                     protein: item.protein,
                     carbs: item.carbs,
                     fat: item.fat,
@@ -77,10 +77,10 @@ function FridgeScreen({ navigation }) {
                     Allergens:{" "}
                     {item.allergens.length ? item.allergens.join(", ") : "N/A"}
                   </Text>
-                  <Text style={styles.baseText}>
+                  {/* <Text style={styles.baseText}>
                     Diet Flags:{" "}
                     {item.dietFlags.length ? item.dietFlags.join(", ") : "N/A"}
-                  </Text>
+                  </Text> */}
                 </SafeAreaView>
               </TouchableOpacity>
             ))}
