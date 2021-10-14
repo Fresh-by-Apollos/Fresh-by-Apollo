@@ -15,11 +15,12 @@ const _setFridge = (items) => {
 };
 
 // Thunks
-export const fetchFridgeItems = async (dispatch, uid) => {
+export const fetchFridgeItems = async (dispatch) => {
   try {
+    const userId = firebase.auth().currentUser.uid;
     const fridgeRef = firebase
       .firestore()
-      .collection(`/users/${uid}/currentFridge`)
+      .collection(`/users/${userId}/currentFridge`)
       .orderBy('expirationDate', 'asc');
     const snapshot = await fridgeRef.get();
     const resultArray = [];
