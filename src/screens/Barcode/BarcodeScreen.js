@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Button, Modal, Pressable } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useStorage } from "../../store/Context";
 import InfoScreen from "./InfoScreen";
+
 import {
   addFridgeItem,
   getFoodData,

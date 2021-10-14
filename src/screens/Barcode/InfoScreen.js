@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
+import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
 import DatePicker from "react-native-neat-date-picker";
 import {
   addFridgeItem,
@@ -30,7 +31,7 @@ export default InfoScreen = ({ setModalVisible }) => {
   const openDatePicker = () => {
     setShowDatePicker(true);
   };
-
+  // .
   const onCancel = () => {
     // You should close the modal in here
     setShowDatePicker(false);
@@ -39,18 +40,14 @@ export default InfoScreen = ({ setModalVisible }) => {
   const addtoFridge = () => {
     const stuff = { ...scannedItem, expirationDate: dateObj, servings };
     addFridgeItem(stuff);
+    fetchFridgeItems(dispatch);
   };
 
   const onConfirm = (date) => {
     // You should close the modal in here
     setShowDatePicker(false);
-    // new Date(
-    //   firebase.firestore.Timestamp.now().seconds * 1000
-    // ).toLocaleDateString();
 
     // The parameter 'date' is a Date object so that you can use any Date prototype method.
-    const yo = new Date();
-    console.log(yo + " hey " + date.getDate());
     setDateObj(date);
   };
   return (

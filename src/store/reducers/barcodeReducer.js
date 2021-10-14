@@ -28,7 +28,7 @@ export const addFridgeItem = async (info) => {
         image: info.imageUrl,
         name: info.name,
         expirationDate: info.expirationDate,
-        allergens: ["Test Apollos: Added Macros!! "],
+        allergens: ["Test Apollos: just brought a drink, lol "],
         barcode: info.barcode,
         dateAdded: new Date(),
         protein: info.protein,
@@ -78,7 +78,8 @@ export const getFoodData = async (barcode_num, setText, dispatch) => {
       if (
         name == "Protein" ||
         name == "Total lipid (fat)" ||
-        name == "Carbohydrate, by difference"
+        name == "Carbohydrate, by difference" ||
+        name.includes("Carb")
       ) {
         !acc[name] && (acc[name] = (nutrient.per_100g / 100) * servingSize);
       }
@@ -93,9 +94,9 @@ export const getFoodData = async (barcode_num, setText, dispatch) => {
       allergens,
       imageUrl,
       barcode: barcode,
-      protein: macros["Protein"],
-      carbs: macros["Carbohydrate, by difference"],
-      fat: macros["Total lipid (fat)"],
+      protein: macros["Protein"] || 0,
+      carbs: macros["Carbohydrate, by difference"] || 0,
+      fat: macros["Total lipid (fat)"] || 0,
     };
     console.log(data, "<----- Lets Get It!!");
 
