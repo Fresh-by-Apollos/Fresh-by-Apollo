@@ -1,6 +1,6 @@
 import firebase from "../../firebase/firebase";
 import axios from "axios";
-import { stuff } from "../../../barcodeInfo";
+import { barcodeSnapshot } from "../../../barcodeInfo";
 
 // fridgeState
 export const scannedItem = {};
@@ -18,7 +18,8 @@ const _setScannedItem = (item) => {
 
 export const addFridgeItem = async (info) => {
   try {
-    const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2"; // User backup
+    // const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2"; // User backup
+    const userId = firebase.auth().currentUser.uid;
     const fridgeRef = firebase
       .firestore()
       .collection(`/users/${userId}/currentFridge`);
@@ -53,7 +54,6 @@ export const addFridgeItem = async (info) => {
     } else {
       console.log("On new Add <<<<<<<<----------------");
       // Add a new document in collection "currentFridge"
-      const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2";
       firebase
         .firestore()
         .collection(`users/${userId}/currentFridge`)
@@ -62,7 +62,7 @@ export const addFridgeItem = async (info) => {
           image: info.imageUrl,
           name: info.name,
           expirationDate: info.expirationDate,
-          allergens: ["Test Apollos: just brought a drink, lol "],
+          allergens: info.allergens,
           barcode: info.barcode,
           dateAdded: new Date(),
           protein: info.protein,
@@ -85,29 +85,23 @@ export const addFridgeItem = async (info) => {
 /* Future Goals: Make a table/doc that holds previously scanned barcode and there images
     to limit the amt of calls we make to barcodespider for images
 */
-export const getFoodData = async (barcode_num, setText, dispatch) => {
+export const getFoodData = async (barcode_num, dispatch) => {
   try {
     let result = await axios.get(
       `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=AzytazSl0UlIf1Kym&code=${barcode_num}`
     );
-
-    // let result = stuff;
-
     let imageResult = await axios.get(
       `https://api.barcodespider.com/v1/lookup?token=ea377961c5a80992486d&upc=${barcode_num}`
     );
     const imageUrl = imageResult.data.item_attributes.image;
-    // .
-    // Temporary for comformation on frontend
-    // let itemName = JSON.stringify(result.data.items[0].name);
-    // let code = JSON.stringify(result.data.items[0].barcode);
-    // setText("Barcode: " + code + "  Name" + itemName);
+
+    // let result = barcodeSnapshot;
+    // const imageUrl =
+    //   "https://d2d8wwwkmhfcva.cloudfront.net/800x/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_203d8e83-8084-4983-a480-d87c2662555e.jpeg";
 
     const { name, barcode, allergens, nutrients } = result.data.items[0];
-    // const { name, barcode, allergens, nutrients } = result.items[0];
-
-    // console.log(nutrients);
     const servingSize = Number(result.data.items[0].serving.size);
+
     let macros = nutrients.reduce(function (acc, nutrient) {
       const name = nutrient.name;
       if (
@@ -121,9 +115,6 @@ export const getFoodData = async (barcode_num, setText, dispatch) => {
       return acc;
     }, {});
 
-    // const imageUrl =
-    //   "https://d2d8wwwkmhfcva.cloudfront.net/800x/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_203d8e83-8084-4983-a480-d87c2662555e.jpeg";
-
     const data = {
       name,
       allergens,
@@ -133,7 +124,6 @@ export const getFoodData = async (barcode_num, setText, dispatch) => {
       carbs: macros["Carbohydrate, by difference"] || 0,
       fat: macros["Total lipid (fat)"] || 0,
     };
-    console.log(data, "<----- Lets Get It!!");
 
     dispatch(_setScannedItem(data));
   } catch (error) {

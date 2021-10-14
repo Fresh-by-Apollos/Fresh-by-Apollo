@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FridgeScreen from "./FridgeScreen";
+import BarcodeScreen from "../Barcode/BarcodeScreen";
 import SingleFridgeItemScreen from "../SingleFridgeItemScreen/SingleFridgeItemScreen";
 
 const FridgeStack = createNativeStackNavigator();
@@ -27,6 +28,14 @@ export default function FridgeNav() {
         }}
         name="Selected Item"
         component={SingleFridgeItemScreen}
+      />
+      <FridgeStack.Screen
+        options={{
+          headerTitle: "",
+          headerBackTitleVisible: false,
+        }}
+        name="BarcodeScreen"
+        component={BarcodeScreen}
       />
     </FridgeStack.Navigator>
   );

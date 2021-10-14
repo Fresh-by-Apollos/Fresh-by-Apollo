@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 import {
   View,
@@ -29,8 +30,13 @@ function FridgeScreen({ navigation }) {
       {/* <Text style={styles.title}>My Fridge</Text> */}
       <ScrollView contentContainerStyle={styles.scrollView}>
         {fridgeState.length === 0 ? (
-          <View>
-            <Text style={styles.isEmpty}>Your fridge is empty!</Text>
+          <View style={{ alignItems: "center", marginTop: 60 }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("BarcodeScreen")}
+            >
+              <Ionicons name="md-add-circle-outline" size={50} color="green" />
+            </TouchableOpacity>
+            <Text style={{ fontSize: 25 }}>ADD TO FRIDGE</Text>
           </View>
         ) : (
           <View style={styles.notEmpty}>
@@ -78,7 +84,7 @@ function FridgeScreen({ navigation }) {
                       <MaterialCommunityIcons
                         style={styles.icon}
                         name="dots-horizontal-circle-outline"
-                        size={29}
+                        size={32}
                         color="darkgray"
                       />
                     </TouchableOpacity>

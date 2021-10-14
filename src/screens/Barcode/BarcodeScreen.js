@@ -45,7 +45,7 @@ export default function BarcodeScreen({ navigation }) {
   const handleBarCodeScanned = ({ data }) => {
     // addFridgeItem();
     setScanned(true);
-    getFoodData(data, setText, dispatch);
+    getFoodData(data, dispatch);
     // console.log(scannedItem);
     // navigation.navigate("BarcodeInfoScreen");
     setModalVisible(true);
