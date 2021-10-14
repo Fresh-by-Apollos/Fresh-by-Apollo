@@ -62,7 +62,6 @@ export default function BarcodeScreen({ navigation }) {
       </View>
     );
   }
-
   // Return the View
   return (
     <View style={modalVisible ? styles.container1 : styles.container}>

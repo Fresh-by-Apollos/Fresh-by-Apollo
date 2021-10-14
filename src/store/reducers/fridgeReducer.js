@@ -17,13 +17,11 @@ const _setFridge = (items) => {
 // Thunks
 export const fetchFridgeItems = async (dispatch) => {
   try {
-    // const userId = "2SbLcxDpmJHXKpJ7bEqV"; // User with fridge items
-    // const userId = 'rQ4o3TKBdlFrtlCpFoel' // User with empty fridge
-    const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2"; // User backup
+    const userId = firebase.auth().currentUser.uid;
     const fridgeRef = firebase
       .firestore()
       .collection(`/users/${userId}/currentFridge`)
-      .orderBy("expirationDate", "desc");
+      .orderBy("expirationDate", "asc");
     const snapshot = await fridgeRef.get();
     const resultArray = [];
     snapshot.forEach((doc) => {
@@ -33,7 +31,11 @@ export const fetchFridgeItems = async (dispatch) => {
         servings: doc.data().servings,
         expirationDate: doc.data().expirationDate,
         allergens: doc.data().allergens,
-        dietFlags: doc.data().dietFlags,
+        // dietFlags: doc.data().dietFlags,
+        protein: doc.data().protein,
+        carbs: doc.data().carbs,
+        fat: doc.data().fat,
+        barcode: doc.data().barcode,
       });
     });
     dispatch(_setFridge(resultArray));

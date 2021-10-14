@@ -23,13 +23,11 @@ const firebaseConfig = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
+  firebase.auth().setPersistence("local");
+  console.log("Initialized firebase..");
 } else {
   firebase.app(); // if already initialized, use that one
 }
 
 export const auth = firebase.auth();
 export default firebase;
-
-/* Notes:
-  - Using older version of firebase - "firebase": "^7.20.0",
-*/

@@ -1,11 +1,11 @@
-import fridgeReducer from "./fridgeReducer";
-import { fridgeState } from "./fridgeReducer";
-import { scannedItem } from "./barcodeReducer";
-import barcodeReducer from "./barcodeReducer";
+import fridgeReducer, { fridgeState } from "./fridgeReducer";
+import barcodeReducer, { scannedItem } from "./barcodeReducer";
+import userReducer, { userState } from "./userReducer";
 
 export const initialState = {
   fridgeState,
   scannedItem,
+  userState,
 };
 
 const combineReducers = (reducers) => {
@@ -22,4 +22,5 @@ const combineReducers = (reducers) => {
 export const reducers = combineReducers({
   fridgeReducer,
   barcodeReducer,
+  userReducer,
 });
