@@ -37,9 +37,9 @@ export default InfoScreen = ({ setModalVisible }) => {
     setShowDatePicker(false);
   };
 
-  const addtoFridge = () => {
+  const addtoFridge = async () => {
     const stuff = { ...scannedItem, expirationDate: dateObj, servings };
-    addFridgeItem(stuff);
+    await addFridgeItem(stuff);
     fetchFridgeItems(dispatch);
   };
 

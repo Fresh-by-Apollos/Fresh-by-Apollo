@@ -18,30 +18,65 @@ const _setScannedItem = (item) => {
 
 export const addFridgeItem = async (info) => {
   try {
-    // Add a new document in collection "cities"
-    const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2";
-    firebase
+    const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2"; // User backup
+    const fridgeRef = firebase
       .firestore()
-      .collection(`users/${userId}/currentFridge`)
-      .doc()
-      .set({
-        image: info.imageUrl,
-        name: info.name,
-        expirationDate: info.expirationDate,
-        allergens: ["Test Apollos: just brought a drink, lol "],
-        barcode: info.barcode,
-        dateAdded: new Date(),
-        protein: info.protein,
-        fat: info.fat,
-        carbs: info.carbs,
-        servings: info.servings,
-      })
-      .then(() => {
-        console.log("Document successfully written!");
-      })
-      .catch((error) => {
-        console.error("Error writing document: ", error);
+      .collection(`/users/${userId}/currentFridge`);
+
+    const snapshot = await fridgeRef.get();
+    const result = [];
+    snapshot.forEach((doc) => {
+      result.push({
+        id: doc.id,
+        ...doc.data(),
       });
+    });
+
+    const resultArray = result.filter(
+      (doc) => Number(doc.barcode) === Number(info.barcode)
+    );
+    // const resultArray = result.filter((doc) =>
+    //   console.log(Number(doc.barcode), Number(info.barcode))
+    // );
+    console.log(resultArray);
+
+    if (resultArray.length > 0) {
+      console.log(resultArray);
+      const fridgeItem = firebase
+        .firestore()
+        .collection(`/users/${userId}/currentFridge`)
+        .doc(resultArray[0].id);
+
+      await fridgeItem.update({
+        servings: firebase.firestore.FieldValue.increment(info.servings),
+      });
+    } else {
+      console.log("On new Add <<<<<<<<----------------");
+      // Add a new document in collection "currentFridge"
+      const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2";
+      firebase
+        .firestore()
+        .collection(`users/${userId}/currentFridge`)
+        .doc()
+        .set({
+          image: info.imageUrl,
+          name: info.name,
+          expirationDate: info.expirationDate,
+          allergens: ["Test Apollos: just brought a drink, lol "],
+          barcode: info.barcode,
+          dateAdded: new Date(),
+          protein: info.protein,
+          fat: info.fat,
+          carbs: info.carbs,
+          servings: info.servings,
+        })
+        .then(() => {
+          console.log("Document successfully written!");
+        })
+        .catch((error) => {
+          console.error("Error writing document: ", error);
+        });
+    }
   } catch (error) {
     console.log(error);
   }

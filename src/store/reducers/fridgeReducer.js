@@ -30,7 +30,7 @@ export const fetchFridgeItems = async (dispatch) => {
       resultArray.push({
         imageUrl: doc.data().image,
         name: doc.data().name,
-        quantity: doc.data().quantity,
+        servings: doc.data().servings,
         expirationDate: doc.data().expirationDate,
         allergens: doc.data().allergens,
         dietFlags: doc.data().dietFlags,
