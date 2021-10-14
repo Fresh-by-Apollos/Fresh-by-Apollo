@@ -6,20 +6,12 @@ import {
   ScrollView,
   Image,
   Button,
-<<<<<<< HEAD
+  TouchableOpacity,
 } from 'react-native';
 import { useStorage } from '../../store/Context';
 import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
 import styles from './fridge-style';
-import { signUp, getToken } from '../../firebase/auth/auth';
-=======
-  TouchableOpacity,
-} from "react-native";
-import { useStorage } from "../../store/Context";
-import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
-import styles from "./fridge-style";
-import { formatDistance } from "date-fns";
->>>>>>> origin/main
+import { formatDistance } from 'date-fns';
 
 function FridgeScreen({ navigation }) {
   const { fridgeState, dispatch } = useStorage();
@@ -45,12 +37,12 @@ function FridgeScreen({ navigation }) {
                   `${item.upcCode}` +
                   new Date(
                     item.expirationDate.seconds * 1000
-                  ).toLocaleDateString("en-US")
+                  ).toLocaleDateString('en-US')
                 }
                 style={styles.fridgeItems}
                 onPress={() => {
                   /* 1. Navigate to the Details route with params */
-                  navigation.navigate("Selected Item", {
+                  navigation.navigate('Selected Item', {
                     name: item.name,
                     expirationDate: item.expirationDate,
                     servings: item.servings,
@@ -74,7 +66,7 @@ function FridgeScreen({ navigation }) {
                   <Text> </Text>
                   <Text>Servings: {item.servings}</Text>
                   <Text>
-                    Expires:{" "}
+                    Expires:{' '}
                     {formatDistance(
                       new Date(item.expirationDate.seconds * 1000),
                       new Date(),
