@@ -62,7 +62,7 @@ export const getFoodData = async (barcode_num, setText, dispatch) => {
       `https://api.barcodespider.com/v1/lookup?token=ea377961c5a80992486d&upc=${barcode_num}`
     );
     const imageUrl = imageResult.data.item_attributes.image;
-
+    // .
     // Temporary for comformation on frontend
     // let itemName = JSON.stringify(result.data.items[0].name);
     // let code = JSON.stringify(result.data.items[0].barcode);
