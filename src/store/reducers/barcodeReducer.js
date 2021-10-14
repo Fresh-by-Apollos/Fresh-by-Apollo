@@ -87,17 +87,27 @@ export const addFridgeItem = async (info) => {
 */
 export const getFoodData = async (barcode_num, dispatch) => {
   try {
-    let result = await axios.get(
-      `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=AzytazSl0UlIf1Kym&code=${barcode_num}`
-    );
-    let imageResult = await axios.get(
-      `https://api.barcodespider.com/v1/lookup?token=ea377961c5a80992486d&upc=${barcode_num}`
-    );
-    const imageUrl = imageResult.data.item_attributes.image;
+    /*-------- !IMPORTANT! uncomment below to REAL data ---------*/
 
-    // let result = barcodeSnapshot;
-    // const imageUrl =
-    //   "https://d2d8wwwkmhfcva.cloudfront.net/800x/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_203d8e83-8084-4983-a480-d87c2662555e.jpeg";
+    // let result = await axios.get(
+    //   `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=AzytazSl0UlIf1Kym&code=${barcode_num}`
+    // );
+    // let imageResult = await axios.get(
+    //   `https://api.barcodespider.com/v1/lookup?token=ea377961c5a80992486d&upc=${barcode_num}`
+    // );
+    // const imageUrl = imageResult.data.item_attributes.image;
+
+    /*-------- !IMPORTANT! uncomment *Above to REAL data ---------*/
+
+    /*-----------------------------------------------------------------------------------------*/
+
+    /*-------- !IMPORTANT! uncomment Below to use DUMMY data ---------*/
+
+    let result = barcodeSnapshot;
+    const imageUrl =
+      "https://d2d8wwwkmhfcva.cloudfront.net/800x/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_203d8e83-8084-4983-a480-d87c2662555e.jpeg";
+
+    /*-------- !IMPORTANT! uncomment *ABOVE to use DUMMY data ---------*/
 
     const { name, barcode, allergens, nutrients } = result.data.items[0];
     const servingSize = Number(result.data.items[0].serving.size);
