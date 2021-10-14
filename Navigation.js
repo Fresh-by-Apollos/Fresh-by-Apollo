@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useStorage } from './src/store/Context';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import LoginNav from './src/screens/LoginScreen/LoginNav';
+import React, { useEffect, useState } from "react";
+import { useStorage } from "./src/store/Context";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import LoginNav from "./src/screens/LoginScreen/LoginNav";
 
 // Navigation
-import FridgeNav from './src/screens/Fridge/FridgeNav';
-import BarcodeNav from './src/screens/Barcode/BarcodeNav';
+import FridgeNav from "./src/screens/Fridge/FridgeNav";
+import BarcodeNav from "./src/screens/Barcode/BarcodeNav";
 
 // Screens
-import Settings from './src/screens/Settings/Settings';
+import Settings from "./src/screens/Settings/Settings";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,15 +26,18 @@ export default function Navigation() {
         </NavigationContainer>
       ) : (
         <NavigationContainer>
-          {console.log(userState)}
+          {/* {console.log(userState)} */}
           <Tab.Navigator
             screenOptions={{
-              tabBarActiveTintColor: '#4C956C',
-              // tabBarInactiveTintColor: "lightgray",
+              tabBarActiveTintColor: "#4C956C",
               headerShown: false,
+              headerStyle: {
+                backgroundColor: "#4C956C",
+              },
+
               tabBarStyle: {
                 paddingBottom: 20,
-                backgroundColor: 'white',
+                backgroundColor: "white",
                 height: 80,
               },
             }}
@@ -43,7 +46,7 @@ export default function Navigation() {
               name="Fridge"
               component={FridgeNav}
               options={{
-                tabBarLabel: 'Fridge',
+                tabBarLabel: "Fridge",
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons
                     name="fridge"
@@ -57,7 +60,7 @@ export default function Navigation() {
               name="Barcode"
               component={BarcodeNav}
               options={{
-                tabBarLabel: 'Barcode',
+                tabBarLabel: "Barcode",
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons
                     name="barcode-scan"
@@ -71,7 +74,7 @@ export default function Navigation() {
               name="Settings"
               component={Settings}
               options={{
-                tabBarLabel: 'Settings',
+                tabBarLabel: "Settings",
                 tabBarIcon: ({ color }) => (
                   <Ionicons name="settings-outline" size={28} color={color} />
                 ),

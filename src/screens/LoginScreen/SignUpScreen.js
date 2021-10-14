@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   SafeAreaView,
   Text,
   TextInput,
   TouchableOpacity,
   Alert,
-} from 'react-native';
-import styles from './styles';
-import { signUp } from '../../firebase/auth/auth';
+} from "react-native";
+import styles from "./styles";
+import { signUp } from "../../firebase/auth/auth";
 
 const SignUpScreen = ({ navigation }) => {
-  const [firstNameInput, setFirstNameInput] = useState('');
-  const [lastNameInput, setLastNameInput] = useState('');
-  const [emailInput, setEmailInput] = useState('');
-  const [passwordInput, setPasswordInput] = useState('');
+  const [firstNameInput, setFirstNameInput] = useState("");
+  const [lastNameInput, setLastNameInput] = useState("");
+  const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
 
   function onSubmit(firstName, lastName, email, password) {
     signUp(firstName, lastName, email, password);
@@ -73,7 +73,7 @@ const SignUpScreen = ({ navigation }) => {
         />
         <Text
           onPress={() => {
-            navigation.navigate('LoginScreen');
+            navigation.navigate("LoginScreen");
           }}
         >
           Already have an account? Log In

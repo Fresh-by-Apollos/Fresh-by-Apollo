@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",
+    "@react-native-community/datetimepicker": "^3.5.2",
     "@react-native-firebase/firestore": "^12.9.0",
     "@react-navigation/bottom-tabs": "^6.0.8",
     "@react-navigation/drawer": "^6.1.7",
@@ -28,7 +29,10 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-calendars": "^1.1267.0",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-neat-date-picker": "^1.1.2",
+    "react-native-numeric-input": "^1.9.0",
     "react-native-paper": "^4.9.2",
     "react-native-reanimated": "^2.2.2",
     "react-native-safe-area-context": "3.2.0",
