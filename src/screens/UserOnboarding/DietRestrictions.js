@@ -5,6 +5,7 @@ import styles from './styles';
 const DietRestrictions = () => {
   const [isVegan, setVegan] = useState(false);
   const [isGlutenFree, setGlutenFree] = useState(false);
+  // vegetarian, kosher, keto, dairy free, lactose intolerant, dairy free
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.titleText}>Diet Restrictions</Text>

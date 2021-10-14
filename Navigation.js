@@ -22,7 +22,10 @@ export default function Navigation() {
   return (
     <>
       {!userState ? (
-        <DietRestrictions />
+        // <DietRestrictions />
+        <NavigationContainer>
+          <LoginNav />
+        </NavigationContainer>
       ) : (
         <NavigationContainer>
           {console.log(userState)}
