@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Modal, Pressable } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Modal,
+  Pressable,
+  Alert,
+} from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useStorage } from "../../store/Context";
 import InfoScreen from "./InfoScreen";
@@ -88,7 +96,7 @@ export default function BarcodeScreen({ navigation }) {
             </Pressable>
           </View>
         </View> */}
-        <InfoScreen setModalVisible={setModalVisible} />
+        <InfoScreen setModalVisible={setModalVisible} navigation={navigation} />
       </Modal>
 
       <View style={styles.barcodebox}>

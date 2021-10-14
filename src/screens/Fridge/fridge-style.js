@@ -47,13 +47,31 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     flexDirection: "row",
-    backgroundColor: "blanchedalmond",
+    backgroundColor: "white",
+    borderRadius: 15,
+
+    shadowColor: "green",
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+    // borderBottomColor: "black",
   },
   baseText: {
     flexShrink: 1,
   },
   itemNameText: {
+    position: "absolute",
+    top: 7,
     fontWeight: "bold",
+    maxWidth: 200,
+  },
+  icon: {
+    position: "absolute",
+    top: 3,
+    left: 220,
   },
 });
 

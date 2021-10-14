@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import { FontAwesome } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 import {
   View,
   Text,
@@ -61,27 +64,47 @@ function FridgeScreen({ navigation }) {
                 </SafeAreaView>
                 <SafeAreaView style={styles.otherData}>
                   {/* capitalize first letter */}
-                  <Text style={styles.itemNameText}>
-                    {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-                  </Text>
-                  <Text> </Text>
-                  <Text>Servings: {item.servings}</Text>
-                  <Text>
-                    Expires:{" "}
-                    {formatDistance(
-                      new Date(item.expirationDate.seconds * 1000),
-                      new Date(),
-                      { addSuffix: true }
-                    )}
-                  </Text>
-                  <Text style={styles.baseText}>
-                    Allergens:{" "}
-                    {item.allergens.length ? item.allergens.join(", ") : "N/A"}
-                  </Text>
-                  {/* <Text style={styles.baseText}>
+                  <View>
+                    <Text style={styles.itemNameText}>
+                      {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                    </Text>
+                    <TouchableOpacity>
+                      {/* <FontAwesome
+                        style={styles.icon}
+                        name="trash-o"
+                        size={24}
+                        color="#cf0000"
+                      /> */}
+                      <MaterialCommunityIcons
+                        style={styles.icon}
+                        name="dots-horizontal-circle-outline"
+                        size={29}
+                        color="darkgray"
+                      />
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={{ marginTop: 35 }}>
+                    <Text>Servings: {item.servings}</Text>
+                    <Text>
+                      Expires:{" "}
+                      {formatDistance(
+                        new Date(item.expirationDate.seconds * 1000),
+                        new Date(),
+                        { addSuffix: true }
+                      )}
+                    </Text>
+                    <Text style={styles.baseText}>
+                      Allergens:{" "}
+                      {item.allergens.length
+                        ? item.allergens.join(", ")
+                        : "N/A"}
+                    </Text>
+                    {/* <Text style={styles.baseText}>
                     Diet Flags:{" "}
                     {item.dietFlags.length ? item.dietFlags.join(", ") : "N/A"}
                   </Text> */}
+                  </View>
                 </SafeAreaView>
               </TouchableOpacity>
             ))}

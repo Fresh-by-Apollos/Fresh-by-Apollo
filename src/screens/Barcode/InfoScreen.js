@@ -18,7 +18,7 @@ import NumericInput from "react-native-numeric-input";
 
 import { useStorage } from "../../store/Context";
 
-export default InfoScreen = ({ setModalVisible }) => {
+export default InfoScreen = ({ setModalVisible, navigation }) => {
   const { scannedItem, dispatch } = useStorage();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [dateObj, setDateObj] = useState();
@@ -38,8 +38,9 @@ export default InfoScreen = ({ setModalVisible }) => {
   };
 
   const addtoFridge = async () => {
-    const stuff = { ...scannedItem, expirationDate: dateObj, servings };
-    await addFridgeItem(stuff);
+    setModalVisible(false);
+    const itemData = { ...scannedItem, expirationDate: dateObj, servings };
+    await addFridgeItem(itemData);
     fetchFridgeItems(dispatch);
   };
 
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
     width: deviceWidth - offset,
     backgroundColor: "white",
     height: 110,
-    // borderRadius: radius,
+    borderRadius: 10,
 
     shadowColor: "green",
     shadowOffset: {
