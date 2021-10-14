@@ -10,7 +10,7 @@ function SingleFridgeItemScreen({ route }) {
     expirationDate,
     servings,
     allergens,
-    dietFlags,
+    // dietFlags,
     protein,
     carbs,
     fat,
@@ -34,19 +34,21 @@ function SingleFridgeItemScreen({ route }) {
             <Text> </Text>
             <Text style={styles.baseText}>Servings: {servings}</Text>
             <Text style={styles.baseText}>
-                    Expires:{" "}
-                    {formatDistance(
-                      new Date(expirationDate.seconds * 1000),
-                      new Date(),
-                      { addSuffix: true }
-                    )}
-                  </Text>
+              Expires:{" "}
+              {formatDistance(
+                new Date(expirationDate.seconds * 1000),
+                new Date(),
+                { addSuffix: true }
+              )}
+            </Text>
             <Text> </Text>
-            <Text style={styles.baseText}>Allergens: {allergens.length ? allergens.join(', ') : 'N/A'}</Text>
             <Text style={styles.baseText}>
+              Allergens: {allergens.length ? allergens.join(", ") : "N/A"}
+            </Text>
+            {/* <Text style={styles.baseText}>
               Diet Flags:{" "}
               {dietFlags.length ? dietFlags.join(", ") : "N/A"}
-            </Text>
+            </Text> */}
           </SafeAreaView>
         </View>
       </ScrollView>

@@ -28,12 +28,15 @@ export default function Navigation() {
         </NavigationContainer>
       ) : (
         <NavigationContainer>
-          {console.log(userState)}
+          {/* {console.log(userState)} */}
           <Tab.Navigator
             screenOptions={{
               tabBarActiveTintColor: '#4C956C',
-              // tabBarInactiveTintColor: "lightgray",
               headerShown: false,
+              headerStyle: {
+                backgroundColor: '#4C956C',
+              },
+
               tabBarStyle: {
                 paddingBottom: 20,
                 backgroundColor: 'white',

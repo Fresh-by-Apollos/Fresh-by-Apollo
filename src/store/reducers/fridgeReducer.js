@@ -1,10 +1,10 @@
-import firebase from '../../firebase/firebase';
+import firebase from "../../firebase/firebase";
 
 // fridgeState
 export const fridgeState = [];
 
 // Action Types
-const SET_FRIDGE = 'SET_FRIDGE';
+const SET_FRIDGE = "SET_FRIDGE";
 
 // Action Creators
 const _setFridge = (items) => {
@@ -21,7 +21,7 @@ export const fetchFridgeItems = async (dispatch) => {
     const fridgeRef = firebase
       .firestore()
       .collection(`/users/${userId}/currentFridge`)
-      .orderBy('expirationDate', 'asc');
+      .orderBy("expirationDate", "asc");
     const snapshot = await fridgeRef.get();
     const resultArray = [];
     snapshot.forEach((doc) => {
@@ -31,14 +31,14 @@ export const fetchFridgeItems = async (dispatch) => {
         servings: doc.data().servings,
         expirationDate: doc.data().expirationDate,
         allergens: doc.data().allergens,
-        dietFlags: doc.data().dietFlags,
+        // dietFlags: doc.data().dietFlags,
         protein: doc.data().protein,
-        carbs: doc.data().protein,
+        carbs: doc.data().carbs,
         fat: doc.data().fat,
-        upcCode: doc.data().upcCode
-      })
-    })
-    dispatch(_setFridge(resultArray))
+        barcode: doc.data().barcode,
+      });
+    });
+    dispatch(_setFridge(resultArray));
   } catch (error) {
     return `Error: ${error.message} || fetchFridgeItems`;
   }
