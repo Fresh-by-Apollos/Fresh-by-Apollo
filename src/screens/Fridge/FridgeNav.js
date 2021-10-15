@@ -4,6 +4,7 @@ import FridgeScreen from "./FridgeScreen";
 import BarcodeScreen from "../Barcode/BarcodeScreen";
 import StatisticsScreen from '../Statistics/StatisticsScreen'
 import SingleFridgeItemScreen from "../SingleFridgeItemScreen/SingleFridgeItemScreen";
+import { Button } from "react-native";
 
 const FridgeStack = createNativeStackNavigator();
 
@@ -42,7 +43,10 @@ export default function FridgeNav() {
       <FridgeStack.Screen
         options={{
           headerTitle: "Statistics",
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerLeft: () => (
+            <Button title="" />
+          )
         }}
         name="StatisticsScreen"
         component={StatisticsScreen}
