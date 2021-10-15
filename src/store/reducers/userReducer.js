@@ -32,6 +32,7 @@ export const updateUserDiet = async (diet, allergies, dispatch) => {
     user.update({
       allergies: allergies,
       dietRestrictions: diet,
+      onBoarded: true,
     });
 
     const updatedUser = (await usersRef.doc(uid).get()).data();

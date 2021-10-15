@@ -29,6 +29,7 @@ export const signUp = async (firstName, lastName, email, password) => {
           email,
           firstName,
           lastName,
+          onBoarded: false,
         };
         const usersRef = firebase.firestore().collection('users');
         usersRef

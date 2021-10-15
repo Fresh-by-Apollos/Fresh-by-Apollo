@@ -20,16 +20,24 @@ const Tab = createBottomTabNavigator();
 export default function Navigation() {
   const { userState } = useStorage();
 
+  async function getFirstTime() {
+    const firstTimeToken = JSON.parse(await getToken('firstTime'));
+    return firstTimeToken;
+  }
+
   return (
     <>
       {!userState ? (
         <NavigationContainer>
           <LoginNav />
         </NavigationContainer>
-      ) : (
+      ) : !userState.onBoarded ? (
         <NavigationContainer>
           <OnBoardingNav />
-          {/* <Tab.Navigator
+        </NavigationContainer>
+      ) : (
+        <NavigationContainer>
+          <Tab.Navigator
             screenOptions={{
               tabBarActiveTintColor: '#4C956C',
               headerShown: false,
@@ -82,7 +90,7 @@ export default function Navigation() {
                 ),
               }}
             />
-          </Tab.Navigator> */}
+          </Tab.Navigator>
         </NavigationContainer>
       )}
     </>
