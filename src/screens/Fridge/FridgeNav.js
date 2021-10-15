@@ -42,7 +42,7 @@ export default function FridgeNav() {
 
       <FridgeStack.Screen
         options={{
-          headerTitle: "Statistics",
+          headerTitle: "STATISTICS",
           headerBackTitleVisible: false,
           headerLeft: () => (
             <Button title="" />
