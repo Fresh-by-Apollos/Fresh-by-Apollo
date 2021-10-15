@@ -2,6 +2,7 @@ import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FridgeScreen from "./FridgeScreen";
 import BarcodeScreen from "../Barcode/BarcodeScreen";
+import StatisticsScreen from '../Statistics/StatisticsScreen'
 import SingleFridgeItemScreen from "../SingleFridgeItemScreen/SingleFridgeItemScreen";
 
 const FridgeStack = createNativeStackNavigator();
@@ -37,6 +38,16 @@ export default function FridgeNav() {
         name="BarcodeScreen"
         component={BarcodeScreen}
       />
+
+      <FridgeStack.Screen
+        options={{
+          headerTitle: "Statistics",
+          headerBackTitleVisible: false,
+        }}
+        name="StatisticsScreen"
+        component={StatisticsScreen}
+      />
+
     </FridgeStack.Navigator>
   );
 }

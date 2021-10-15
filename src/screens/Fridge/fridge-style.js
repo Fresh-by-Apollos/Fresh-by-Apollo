@@ -73,6 +73,11 @@ const styles = StyleSheet.create({
     top: 3,
     left: 215,
   },
+  statsIcon: {
+    // position: 'absolute',
+    // top: 20,
+    // right: 20
+  }
 });
 
 export default styles;

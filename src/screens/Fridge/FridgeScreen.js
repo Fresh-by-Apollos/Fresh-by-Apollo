@@ -29,6 +29,17 @@ function FridgeScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       {/* <Text style={styles.title}>My Fridge</Text> */}
       <ScrollView contentContainerStyle={styles.scrollView}>
+
+
+      <MaterialCommunityIcons
+        style={styles.statsIcon}
+        name="chart-pie"
+        size={32}
+        color="darkgray"
+        onPress={() => navigation.navigate("StatisticsScreen")}
+      />
+
+
         {fridgeState.length === 0 ? (
           <View style={{ alignItems: "center", marginTop: 60 }}>
             <TouchableOpacity
