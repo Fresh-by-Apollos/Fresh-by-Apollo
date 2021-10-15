@@ -33,16 +33,22 @@ export const addFridgeItem = async (info) => {
       });
     });
 
+    const dateParsed = `${
+      info.expirationDate.getMonth() + 1
+    }/${info.expirationDate.getDate()}/${info.expirationDate.getFullYear()}`;
+
     const resultArray = result.filter(
-      (doc) => Number(doc.barcode) === Number(info.barcode)
+      (doc) =>
+        Number(doc.barcode) === Number(info.barcode) &&
+        new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
+          "en-US"
+        ) == dateParsed
     );
-    // const resultArray = result.filter((doc) =>
-    //   console.log(Number(doc.barcode), Number(info.barcode))
-    // );
-    console.log(resultArray);
+
+    // console.log(resultArray);
 
     if (resultArray.length > 0) {
-      console.log(resultArray);
+      // console.log(resultArray);
       const fridgeItem = firebase
         .firestore()
         .collection(`/users/${userId}/currentFridge`)
@@ -63,6 +69,7 @@ export const addFridgeItem = async (info) => {
           name: info.name,
           expirationDate: info.expirationDate,
           allergens: info.allergens,
+          dietFlags: info.dietFlags,
           barcode: info.barcode,
           dateAdded: new Date(),
           protein: info.protein,
@@ -103,16 +110,17 @@ export const getFoodData = async (barcode_num, dispatch) => {
 
     /*-------- !IMPORTANT! uncomment Below to use DUMMY data ---------*/
 
-    let result = barcodeSnapshot;
-    const imageUrl =
-      "https://d2d8wwwkmhfcva.cloudfront.net/800x/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_203d8e83-8084-4983-a480-d87c2662555e.jpeg";
+    // let result = barcodeSnapshot;
+    // const imageUrl =
+    //   "https://d2d8wwwkmhfcva.cloudfront.net/800x/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_203d8e83-8084-4983-a480-d87c2662555e.jpeg";
 
     /*-------- !IMPORTANT! uncomment *ABOVE to use DUMMY data ---------*/
 
-    const { name, barcode, allergens, nutrients } = result.data.items[0];
+    const { name, barcode, allergens, nutrients, diet_flags } =
+      result.data.items[0];
     const servingSize = Number(result.data.items[0].serving.size);
 
-    let macros = nutrients.reduce(function (acc, nutrient) {
+    const macros = nutrients.reduce(function (acc, nutrient) {
       const name = nutrient.name;
       if (
         name == "Protein" ||
@@ -125,10 +133,13 @@ export const getFoodData = async (barcode_num, dispatch) => {
       return acc;
     }, {});
 
+    const dietFlags = diet_flags.map((additive) => additive.ingredient);
+
     const data = {
       name,
       allergens,
       imageUrl,
+      dietFlags,
       barcode: barcode,
       protein: macros["Protein"] || 0,
       carbs: macros["Carbohydrate, by difference"] || 0,
