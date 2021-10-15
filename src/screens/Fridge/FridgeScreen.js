@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { FontAwesome } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
+import React, { useEffect } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 import {
   View,
@@ -11,17 +11,17 @@ import {
   Image,
   Button,
   TouchableOpacity,
-} from "react-native";
-import { useStorage } from "../../store/Context";
-import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
-import styles from "./fridge-style";
-import { formatDistance } from "date-fns";
+} from 'react-native';
+import { useStorage } from '../../store/Context';
+import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
+import styles from './fridge-style';
+import { formatDistance } from 'date-fns';
 
 function FridgeScreen({ navigation }) {
   const { fridgeState, dispatch } = useStorage();
 
   useEffect(() => {
-    console.log("infinite loop?");
+    console.log('infinite loop?');
     fetchFridgeItems(dispatch);
   }, []);
 
@@ -30,9 +30,9 @@ function FridgeScreen({ navigation }) {
       {/* <Text style={styles.title}>My Fridge</Text> */}
       <ScrollView contentContainerStyle={styles.scrollView}>
         {fridgeState.length === 0 ? (
-          <View style={{ alignItems: "center", marginTop: 60 }}>
+          <View style={{ alignItems: 'center', marginTop: 60 }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("BarcodeScreen")}
+              onPress={() => navigation.navigate('BarcodeScreen')}
             >
               <Ionicons name="md-add-circle-outline" size={50} color="green" />
             </TouchableOpacity>
@@ -47,12 +47,12 @@ function FridgeScreen({ navigation }) {
                   `${item.barcode}` +
                   new Date(
                     item.expirationDate.seconds * 1000
-                  ).toLocaleDateString("en-US")
+                  ).toLocaleDateString('en-US')
                 }
                 style={styles.fridgeItems}
                 onPress={() => {
                   /* 1. Navigate to the Details route with params */
-                  navigation.navigate("Selected Item", {
+                  navigation.navigate('Selected Item', {
                     name: item.name,
                     expirationDate: item.expirationDate,
                     servings: item.servings,
@@ -93,7 +93,7 @@ function FridgeScreen({ navigation }) {
                   <View style={{ marginTop: 35 }}>
                     <Text>Servings: {item.servings}</Text>
                     <Text>
-                      Expires:{" "}
+                      Expires:{' '}
                       {formatDistance(
                         new Date(item.expirationDate.seconds * 1000),
                         new Date(),
@@ -101,10 +101,10 @@ function FridgeScreen({ navigation }) {
                       )}
                     </Text>
                     <Text style={styles.baseText}>
-                      Allergens:{" "}
+                      Allergens:{' '}
                       {item.allergens.length
-                        ? item.allergens.join(", ")
-                        : "N/A"}
+                        ? item.allergens.join(', ')
+                        : 'N/A'}
                     </Text>
                     {/* <Text style={styles.baseText}>
                     Diet Flags:{" "}
