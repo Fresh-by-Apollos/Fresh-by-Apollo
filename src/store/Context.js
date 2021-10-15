@@ -4,10 +4,10 @@ import React, {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { initialState, reducers } from "./reducers";
-import firebase, { auth } from "../firebase/firebase";
-import { _setUser } from "./reducers/userReducer";
+} from 'react';
+import { initialState, reducers } from './reducers';
+import firebase, { auth } from '../firebase/firebase';
+import { _setUser } from './reducers/userReducer';
 
 const GlobalContext = createContext();
 
@@ -31,19 +31,18 @@ function GlobalProvider({ children }) {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         const uid = user.uid;
-        const usersRef = firebase.firestore().collection("users");
+        const usersRef = firebase.firestore().collection('users');
         usersRef
           .doc(uid)
           .get()
           .then((firestoreDocument) => {
             if (!firestoreDocument.exists) {
-              alert("User does not exist.");
+              alert('User does not exist.');
               return;
             } else {
               const userData = firestoreDocument.data();
-              userData.uid = uid;
               dispatch(_setUser(userData));
-              console.log("User found..");
+              console.log('User found..');
             }
           });
       } else {

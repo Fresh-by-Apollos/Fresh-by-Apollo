@@ -4,12 +4,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import LoginNav from './src/screens/LoginScreen/LoginNav';
-import DietRestrictions from './src/screens/UserOnboarding/DietRestrictions';
+import { getToken } from './src/firebase/auth/auth';
 
 // Navigation
 import FridgeNav from './src/screens/Fridge/FridgeNav';
 import BarcodeNav from './src/screens/Barcode/BarcodeNav';
+import LoginNav from './src/screens/LoginScreen/LoginNav';
+import OnBoardingNav from './src/screens/UserOnboarding/OnBoardingNav';
 
 // Screens
 import Settings from './src/screens/Settings/Settings';
@@ -22,14 +23,13 @@ export default function Navigation() {
   return (
     <>
       {!userState ? (
-        // <DietRestrictions />
         <NavigationContainer>
           <LoginNav />
         </NavigationContainer>
       ) : (
         <NavigationContainer>
-          {/* {console.log(userState)} */}
-          <Tab.Navigator
+          <OnBoardingNav />
+          {/* <Tab.Navigator
             screenOptions={{
               tabBarActiveTintColor: '#4C956C',
               headerShown: false,
@@ -82,7 +82,7 @@ export default function Navigation() {
                 ),
               }}
             />
-          </Tab.Navigator>
+          </Tab.Navigator> */}
         </NavigationContainer>
       )}
     </>
