@@ -42,7 +42,7 @@ export default function FridgeNav() {
       <FridgeStack.Screen
         options={{
           headerTitle: "Statistics",
-          headerBackTitleVisible: false,
+          headerBackTitleVisible: false
         }}
         name="StatisticsScreen"
         component={StatisticsScreen}

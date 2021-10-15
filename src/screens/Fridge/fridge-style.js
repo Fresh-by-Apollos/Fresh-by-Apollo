@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   notEmpty: {
     flex: 1,
     flexDirection: "column",
+    top: 40
   },
   image: {
     height: 100,
@@ -74,10 +75,15 @@ const styles = StyleSheet.create({
     left: 215,
   },
   statsIcon: {
-    // position: 'absolute',
-    // top: 20,
-    // right: 20
-  }
+    position: 'absolute',
+    top: 10,
+    right: 10
+  },
+  statsArrowIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 30
+  },
 });
 
 export default styles;

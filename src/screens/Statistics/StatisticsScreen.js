@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Button, SafeAreaView, Text } from 'react-native'
+import { Button, SafeAreaView, Text, View } from 'react-native'
 import { useStorage } from '../../store/Context'
+import styles from './statistics-style'
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-function StatisticsScreen() {
+function StatisticsScreen({ navigation }) {
   const { fridgeState } = useStorage()
   const [ totalMacros, setTotalMacros ] = useState({})
 
@@ -24,29 +26,35 @@ function StatisticsScreen() {
     fetchTotal(fridgeState)
   }, [])
 
-  // const fetchTotalProtein = async() => {
-  //   try {
-  //     const userId = firebase.auth().currentUser.uid;
-  //     const fridgeRef = firebase
-  //       .firestore()
-  //       .collection(`/users/${userId}/currentFridge`)
-  //     const proteinSnapshot = await fridgeRef.where('protein', '>', 0).get()
-  //     let total = 0
-  //     proteinSnapshot.forEach((doc) => {
-  //       total += doc.data().protein
-  //     })
-  //     return total
-  //   } catch (error) {
-  //     return `Error: ${error.message} || fetchTotalProtein`
-  //   }
-  // }
-
   return (
-    <SafeAreaView>
-      <Text>Current Fridge Stats</Text>
-      <Text>Protein: {totalMacros.protein}</Text>
-      <Text>Carbs: {totalMacros.carbs}</Text>
-      <Text>Fat: {totalMacros.fat}</Text>
+    <SafeAreaView style={styles.container}>
+      <MaterialCommunityIcons
+        style={styles.statsIcon}
+        name="chart-pie"
+        size={32}
+        color="#D68C45"
+        onPress={() => navigation.navigate("My Fridge")}
+      />
+      <MaterialCommunityIcons
+        style={styles.statsArrowIcon}
+        name="menu-right"
+        size={32}
+        color="#D68C45"
+        onPress={() => navigation.navigate("My Fridge")}
+      />
+      <SafeAreaView style={styles.currentFridgeContainer}>
+        <Text style={styles.header}>Current Fridge Stats</Text>
+        <View style={{ borderBottomColor: 'black', borderBottomWidth: 2, width: 370 }} />
+        <Text style={styles.text}>Protein: {totalMacros.protein}g</Text>
+        <Text style={styles.text}>Carbs: {totalMacros.carbs}g</Text>
+        <Text style={styles.text}>Fat: {totalMacros.fat}g</Text>
+      </SafeAreaView>
+      <SafeAreaView style={styles.pastFridgeContainer}>
+        <Text style={styles.header}>Past Fridge Stats</Text>
+        <View style={{ borderBottomColor: 'black', borderBottomWidth: 2, width: 370 }} />
+        <Text style={styles.text}>Consumed: N/A</Text>
+        <Text style={styles.text}>Thrown Out: N/A</Text>
+      </SafeAreaView>
     </SafeAreaView>
   )
 }
