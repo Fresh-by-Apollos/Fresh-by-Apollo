@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import {
   View,
@@ -25,6 +26,20 @@ function FridgeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
+        <MaterialCommunityIcons
+          style={styles.statsArrowIcon}
+          name="menu-left"
+          size={32}
+          color="darkgray"
+          onPress={() => navigation.navigate("StatisticsScreen")}
+        />
+        <MaterialCommunityIcons
+          style={styles.statsIcon}
+          name="chart-pie"
+          size={32}
+          color="darkgray"
+          onPress={() => navigation.navigate("StatisticsScreen")}
+        />
         {fridgeState.length === 0 ? (
           <View style={{ alignItems: "center", marginTop: 60 }}>
             <TouchableOpacity
