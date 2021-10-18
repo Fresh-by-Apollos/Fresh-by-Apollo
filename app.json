@@ -2,6 +2,7 @@
   "expo": {
     "name": "Fresh by Apollos",
     "slug": "fresh-by-apollos",
+    "owner": "fresh-by-apollos",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
