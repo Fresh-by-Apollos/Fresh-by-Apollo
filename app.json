@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "fresh-by-apollos",
+    "name": "Fresh by Apollos",
     "slug": "fresh-by-apollos",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -28,6 +28,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "githubUrl": "https://github.com/Fresh-by-Apollos/Fresh-by-Apollo"
   }
 }

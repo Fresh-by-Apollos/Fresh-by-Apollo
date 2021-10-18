@@ -54,6 +54,7 @@ function FridgeItemView({ item, navigation }) {
     setTrashing(false);
     await fetchFridgeItems(dispatch);
   };
+
   return (
     <>
       <TouchableOpacity
