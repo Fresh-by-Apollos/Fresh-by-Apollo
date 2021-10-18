@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
   title: {
     fontSize: 40,
     paddingTop: 10,
@@ -17,6 +18,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
   },
+
   imageContainer: {
     marginLeft: 10,
     marginRight: 10,
@@ -25,6 +27,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
   },
+
   otherData: {
     flexDirection: "column",
     alignItems: "flex-start",
@@ -33,18 +36,24 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flexShrink: 1,
   },
+
   scrollView: {},
+
   isEmpty: {
     fontSize: 20,
   },
+
   notEmpty: {
     flex: 1,
     flexDirection: "column",
+    top: 40
   },
+
   image: {
     height: 100,
     width: 100,
   },
+
   fridgeItems: {
     marginTop: 10,
     marginBottom: 10,
@@ -63,19 +72,34 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     // borderBottomColor: "black",
   },
+
   baseText: {
     flexShrink: 1,
   },
+
   itemNameText: {
     position: "absolute",
     top: 7,
     fontWeight: "bold",
     maxWidth: 200,
   },
+
   icon: {
     position: "absolute",
     top: 3,
     left: 215,
+  },
+
+  statsIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 10
+  },
+
+  statsArrowIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 30
   },
 
   // -----------
@@ -85,6 +109,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 22,
   },
+
   modalView: {
     width: deviceWidth,
     height: 550,
@@ -102,26 +127,32 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+
   button: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
     backgroundColor: "#4C956C",
   },
+
   buttonOpen: {
     backgroundColor: "#4C956C",
   },
+
   buttonClose: {
     backgroundColor: "#4C956C",
   },
+
   buttonClose1: {
     backgroundColor: "red",
   },
+
   textStyle: {
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
   },
+
   modalText: {
     marginBottom: 15,
     textAlign: "center",
