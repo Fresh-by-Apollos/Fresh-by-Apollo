@@ -3,10 +3,13 @@ import { Button, SafeAreaView, Text, View } from 'react-native'
 import { useStorage } from '../../store/Context'
 import styles from './statistics-style'
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import firebase from 'firebase';
 
 function StatisticsScreen({ navigation }) {
   const { fridgeState } = useStorage()
   const [ totalMacros, setTotalMacros ] = useState({})
+  const [ totalBreakdown, setTotalBreakdown ] = useState({})
+  const [ totalItems, setTotalItems ] = useState(0)
 
   const fetchTotal = async(items) => {
     let total = {
@@ -22,8 +25,33 @@ function StatisticsScreen({ navigation }) {
     setTotalMacros(total)
   }
 
+  const fetchTotalConsumed = async() => {
+    const userId = firebase.auth().currentUser.uid
+    const pastFridgeRef = firebase
+      .firestore()
+      .collection(`/users/${userId}/pastFridge`)
+    let total = {
+      consumed: 0,
+      thrownOut: 0
+    }
+    const snapshot = await pastFridgeRef
+      .get()
+      .then((querySnapshot) => {
+        const tempDoc = querySnapshot.docs.map((doc) => {
+          return { ...doc.data() }
+        })
+        return tempDoc
+      })
+    snapshot.forEach((item) => {
+      item.wasConsumed ? total.consumed++ : total.thrownOut++
+    })
+    setTotalItems(snapshot.length)
+    setTotalBreakdown(total)
+  }
+
   useEffect(() => {
-    fetchTotal(fridgeState)
+    fetchTotal(fridgeState),
+    fetchTotalConsumed()
   }, [])
 
   return (
@@ -52,8 +80,8 @@ function StatisticsScreen({ navigation }) {
       <SafeAreaView style={styles.pastFridgeContainer}>
         <Text style={styles.header}>Past Fridge Stats</Text>
         <View style={{ borderBottomColor: 'black', borderBottomWidth: 2, width: 370 }} />
-        <Text style={styles.text}>Consumed: N/A</Text>
-        <Text style={styles.text}>Thrown Out: N/A</Text>
+        <Text style={styles.text}>Consumed: {(totalBreakdown.consumed / totalItems) * 100}%</Text>
+        <Text style={styles.text}>Thrown Out: {(totalBreakdown.thrownOut / totalItems) * 100}%</Text>
       </SafeAreaView>
     </SafeAreaView>
   )
