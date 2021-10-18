@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, Text, TouchableOpacity, Switch } from 'react-native';
 import styles from './styles';
 import { MaterialIcons } from '@expo/vector-icons';
-import { updateUserDiet } from '../../store/reducers/userReducer';
+import { setUserDietAllergies } from '../../store/reducers/userReducer';
 import { useStorage } from '../../store/Context';
 import { deleteToken } from '../../firebase/auth/auth';
 
@@ -36,7 +36,7 @@ const Allergies = ({ navigation, route }) => {
       }
     }
 
-    await updateUserDiet(dietRestrictions, listOfAllergies, dispatch);
+    await setUserDietAllergies(dietRestrictions, listOfAllergies, dispatch);
     await deleteToken('firstTime');
   }
 

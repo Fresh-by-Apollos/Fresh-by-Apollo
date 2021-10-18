@@ -81,7 +81,7 @@ export default function Navigation() {
               options={{
                 tabBarLabel: 'Settings',
                 tabBarIcon: ({ color }) => (
-                  <Ionicons name="settings-outline" size={28} color={color} />
+                  <Ionicons name="settings" size={24} color={color} />
                 ),
               }}
             />
