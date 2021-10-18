@@ -15,7 +15,6 @@ export const deleteToken = async (key) => {
   await SecureStore.deleteItemAsync(key);
 };
 
-// Sign Up (firstTime = true)
 export const signUp = async (firstName, lastName, email, password) => {
   try {
     await auth
