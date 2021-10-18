@@ -4,9 +4,13 @@ import { useStorage } from '../../store/Context'
 import styles from './statistics-style'
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+//
+import firebase from 'firebase';
+
 function StatisticsScreen({ navigation }) {
   const { fridgeState } = useStorage()
   const [ totalMacros, setTotalMacros ] = useState({})
+  const [ totalConsumed, setTotalConsumed ] = useState({})
 
   const fetchTotal = async(items) => {
     let total = {
@@ -22,8 +26,27 @@ function StatisticsScreen({ navigation }) {
     setTotalMacros(total)
   }
 
+  const fetchTotalConsumed = async() => {
+    const userId = firebase.auth().currentUser.uid
+    const pastFridgeRef = firebase
+      .firestore()
+      .collection(`/users/${userId}/pastFridge`)
+      .where('wasConsumed', '==', true)
+      .get()
+    let total = {
+      consumed: 0,
+      thrownOut: 0
+    }
+    const snapshot = await pastFridgeRef.get()
+    snapshot.forEach((item) => {
+      total.consumed += item.wasConsumed
+    })
+    setTotalConsumed(total)
+  }
+
   useEffect(() => {
-    fetchTotal(fridgeState)
+    fetchTotal(fridgeState),
+    fetchTotalConsumed(fridgeState)
   }, [])
 
   return (
@@ -52,7 +75,7 @@ function StatisticsScreen({ navigation }) {
       <SafeAreaView style={styles.pastFridgeContainer}>
         <Text style={styles.header}>Past Fridge Stats</Text>
         <View style={{ borderBottomColor: 'black', borderBottomWidth: 2, width: 370 }} />
-        <Text style={styles.text}>Consumed: N/A</Text>
+        <Text style={styles.text}>Consumed: {totalConsumed.consumed}</Text>
         <Text style={styles.text}>Thrown Out: N/A</Text>
       </SafeAreaView>
     </SafeAreaView>
