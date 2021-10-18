@@ -42,6 +42,7 @@ export default InfoScreen = ({ setModalVisible, navigation }) => {
     const itemData = { ...scannedItem, expirationDate: dateObj, servings };
     await addFridgeItem(itemData);
     fetchFridgeItems(dispatch);
+    removeScannedItem(dispatch);
   };
 
   const onConfirm = (date) => {

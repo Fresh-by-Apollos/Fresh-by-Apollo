@@ -1,5 +1,9 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from "react-native";
 
+const deviceWidth = Math.round(Dimensions.get("window").width);
+const offset = 40;
+const radius = 20;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -24,7 +28,7 @@ const styles = StyleSheet.create({
   otherData: {
     flexDirection: "column",
     alignItems: "flex-start",
-    marginLeft: 20,
+    marginLeft: 15,
     marginTop: 10,
     marginBottom: 10,
     flexShrink: 1,
@@ -83,6 +87,55 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 30
+  },
+
+  // -----------
+  centeredView: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    width: deviceWidth,
+    height: 550,
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+    backgroundColor: "#4C956C",
+  },
+  buttonOpen: {
+    backgroundColor: "#4C956C",
+  },
+  buttonClose: {
+    backgroundColor: "#4C956C",
+  },
+  buttonClose1: {
+    backgroundColor: "red",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
 

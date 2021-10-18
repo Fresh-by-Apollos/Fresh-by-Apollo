@@ -69,6 +69,7 @@ export const addFridgeItem = async (info) => {
           name: info.name,
           expirationDate: info.expirationDate,
           allergens: info.allergens,
+          dietFlags: info.dietFlags,
           barcode: info.barcode,
           dateAdded: new Date(),
           protein: info.protein,
@@ -115,10 +116,11 @@ export const getFoodData = async (barcode_num, dispatch) => {
 
     /*-------- !IMPORTANT! uncomment *ABOVE to use DUMMY data ---------*/
 
-    const { name, barcode, allergens, nutrients } = result.data.items[0];
+    const { name, barcode, allergens, nutrients, diet_flags } =
+      result.data.items[0];
     const servingSize = Number(result.data.items[0].serving.size);
 
-    let macros = nutrients.reduce(function (acc, nutrient) {
+    const macros = nutrients.reduce(function (acc, nutrient) {
       const name = nutrient.name;
       if (
         name == "Protein" ||
@@ -131,10 +133,13 @@ export const getFoodData = async (barcode_num, dispatch) => {
       return acc;
     }, {});
 
+    const dietFlags = diet_flags.map((additive) => additive.ingredient);
+
     const data = {
       name,
       allergens,
       imageUrl,
+      dietFlags,
       barcode: barcode,
       protein: macros["Protein"] || 0,
       carbs: macros["Carbohydrate, by difference"] || 0,
