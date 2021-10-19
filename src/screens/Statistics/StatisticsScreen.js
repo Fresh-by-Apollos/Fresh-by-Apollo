@@ -5,6 +5,16 @@ import styles from './statistics-style'
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import firebase from 'firebase';
 
+//
+import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+const data = [
+  { quarter: 1, earnings: 13000 },
+  { quarter: 2, earnings: 16500 },
+  { quarter: 3, earnings: 14250 },
+  { quarter: 4, earnings: 19000 }
+];
+//
+
 function StatisticsScreen({ navigation }) {
   const { fridgeState } = useStorage()
   const [ totalMacros, setTotalMacros ] = useState({})
@@ -71,6 +81,11 @@ function StatisticsScreen({ navigation }) {
         onPress={() => navigation.navigate("My Fridge")}
       />
       <SafeAreaView style={styles.currentFridgeContainer}>
+
+        <VictoryChart width={350} theme={VictoryTheme.material}>
+          <VictoryBar data={data} x="quarter" y="earnings" />
+        </VictoryChart>
+
         <Text style={styles.header}>Current Fridge Stats</Text>
         <View style={{ borderBottomColor: 'black', borderBottomWidth: 2, width: 370 }} />
         <Text style={styles.text}>Protein: {totalMacros.protein}g</Text>
