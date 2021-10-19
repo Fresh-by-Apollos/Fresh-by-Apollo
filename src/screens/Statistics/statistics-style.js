@@ -30,9 +30,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     left: 75
-  },
-  chart: {
-    maxWidth: 300
   }
 })
 

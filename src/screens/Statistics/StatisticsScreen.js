@@ -87,6 +87,7 @@ function StatisticsScreen({ navigation }) {
               { name: "Carbs", symbol: { fill: "#5A7BCE", type: "square" } },
               { name: "Fat", symbol: { fill: "#CE5A5A", type: "square" } }
             ]}
+            height={30}
           />
           <VictoryPie
             data={[
@@ -97,8 +98,6 @@ function StatisticsScreen({ navigation }) {
             colorScale={[ '#5CB44E', '#5A7BCE', '#CE5A5A' ]}
             padAngle={2}
             innerRadius={50}
-            height={300}
-            width={300}
           />
         </SafeAreaView>
         <SafeAreaView style={styles.pastFridgeContainer}>
@@ -112,6 +111,7 @@ function StatisticsScreen({ navigation }) {
               { name: "Consumed", symbol: { fill: "#5CB44E", type: "square" } },
               { name: "Thrown Out", symbol: { fill: "#CE5A5A", type: "square" } }
             ]}
+            height={30}
           />
           <VictoryPie
             data={[
@@ -121,9 +121,7 @@ function StatisticsScreen({ navigation }) {
             colorScale={[ '#5CB44E', '#CE5A5A' ]}
             padAngle={2}
             innerRadius={50}
-            height={300}
-            width={300}
-            labelRadius={({ innerRadius }) => innerRadius + 50 }
+            labelRadius={({ innerRadius }) => innerRadius + 105 }
             style={{ labels: { fontSize: 10 } }, styles.chart}
           />
         </SafeAreaView>
