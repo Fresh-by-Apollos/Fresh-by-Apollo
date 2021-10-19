@@ -4,10 +4,7 @@ import { useStorage } from '../../store/Context'
 import styles from './statistics-style'
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import firebase from 'firebase';
-
-//
 import { VictoryPie, VictoryLegend } from "victory-native";
-//
 
 function StatisticsScreen({ navigation }) {
   const { fridgeState } = useStorage()
