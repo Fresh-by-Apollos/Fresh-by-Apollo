@@ -21,15 +21,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10
   },
-  nutrientsContainer: {
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    height: '10%',
-    marginTop: 10,
-    marginBottom: 10,
-  },
   otherData: {
     flexDirection: 'column',
     alignItems: 'flex-start',
