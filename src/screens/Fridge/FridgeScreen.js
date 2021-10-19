@@ -72,9 +72,9 @@ function FridgeScreen({ navigation }) {
       );
       const userId = firebase.auth().currentUser.uid;
       const userRef = firebase.firestore().collection("users");
-      await userRef
-        .doc(userId)
-        .set({ expoPushToken: token })
+      const user = userRef.doc(userId)
+      // console.log('user:', user)
+      await user.update({expoPushToken: token })
         .catch((error) => {
           alert(error);
         });
