@@ -37,7 +37,12 @@ export default Settings = ({ navigation }) => {
             </SafeAreaView>
             <AntDesign name="right" size={24} color="black" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsBtn}>
+          <TouchableOpacity
+            style={styles.settingsBtn}
+            onPress={() => {
+              navigation.navigate('ChangeEmail');
+            }}
+          >
             <SafeAreaView style={styles.settingsDetail}>
               <MaterialCommunityIcons
                 name="email-outline"
@@ -48,7 +53,12 @@ export default Settings = ({ navigation }) => {
             </SafeAreaView>
             <AntDesign name="right" size={24} color="black" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsBtn}>
+          <TouchableOpacity
+            style={styles.settingsBtn}
+            onPress={() => {
+              navigation.navigate('ChangePassword');
+            }}
+          >
             <SafeAreaView style={styles.settingsDetail}>
               <MaterialCommunityIcons
                 name="onepassword"

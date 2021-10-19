@@ -63,6 +63,53 @@ export const updateUserDetails = async (firstName, lastName, dispatch) => {
   }
 };
 
+export const updateUserEmail = async (email, password, dispatch) => {
+  try {
+    const currentUser = firebase.auth().currentUser;
+    const userRef = firebase.firestore().collection('users');
+    const user = userRef.doc(currentUser.uid);
+    const credential = firebase.auth.EmailAuthProvider.credential(
+      currentUser.email,
+      password
+    );
+
+    await currentUser.reauthenticateWithCredential(credential);
+
+    await currentUser.updateEmail(email);
+
+    user.update({
+      email: email,
+    });
+
+    const updatedUser = (await userRef.doc(currentUser.uid).get()).data();
+    dispatch(_updateUser(updatedUser));
+    alert('Email updated!');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateUserPassword = async (newPassword, password, dispatch) => {
+  try {
+    const currentUser = firebase.auth().currentUser;
+    const userRef = firebase.firestore().collection('users');
+    const user = userRef.doc(currentUser.uid);
+    const credential = firebase.auth.EmailAuthProvider.credential(
+      currentUser.email,
+      password
+    );
+
+    await currentUser.reauthenticateWithCredential(credential);
+
+    await currentUser.updatePassword(newPassword);
+    const updatedUser = (await userRef.doc(currentUser.uid).get()).data();
+    dispatch(_updateUser(updatedUser));
+    alert('Password updated!');
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const updateAllergies = async (allergies, dispatch) => {
   try {
     const uid = firebase.auth().currentUser.uid;

@@ -20,7 +20,6 @@ export const signUp = async (firstName, lastName, email, password) => {
     await auth
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
-        saveToken('firstTime', 'true');
         const uid = response.user.uid;
         const data = {
           dietRestrictions: [],

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from './styles';
-import { login, googleSignIn } from '../../firebase/auth/auth';
+import { login } from '../../firebase/auth/auth';
 
 const LoginScreen = ({ navigation }) => {
   const [emailInput, setEmailInput] = useState('');

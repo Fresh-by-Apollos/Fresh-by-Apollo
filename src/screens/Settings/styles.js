@@ -167,6 +167,47 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  // Change Email
+  emContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    width: '100%',
+  },
+  emInputContainer: {
+    height: '20%',
+    width: '80%',
+    justifyContent: 'space-evenly',
+  },
+  emInputStyle: {
+    height: '30%',
+    width: '100%',
+    padding: 10,
+    textAlign: 'left',
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 15,
+  },
+  emSubmitContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '20%',
+    width: '80%',
+  },
+  emSubmitBtn: {
+    height: '27%',
+    width: '90%',
+    borderRadius: 20,
+    backgroundColor: '#4C956C',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emErrorMsg: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#D54C4C',
+  },
 });
 
 export default styles;
