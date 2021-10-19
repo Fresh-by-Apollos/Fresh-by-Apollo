@@ -7,7 +7,11 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
 
 // This refers to the function defined earlier in this guide, in Push Notifications Set Up
-import { registerForPushNotificationsAsync } from "../LoginScreen/SignUpScreen";
+// import { registerForPushNotificationsAsync } from "../LoginScreen/SignUpScreen";
+
+import Constants from "expo-constants";
+import firebase from "../../firebase/firebase";
+
 
 import {
   View,
@@ -31,25 +35,77 @@ Notifications.setNotificationHandler({
 
 function FridgeScreen({ navigation }) {
   const { fridgeState, dispatch } = useStorage();
-  const [ notification, setNotification ] = useState({});
+  const [notification, setNotification] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     console.log("infinite loop?");
     fetchFridgeItems(dispatch);
-    Notifications.addNotificationReceivedListener(_handleNotification);
-    Notifications.addNotificationResponseReceivedListener(
-      _handleNotificationResponse
-    );
+    registerForPushNotificationsAsync();
+    // Notifications.addNotificationReceivedListener(_handleNotification);
+    // Notifications.addNotificationResponseReceivedListener(
+    //   _handleNotificationResponse
+    // );
   }, []);
 
-  _handleNotification = (notification) => {
-    setNotification({ notification: notification });
+  //request permission to send Push Notifications
+  const registerForPushNotificationsAsync = async () => {
+    console.log("entered registerForPushNotificationsAynsc");
+    if (Constants.isDevice) {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      console.log("existingStatus:", existingStatus);
+      let finalStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        finalStatus = status;
+      }
+      if (finalStatus !== "granted") {
+        alert("Failed to get push token for push notification!");
+        return;
+      }
+      const token = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log("token:", token);
+      console.log(
+        "firebase.auth().currentUser.uid",
+        firebase.auth().currentUser.uid
+      );
+      const userId = firebase.auth().currentUser.uid;
+      const userRef = firebase.firestore().collection("users");
+      await userRef
+        .doc(userId)
+        .set({ expoPushToken: token })
+        .catch((error) => {
+          alert(error);
+        });
+      const updatedUserRef = firebase.firestore().collection("users");
+      // console.log('updatedUserRef.doc(userId).onSnapshot(function(doc) { console.log(expoPushToken" , doc.data().expoPushToken', updatedUserRef.doc(userId).onSnapshot(function(doc) { console.log("expoPushToken:" , doc.data().expoPushToken)}))
+      console.log("Set Expo Notification Token successfully");
+
+      // await SecureStore.setItemAsync('expoPushToken', token)
+      // let token2 = await SecureStore.getItemAsync('expoPushToken')
+      // console.log('token 2:', token2)
+    } else {
+      alert("Must use physical device for Push Notifications");
+    }
+
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("default", {
+        name: "default",
+        importance: Notifications.AndroidImportance.MAX,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: "#FF231F7C",
+      });
+    }
   };
 
-  _handleNotificationResponse = (response) => {
-    console.log(response);
-  };
+  // _handleNotification = (notification) => {
+  //   setNotification({ notification: notification });
+  // };
+
+  // _handleNotificationResponse = (response) => {
+  //   console.log(response);
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
