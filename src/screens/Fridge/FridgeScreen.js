@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import { Ionicons } from "@expo/vector-icons";
+
+import * as Notifications from "expo-notifications";
+
+// This refers to the function defined earlier in this guide, in Push Notifications Set Up
+import { registerForPushNotificationsAsync } from "../LoginScreen/SignUpScreen";
 
 import {
   View,
@@ -14,14 +21,35 @@ import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
 import styles from "./fridge-style";
 import FridgeItemView from "./components/FridgeItemView";
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 function FridgeScreen({ navigation }) {
   const { fridgeState, dispatch } = useStorage();
+  const [ notification, setNotification ] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     console.log("infinite loop?");
     fetchFridgeItems(dispatch);
+    Notifications.addNotificationReceivedListener(_handleNotification);
+    Notifications.addNotificationResponseReceivedListener(
+      _handleNotificationResponse
+    );
   }, []);
+
+  _handleNotification = (notification) => {
+    setNotification({ notification: notification });
+  };
+
+  _handleNotificationResponse = (response) => {
+    console.log(response);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
