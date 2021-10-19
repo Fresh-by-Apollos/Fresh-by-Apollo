@@ -1,12 +1,14 @@
-import { StyleSheet } from "react-native";
-import { Dimensions } from "react-native";
+import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
 
-const deviceWidth = Math.round(Dimensions.get("window").width);
+const deviceWidth = Math.round(Dimensions.get('window').width);
 const offset = 40;
 const radius = 20;
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: 'column',
+    height: '100%',
+    width: '100%',
   },
 
   title: {
@@ -14,27 +16,25 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 40,
-    backgroundColor: "#4C956C",
-    color: "white",
-    fontWeight: "bold",
+    backgroundColor: '#4C956C',
+    color: 'white',
+    fontWeight: 'bold',
   },
 
   imageContainer: {
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 10,
-    marginBottom: 10,
-    flexDirection: "column",
-    alignItems: "center",
+    margin: '2%',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    height: '90%',
+    width: '27%',
   },
 
   otherData: {
-    flexDirection: "column",
-    alignItems: "flex-start",
-    marginLeft: 15,
-    marginTop: 10,
-    marginBottom: 10,
-    flexShrink: 1,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    height: '100%',
+    width: '40%',
   },
 
   scrollView: {},
@@ -44,33 +44,57 @@ const styles = StyleSheet.create({
   },
 
   notEmpty: {
-    flex: 1,
-    flexDirection: "column",
-    top: 40
+    flexDirection: 'column',
+    marginTop: '15%',
+    height: '100%',
+    width: '100%',
   },
 
   image: {
-    height: 100,
-    width: 100,
+    height: '100%',
+    width: '100%',
+    resizeMode: 'contain',
   },
 
   fridgeItems: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 10,
-    marginRight: 10,
-    flexDirection: "row",
-    backgroundColor: "white",
+    flexDirection: 'row',
+    width: '93%',
+    height: '40%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: '3%',
+    padding: '4%',
     borderRadius: 15,
+    backgroundColor: 'white',
 
-    shadowColor: "green",
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    shadowOpacity: 0.15,
+    // shadowColor: 'green',
+    // shadowOffset: {
+    //   width: 1,
+    //   height: 1,
+    // },
+    shadowOpacity: 0.1,
     shadowRadius: 5,
-    // borderBottomColor: "black",
+    // // borderBottomColor: "black",
+  },
+
+  dotModal: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    height: '50%',
+    width: '100%',
+    padding: '3%',
+  },
+
+  dotModalItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '3%',
+  },
+
+  expireText: {
+    fontWeight: 'bold',
   },
 
   baseText: {
@@ -78,14 +102,12 @@ const styles = StyleSheet.create({
   },
 
   itemNameText: {
-    position: "absolute",
-    top: 7,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     maxWidth: 200,
   },
 
   icon: {
-    position: "absolute",
+    position: 'absolute',
     top: 3,
     left: 215,
   },
@@ -93,20 +115,20 @@ const styles = StyleSheet.create({
   statsIcon: {
     position: 'absolute',
     top: 10,
-    right: 10
+    right: 10,
   },
 
   statsArrowIcon: {
     position: 'absolute',
     top: 10,
-    right: 30
+    right: 30,
   },
 
   // -----------
   centeredView: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     marginTop: 22,
   },
 
@@ -114,11 +136,11 @@ const styles = StyleSheet.create({
     width: deviceWidth,
     height: 550,
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -132,30 +154,30 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    backgroundColor: "#4C956C",
+    backgroundColor: '#4C956C',
   },
 
   buttonOpen: {
-    backgroundColor: "#4C956C",
+    backgroundColor: '#4C956C',
   },
 
   buttonClose: {
-    backgroundColor: "#4C956C",
+    backgroundColor: '#4C956C',
   },
 
   buttonClose1: {
-    backgroundColor: "red",
+    backgroundColor: 'red',
   },
 
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 
   modalText: {
     marginBottom: 15,
-    textAlign: "center",
+    textAlign: 'center',
   },
 });
 
