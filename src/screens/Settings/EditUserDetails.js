@@ -18,7 +18,7 @@ const EditUserDetails = ({ navigation }) => {
     <SafeAreaView style={styles.userContainer}>
       <SafeAreaView style={styles.userBodyContainer}>
         <SafeAreaView style={styles.inputContainer}>
-          <Text>First Name</Text>
+          <Text style={styles.settingsTextHeader}>First Name</Text>
           <TextInput
             style={styles.inputStyle}
             autoFocus={true}
@@ -33,7 +33,7 @@ const EditUserDetails = ({ navigation }) => {
           />
         </SafeAreaView>
         <SafeAreaView style={styles.inputContainer}>
-          <Text>Last Name</Text>
+          <Text style={styles.settingsTextHeader}>Last Name</Text>
           <TextInput
             style={styles.inputStyle}
             clearButtonMode="while-editing"
@@ -48,11 +48,12 @@ const EditUserDetails = ({ navigation }) => {
         </SafeAreaView>
       </SafeAreaView>
       <TouchableOpacity
+        style={styles.submitBtn}
         onPress={() => {
           handleSubmit(firstNameInput, lastNameInput);
         }}
       >
-        <Text>Save</Text>
+        <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

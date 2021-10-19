@@ -93,7 +93,6 @@ export const updateUserPassword = async (newPassword, password, dispatch) => {
   try {
     const currentUser = firebase.auth().currentUser;
     const userRef = firebase.firestore().collection('users');
-    const user = userRef.doc(currentUser.uid);
     const credential = firebase.auth.EmailAuthProvider.credential(
       currentUser.email,
       password

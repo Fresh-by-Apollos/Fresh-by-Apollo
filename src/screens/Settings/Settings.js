@@ -10,7 +10,7 @@ import styles from './styles';
 
 export default Settings = ({ navigation }) => {
   const { userState, dispatch } = useStorage();
-  const { firstName, lastName, email, allergies, dietRestrictions } = userState;
+  const { firstName, lastName, email } = userState;
 
   async function onSignOut() {
     await signOut();

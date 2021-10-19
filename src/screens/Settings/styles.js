@@ -110,10 +110,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#D54C4C',
+    backgroundColor: '#4C956C',
     borderRadius: 15,
     height: '5%',
-    width: '60%',
+    width: '70%',
   },
   // Edit Allergies Container
   alContainer: {
