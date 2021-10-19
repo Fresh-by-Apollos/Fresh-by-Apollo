@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import firebase from 'firebase';
 
 //
-import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+import { VictoryPie } from "victory-native";
 const data = [
   { quarter: 1, earnings: 13000 },
   { quarter: 2, earnings: 16500 },
@@ -82,9 +82,13 @@ function StatisticsScreen({ navigation }) {
       />
       <SafeAreaView style={styles.currentFridgeContainer}>
 
-        <VictoryChart width={350} theme={VictoryTheme.material}>
-          <VictoryBar data={data} x="quarter" y="earnings" />
-        </VictoryChart>
+        <VictoryPie
+          data={[
+            { x: 'Protein', y: totalMacros.protein },
+            { x: 'Carbs', y: totalMacros.carbs },
+            { x: 'Fat', y: totalMacros.fat }
+          ]}
+        />
 
         <Text style={styles.header}>Current Fridge Stats</Text>
         <View style={{ borderBottomColor: 'black', borderBottomWidth: 2, width: 370 }} />
