@@ -88,6 +88,7 @@ function StatisticsScreen({ navigation }) {
             { x: 'Carbs', y: totalMacros.carbs },
             { x: 'Fat', y: totalMacros.fat }
           ]}
+          colorScale={[ '#5CB44E', '#5A7BCE', '#CE5A5A' ]}
         />
 
         <Text style={styles.header}>Current Fridge Stats</Text>
