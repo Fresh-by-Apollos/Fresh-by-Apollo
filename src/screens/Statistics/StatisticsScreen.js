@@ -89,6 +89,8 @@ function StatisticsScreen({ navigation }) {
             { x: 'Fat', y: totalMacros.fat }
           ]}
           colorScale={[ '#5CB44E', '#5A7BCE', '#CE5A5A' ]}
+          padAngle={2}
+          innerRadius={65}
         />
 
         <Text style={styles.header}>Current Fridge Stats</Text>
