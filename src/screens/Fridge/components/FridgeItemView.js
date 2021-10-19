@@ -8,26 +8,26 @@ import {
   TouchableOpacity,
   Pressable,
   Modal,
-} from "react-native";
-import React, { useState } from "react";
-import styles from "../fridge-style";
+} from 'react-native';
+import React, { useState } from 'react';
+import styles from '../fridge-style';
 
 // Icons
-import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 // Libaries
-import { formatDistance } from "date-fns";
-import NumericInput from "react-native-numeric-input";
+import { formatDistance } from 'date-fns';
+import NumericInput from 'react-native-numeric-input';
 
 // Context
 import {
   fetchFridgeItems,
   updateFridgeItem,
-} from "../../../store/reducers/fridgeReducer";
-import { useStorage } from "../../../store/Context";
+} from '../../../store/reducers/fridgeReducer';
+import { useStorage } from '../../../store/Context';
 
 function FridgeItemView({ item, navigation }) {
   const { dispatch } = useStorage();
@@ -35,6 +35,9 @@ function FridgeItemView({ item, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [servings, setServings] = useState(1);
   const [trashing, setTrashing] = useState(false);
+  const [timeToExpire] = useState(
+    new Date(item.expirationDate.seconds * 1000) - new Date()
+  );
 
   const handleAction = async (wasConsumed) => {
     let consumedAll = servings === item.servings || trashing;
@@ -60,7 +63,7 @@ function FridgeItemView({ item, navigation }) {
       <TouchableOpacity
         style={styles.fridgeItems}
         onPress={() => {
-          navigation.navigate("Selected Item", {
+          navigation.navigate('Selected Item', {
             name: item.name,
             expirationDate: item.expirationDate,
             servings: item.servings,
@@ -77,88 +80,18 @@ function FridgeItemView({ item, navigation }) {
           <Image style={styles.image} source={{ uri: item.imageUrl }} />
         </SafeAreaView>
         <SafeAreaView style={styles.otherData}>
-          {/* capitalize first letter */}
-          <View>
-            <Text style={styles.itemNameText}>
-              {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-            </Text>
-            <TouchableOpacity
-              style={showButtons && { display: "none" }}
-              onPress={() => setShowButtons(true)}
-            >
-              <MaterialCommunityIcons
-                style={styles.icon}
-                name="dots-horizontal-circle-outline"
-                size={32}
-                color="darkgray"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={!showButtons && { display: "none" }}
-              onPress={() => setShowButtons(false)}
-            >
-              <Ionicons
-                style={styles.icon}
-                name="md-arrow-back-circle-outline"
-                size={32}
-                color="darkgray"
-              />
-            </TouchableOpacity>
-
-            <View
-              style={
-                !showButtons
-                  ? { display: "none" }
-                  : {
-                      backgroundColor: "white",
-                      position: "absolute",
-                      left: 150,
-                      top: 40,
-                    }
-              }
-            >
-              <TouchableOpacity
-                onPress={() => setModalVisible(true)}
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  borderStyle: "solid",
-                  borderBottomWidth: 1,
-                  borderBottomColor: "gray",
-                  marginBottom: 2,
-                }}
-              >
-                <Ionicons
-                  style={{ marginRight: 6, marginBottom: 3 }}
-                  name="fast-food-outline"
-                  size={24}
-                  color="green"
-                />
-                <Text>Consume</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => {
-                  setModalVisible(true);
-                  setTrashing(true);
-                }}
-                style={{ flexDirection: "row", alignItems: "center" }}
-              >
-                <FontAwesome
-                  style={{ marginRight: 9 }}
-                  name="trash-o"
-                  size={24}
-                  color="orange"
-                />
-                <Text>Throw out</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={{ marginTop: 42, width: 162 }}>
+          <Text style={styles.itemNameText}>
+            {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+          </Text>
+          <SafeAreaView>
             <Text>Servings: {item.servings}</Text>
-            <Text>
-              Expires:{" "}
+            <Text
+              style={{
+                color: timeToExpire > 0 ? 'black' : '#D54C4C',
+                ...styles.expireText,
+              }}
+            >
+              {timeToExpire > 0 ? 'Expires ' : 'Expired '}
               {formatDistance(
                 new Date(item.expirationDate.seconds * 1000),
                 new Date(),
@@ -166,28 +99,71 @@ function FridgeItemView({ item, navigation }) {
               )}
             </Text>
             <Text style={styles.baseText}>
-              Allergens:{" "}
-              {item.allergens.length ? item.allergens.join(", ") : "N/A"}
+              Allergens:{' '}
+              {item.allergens.length ? item.allergens.join(', ') : 'N/A'}
             </Text>
             <Text style={styles.baseText}>
-              Diet Flags:{" "}
-              {item.dietFlags.length ? item.dietFlags.join(", ") : "N/A"}
+              Diet Flags:{' '}
+              {item.dietFlags.length ? item.dietFlags.join(', ') : 'N/A'}
             </Text>
+          </SafeAreaView>
+        </SafeAreaView>
+        <SafeAreaView>
+          <TouchableOpacity
+            style={showButtons && { display: 'none' }}
+            onPress={() => setShowButtons(true)}
+          >
+            <MaterialCommunityIcons
+              name="dots-horizontal-circle-outline"
+              size={32}
+              color="darkgray"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={!showButtons && { display: 'none' }}
+            onPress={() => setShowButtons(false)}
+          >
+            <Ionicons
+              name="md-arrow-forward-circle-outline"
+              size={32}
+              color="darkgray"
+            />
+          </TouchableOpacity>
+          <View style={!showButtons ? { display: 'none' } : styles.dotModal}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(true)}
+              style={styles.dotModalItem}
+            >
+              <Ionicons name="fast-food-outline" size={24} color="#4C956C" />
+              <Text>Consume</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                setModalVisible(true);
+                setTrashing(true);
+              }}
+              style={styles.dotModalItem}
+            >
+              <FontAwesome name="trash-o" size={24} color="#D54C4C" />
+              <Text>Throw out</Text>
+            </TouchableOpacity>
           </View>
         </SafeAreaView>
       </TouchableOpacity>
+
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
+          Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}
       >
         <View style={styles.centeredView}>
           <Pressable
-            style={{ backgroundColor: "lightgray", borderRadius: 50 }}
+            style={{ backgroundColor: 'lightgray', borderRadius: 50 }}
             onPress={() => {
               setModalVisible(!modalVisible);
               setServings(1);
@@ -231,7 +207,7 @@ function FridgeItemView({ item, navigation }) {
                   valueType="real"
                   rounded
                   textColor="black"
-                  iconStyle={{ color: "white" }}
+                  iconStyle={{ color: 'white' }}
                   rightButtonBackgroundColor="gray"
                   leftButtonBackgroundColor="lightgray"
                 />

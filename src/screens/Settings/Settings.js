@@ -10,7 +10,7 @@ import styles from './styles';
 
 export default Settings = ({ navigation }) => {
   const { userState, dispatch } = useStorage();
-  const { firstName, lastName, email, allergies, dietRestrictions } = userState;
+  const { firstName, lastName, email } = userState;
 
   async function onSignOut() {
     await signOut();
@@ -37,7 +37,12 @@ export default Settings = ({ navigation }) => {
             </SafeAreaView>
             <AntDesign name="right" size={24} color="black" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsBtn}>
+          <TouchableOpacity
+            style={styles.settingsBtn}
+            onPress={() => {
+              navigation.navigate('ChangeEmail');
+            }}
+          >
             <SafeAreaView style={styles.settingsDetail}>
               <MaterialCommunityIcons
                 name="email-outline"
@@ -48,7 +53,12 @@ export default Settings = ({ navigation }) => {
             </SafeAreaView>
             <AntDesign name="right" size={24} color="black" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsBtn}>
+          <TouchableOpacity
+            style={styles.settingsBtn}
+            onPress={() => {
+              navigation.navigate('ChangePassword');
+            }}
+          >
             <SafeAreaView style={styles.settingsDetail}>
               <MaterialCommunityIcons
                 name="onepassword"
