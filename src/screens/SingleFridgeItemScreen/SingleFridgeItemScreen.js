@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, SafeAreaView, ScrollView, Image } from "react-native";
 import styles from "./single-fridge-item-style";
 import { formatDistance } from "date-fns";
@@ -16,6 +16,7 @@ function SingleFridgeItemScreen({ route }) {
     carbs,
     fat,
   } = route.params;
+  const [ timeToExpire ] = useState(new Date(expirationDate.seconds * 1000) - new Date())
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,8 +30,13 @@ function SingleFridgeItemScreen({ route }) {
               <Text> </Text>
               <Text style={styles.baseText}>Servings: {servings}</Text>
               <Text> </Text>
-              <Text style={styles.baseText}>
-                Expires:{" "}
+              <Text
+              style={{
+                color: timeToExpire > 0 ? 'black' : '#D54C4C',
+                ...styles.baseText,
+              }}
+              >
+                {timeToExpire > 0 ? 'Expires ' : 'Expired '}
                 {formatDistance(
                   new Date(expirationDate.seconds * 1000),
                   new Date(),
