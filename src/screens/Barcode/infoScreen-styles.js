@@ -107,11 +107,7 @@ const styles = StyleSheet.create({
   imageStyle: {
     height: 90,
     width: 40,
-    // borderTopLeftRadius: radius,
-    // borderTopRightRadius: radius,
     opacity: 0.9,
-    // alignContent: "center",
-    // alignSelf: "center",
     marginLeft: 30,
     marginTop: 10,
     resizeMode: 'contain',

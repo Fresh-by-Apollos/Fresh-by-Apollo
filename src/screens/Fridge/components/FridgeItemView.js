@@ -229,7 +229,7 @@ function FridgeItemView({ item, navigation }) {
                 <NumericInput
                   value={servings}
                   onChange={(value) => setServings(value)}
-                  maxValue={item.servings}
+                  maxValue={Number(item.servings)}
                   minValue={1}
                   onLimitReached={(isMax, msg) => console.log(isMax, msg)}
                   totalWidth={120}
