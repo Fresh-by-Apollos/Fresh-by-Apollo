@@ -22,13 +22,13 @@ function SingleFridgeItemScreen({ route }) {
       {/* <Text style={styles.title}>Selected Item</Text> */}
       <ScrollView>
         <View>
-          <SafeAreaView style={styles.imageContainer}>
+          <SafeAreaView style={styles.dataContainer}>
             <Image style={styles.image} source={{ uri: imageUrl }} />
-          </SafeAreaView>
-          <SafeAreaView style={styles.otherData}>
+            <SafeAreaView style={styles.textContainer}>
             <Text style={styles.baseText}>Item Name: {name}</Text>
             <Text> </Text>
             <Text style={styles.baseText}>Servings: {servings}</Text>
+            <Text> </Text>
             <Text style={styles.baseText}>
               Expires:{" "}
               {formatDistance(
@@ -45,6 +45,7 @@ function SingleFridgeItemScreen({ route }) {
               Diet Flags:{" "}
               {dietFlags.length ? dietFlags.join(", ") : "N/A"}
             </Text> */}
+            </SafeAreaView>
           </SafeAreaView>
           <SafeAreaView>
             <VictoryLegend

@@ -2,33 +2,24 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
-  nutritionText: {
-    fontSize: 18,
-    fontWeight: 'bold'
-  },
-  baseText: {
-    fontSize: 18
-  },
-  imageContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
+  dataContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
   },
   image: {
-    height: 250,
-    width: 250,
-    marginTop: 10,
-    marginBottom: 10
-  },
-  otherData: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    marginLeft: 20,
+    height: 200,
+    width: 200,
     marginTop: 10,
     marginBottom: 10,
+  },
+  textContainer: {
+    top: 35
+  },
+  baseText: {
+    fontSize: 20
   }
-
 });
 
 export default styles;
