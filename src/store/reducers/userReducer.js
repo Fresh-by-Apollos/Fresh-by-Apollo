@@ -1,11 +1,11 @@
-import firebase from '../../firebase/firebase';
+import firebase from "../../firebase/firebase";
 
 // initial State
 export const userState = {};
 
 // Action Types
-const SET_USER = 'SET_USER';
-const UPDATE_USER_DIET = 'UPDATE_USER_DIET';
+const SET_USER = "SET_USER";
+const UPDATE_USER_DIET = "UPDATE_USER_DIET";
 
 // Action Creators
 export const _setUser = (user) => {
@@ -26,8 +26,8 @@ export const _updateUserDiet = (user) => {
 export const updateUserDiet = async (diet, allergies, dispatch) => {
   try {
     const uid = firebase.auth().currentUser.uid;
-    const usersRef = firebase.firestore().collection('users');
-    const user = firebase.firestore().collection('users').doc(uid);
+    const usersRef = firebase.firestore().collection("users");
+    const user = firebase.firestore().collection("users").doc(uid);
 
     user.update({
       allergies: allergies,
@@ -37,8 +37,8 @@ export const updateUserDiet = async (diet, allergies, dispatch) => {
 
     const updatedUser = (await usersRef.doc(uid).get()).data();
     dispatch(_updateUserDiet(updatedUser));
-    alert('User updated!');
-    console.log(updatedUser);
+    alert("User updated!");
+    // console.log(updatedUser);
   } catch (error) {
     console.error(error);
   }

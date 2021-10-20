@@ -8,17 +8,17 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
+import { fetchFridgeItems } from "../../../store/reducers/fridgeReducer";
 import DatePicker from "react-native-neat-date-picker";
 import {
   addFridgeItem,
   removeScannedItem,
-} from "../../store/reducers/barcodeReducer";
+} from "../../../store/reducers/barcodeReducer";
 import NumericInput from "react-native-numeric-input";
 
-import { useStorage } from "../../store/Context";
+import { useStorage } from "../../../store/Context";
 
-export default InfoScreen = ({ setModalVisible, navigation }) => {
+export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
   const { scannedItem, dispatch } = useStorage();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [dateObj, setDateObj] = useState();
@@ -39,7 +39,12 @@ export default InfoScreen = ({ setModalVisible, navigation }) => {
 
   const addtoFridge = async () => {
     setModalVisible(false);
-    const itemData = { ...scannedItem, expirationDate: dateObj, servings };
+    const itemData = {
+      ...scannedItem,
+      expirationDate: dateObj,
+      servings,
+      storageType: "pantry",
+    };
     await addFridgeItem(itemData);
     fetchFridgeItems(dispatch);
     removeScannedItem(dispatch);

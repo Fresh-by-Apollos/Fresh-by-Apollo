@@ -10,7 +10,8 @@ import {
 } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useStorage } from "../../store/Context";
-import InfoScreen from "./InfoScreen";
+import InfoScreen from "./Modals/BarcodeLookUpModal";
+import { AntDesign } from "@expo/vector-icons";
 
 import {
   addFridgeItem,
