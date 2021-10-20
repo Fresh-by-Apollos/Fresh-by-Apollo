@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     margin: '2%',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    height: '90%',
+    height: '80%',
     width: '27%',
   },
 
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   fridgeItems: {
     flexDirection: 'row',
     width: '93%',
-    height: '40%',
+    height: '30%',
     alignItems: 'center',
     justifyContent: 'space-between',
     margin: '3%',
@@ -126,20 +126,24 @@ const styles = StyleSheet.create({
 
   // -----------
   centeredView: {
-    flex: 1,
-    justifyContent: 'flex-end',
+    height: '50%',
+    width: '100%',
+    marginTop: '140%',
+    flexDirection: 'column',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
 
   modalView: {
     width: deviceWidth,
-    height: 550,
-    margin: 20,
+    height: '100%',
+    margin: '2%',
     backgroundColor: 'white',
+    paddingTop: 0,
+    padding: '10%',
     borderRadius: 20,
-    padding: 35,
     alignItems: 'center',
+    justifyContent: 'flex-start',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -155,6 +159,8 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
     backgroundColor: '#4C956C',
+    marginTop: '7%',
+    width: '45%',
   },
 
   buttonOpen: {
@@ -166,7 +172,7 @@ const styles = StyleSheet.create({
   },
 
   buttonClose1: {
-    backgroundColor: 'red',
+    backgroundColor: '#D54C4C',
   },
 
   textStyle: {
@@ -175,9 +181,39 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  modalText: {
-    marginBottom: 15,
+  modalHeader: {
+    width: deviceWidth,
+    height: '10%',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '7%',
+  },
+
+  modalHeaderText: {
+    fontWeight: 'bold',
+    fontSize: 18,
     textAlign: 'center',
+    color: 'white',
+    marginRight: '8%',
+  },
+
+  modalCancel: {
+    marginLeft: '4%',
+  },
+
+  throwOutBtnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '90%',
+    marginTop: '5%',
+  },
+
+  modalDetail: {
+    fontSize: 15,
+    marginBottom: '7%',
   },
 });
 
