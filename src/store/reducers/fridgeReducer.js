@@ -54,7 +54,7 @@ const addPastFridgeItem = async (info, amount) => {
       .collection(`/users/${userId}/pastFridge`);
 
     const snapshot = await fridgeRef.get();
-    console.log(info);
+    // console.log(info);
     const result = [];
     snapshot.forEach((doc) => {
       result.push({

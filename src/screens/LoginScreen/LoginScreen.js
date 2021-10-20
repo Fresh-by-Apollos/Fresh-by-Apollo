@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { SafeAreaView, Text, TextInput, TouchableOpacity } from 'react-native';
-import styles from './styles';
-import { login } from '../../firebase/auth/auth';
+import React, { useState } from "react";
+import { SafeAreaView, Text, TextInput, TouchableOpacity } from "react-native";
+import styles from "./styles";
+import { login } from "../../firebase/auth/auth";
 
 const LoginScreen = ({ navigation }) => {
-  const [emailInput, setEmailInput] = useState('');
-  const [passwordInput, setPasswordInput] = useState('');
+  const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
 
   async function onSubmit(email, password) {
     await login(email, password);
   }
+  // https://spoonacular.com/cdn/ingredients_100x100/
 
+  // https://api.spoonacular.com/food/ingredients/search?query=steak&apiKey=fb5674256e7b41928221101869eae05c
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={styles.titleContainer}>
@@ -45,7 +47,7 @@ const LoginScreen = ({ navigation }) => {
         />
         <Text
           onPress={() => {
-            navigation.navigate('SignUpScreen');
+            navigation.navigate("SignUpScreen");
           }}
         >
           Need an Account? Sign Up

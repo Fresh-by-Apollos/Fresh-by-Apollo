@@ -1,11 +1,11 @@
-import firebase from '../../firebase/firebase';
+import firebase from "../../firebase/firebase";
 
 // initial State
 export const userState = {};
 
 // Action Types
-const SET_USER = 'SET_USER';
-const UPDATE_USER = 'UPDATE_USER';
+const SET_USER = "SET_USER";
+const UPDATE_USER = "UPDATE_USER";
 
 // Action Creators
 export const _setUser = (user) => {
@@ -26,8 +26,8 @@ export const _updateUser = (user) => {
 export const setUserDietAllergies = async (diet, allergies, dispatch) => {
   try {
     const uid = firebase.auth().currentUser.uid;
-    const usersRef = firebase.firestore().collection('users');
-    const user = firebase.firestore().collection('users').doc(uid);
+    const usersRef = firebase.firestore().collection("users");
+    const user = firebase.firestore().collection("users").doc(uid);
 
     user.update({
       allergies: allergies,
@@ -37,7 +37,7 @@ export const setUserDietAllergies = async (diet, allergies, dispatch) => {
 
     const updatedUser = (await usersRef.doc(uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert('User updated!');
+    alert("User updated!");
     console.log(updatedUser);
   } catch (error) {
     console.error(error);
@@ -47,7 +47,7 @@ export const setUserDietAllergies = async (diet, allergies, dispatch) => {
 export const updateUserDetails = async (firstName, lastName, dispatch) => {
   try {
     const uid = firebase.auth().currentUser.uid;
-    const userRef = firebase.firestore().collection('users');
+    const userRef = firebase.firestore().collection("users");
     const user = userRef.doc(uid);
 
     user.update({
@@ -57,7 +57,7 @@ export const updateUserDetails = async (firstName, lastName, dispatch) => {
 
     const updatedUser = (await userRef.doc(uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert('User updated!');
+    alert("User updated!");
   } catch (error) {
     console.error(error);
   }
@@ -66,7 +66,7 @@ export const updateUserDetails = async (firstName, lastName, dispatch) => {
 export const updateUserEmail = async (email, password, dispatch) => {
   try {
     const currentUser = firebase.auth().currentUser;
-    const userRef = firebase.firestore().collection('users');
+    const userRef = firebase.firestore().collection("users");
     const user = userRef.doc(currentUser.uid);
     const credential = firebase.auth.EmailAuthProvider.credential(
       currentUser.email,
@@ -83,7 +83,7 @@ export const updateUserEmail = async (email, password, dispatch) => {
 
     const updatedUser = (await userRef.doc(currentUser.uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert('Email updated!');
+    alert("Email updated!");
   } catch (error) {
     console.error(error);
   }
@@ -92,7 +92,7 @@ export const updateUserEmail = async (email, password, dispatch) => {
 export const updateUserPassword = async (newPassword, password, dispatch) => {
   try {
     const currentUser = firebase.auth().currentUser;
-    const userRef = firebase.firestore().collection('users');
+    const userRef = firebase.firestore().collection("users");
     const credential = firebase.auth.EmailAuthProvider.credential(
       currentUser.email,
       password
@@ -103,7 +103,7 @@ export const updateUserPassword = async (newPassword, password, dispatch) => {
     await currentUser.updatePassword(newPassword);
     const updatedUser = (await userRef.doc(currentUser.uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert('Password updated!');
+    alert("Password updated!");
   } catch (error) {
     console.error(error);
   }
@@ -112,7 +112,7 @@ export const updateUserPassword = async (newPassword, password, dispatch) => {
 export const updateAllergies = async (allergies, dispatch) => {
   try {
     const uid = firebase.auth().currentUser.uid;
-    const userRef = firebase.firestore().collection('users');
+    const userRef = firebase.firestore().collection("users");
     const user = userRef.doc(uid);
 
     user.update({
@@ -121,7 +121,7 @@ export const updateAllergies = async (allergies, dispatch) => {
 
     const updatedUser = (await userRef.doc(uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert('Allergies updated!');
+    alert("Allergies updated!");
   } catch (error) {
     console.error(error);
   }
@@ -130,7 +130,7 @@ export const updateAllergies = async (allergies, dispatch) => {
 export const updateDietRestrictions = async (diet, dispatch) => {
   try {
     const uid = firebase.auth().currentUser.uid;
-    const userRef = firebase.firestore().collection('users');
+    const userRef = firebase.firestore().collection("users");
     const user = userRef.doc(uid);
 
     user.update({
@@ -139,7 +139,7 @@ export const updateDietRestrictions = async (diet, dispatch) => {
 
     const updatedUser = (await userRef.doc(uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert('Diet updated!');
+    alert("Diet updated!");
   } catch (error) {
     console.error(error);
   }

@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Text, Pressable, View, Button, Image } from 'react-native';
-import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
-import DatePicker from 'react-native-neat-date-picker';
+import React, { useState } from "react";
+import { Text, Pressable, View, Button, Image } from "react-native";
+import { fetchFridgeItems } from "../../../store/reducers/fridgeReducer";
+import DatePicker from "react-native-neat-date-picker";
 import {
   addFridgeItem,
   removeScannedItem,
-} from '../../store/reducers/barcodeReducer';
-import NumericInput from 'react-native-numeric-input';
-import styles from './infoScreen-styles';
-import { useStorage } from '../../store/Context';
+} from "../../../store/reducers/barcodeReducer";
+import NumericInput from "react-native-numeric-input";
+import styles from "../infoScreen-styles";
+import { useStorage } from "../../../store/Context";
 
-import { MaterialIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
-export default InfoScreen = ({ setModalVisible, navigation }) => {
+export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
   const { scannedItem, dispatch } = useStorage();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [dateObj, setDateObj] = useState();
@@ -34,7 +34,12 @@ export default InfoScreen = ({ setModalVisible, navigation }) => {
 
   const addtoFridge = async () => {
     setModalVisible(false);
-    const itemData = { ...scannedItem, expirationDate: dateObj, servings };
+    const itemData = {
+      ...scannedItem,
+      expirationDate: dateObj,
+      servings,
+      storageType: "pantry",
+    };
     await addFridgeItem(itemData);
     fetchFridgeItems(dispatch);
     removeScannedItem(dispatch);
@@ -52,7 +57,7 @@ export default InfoScreen = ({ setModalVisible, navigation }) => {
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
         <View style={styles.headerContainer}>
-          <View style={{ marginLeft: '3%' }}>
+          <View style={{ marginLeft: "3%" }}>
             <MaterialIcons name="cancel" size={24} color="white" />
           </View>
           <Text style={styles.headerText}>Add Item</Text>
@@ -82,7 +87,7 @@ export default InfoScreen = ({ setModalVisible, navigation }) => {
           valueType="real"
           rounded
           textColor="black"
-          iconStyle={{ color: 'white' }}
+          iconStyle={{ color: "white" }}
           rightButtonBackgroundColor="gray"
           leftButtonBackgroundColor="lightgray"
         />
@@ -96,7 +101,7 @@ export default InfoScreen = ({ setModalVisible, navigation }) => {
           </Pressable>
           <DatePicker
             isVisible={showDatePicker}
-            mode={'single'}
+            mode={"single"}
             onCancel={onCancel}
             onConfirm={onConfirm}
           />

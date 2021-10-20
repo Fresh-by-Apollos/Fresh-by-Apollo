@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button, Modal, Alert } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import { useStorage } from '../../store/Context';
-import InfoScreen from './InfoScreen';
-import styles from './styles';
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, Button, Modal, Alert } from "react-native";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { useStorage } from "../../store/Context";
+
+import BarcodeLookUpModal from "./Modals/BarcodeLookUpModal";
+import styles from "./styles";
 
 import {
   addFridgeItem,
   getFoodData,
-} from '../../store/reducers/barcodeReducer';
+} from "../../store/reducers/barcodeReducer";
 
 //  070662035016  <-- Ramen Noodles Barcode:
 export default function BarcodeScreen({ navigation }) {
   const { dispatch, scannedItem } = useStorage();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState('Scan Barcode');
+  const [text, setText] = useState("Scan Barcode");
   const [modalVisible, setModalVisible] = useState(false);
 
   const askForCameraPermission = () => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      setHasPermission(status === "granted");
     })();
   };
 
@@ -52,7 +53,7 @@ export default function BarcodeScreen({ navigation }) {
       <View style={styles.container}>
         <Text style={{ margin: 10 }}>No access to camera</Text>
         <Button
-          title={'Allow Camera'}
+          title={"Allow Camera"}
           onPress={() => askForCameraPermission()}
         />
       </View>
@@ -67,11 +68,14 @@ export default function BarcodeScreen({ navigation }) {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
-        <InfoScreen setModalVisible={setModalVisible} navigation={navigation} />
+        <BarcodeLookUpModal
+          setModalVisible={setModalVisible}
+          navigation={navigation}
+        />
       </Modal>
 
       <View style={styles.barcodebox}>
@@ -83,7 +87,7 @@ export default function BarcodeScreen({ navigation }) {
       <Text style={styles.maintext}>{text}</Text>
       {scanned && (
         <Button
-          title={'Scan again?'}
+          title={"Scan again?"}
           onPress={() => setScanned(false)}
           color="tomato"
         />

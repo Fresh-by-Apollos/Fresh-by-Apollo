@@ -52,7 +52,7 @@ function FridgeScreen({ navigation }) {
           </View>
         ) : (
           <View style={styles.notEmpty}>
-            {console.log(fridgeState)}
+            {/* {console.log(fridgeState)} */}
             {fridgeState.map((item) => (
               <FridgeItemView
                 key={
