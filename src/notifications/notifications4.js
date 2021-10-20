@@ -26,55 +26,46 @@ firestoreDb.settings({ timestampsInSnapshots: true });
 cron.schedule("*/1 * * * *", async function loadPushNotifications() {
   // Create the messages that you want to send to clients
   console.log("entered cron function");
+  let messages = [];
 
   const usersRef = firestoreDb.collection("users");
   console.log("usersRef:", usersRef);
 
-  const usersSnapshot = await usersRef.get();
-  console.log("usersSnapshot:", usersSnapshot);
+  const usersSnapshot = await usersRef.get()
+  console.log("usersSnapshot:", usersSnapshot)
 
   usersSnapshot.forEach(async (user) => {
-    let token = user.data().expoPushToken;
+    let token = user.data().expoPushToken
     if (token) {
-      let userId = user.id;
-      let fridgeRef = firestoreDb
-        .collection(`/users/${userId}/currentFridge`)
-        .orderBy("expirationDate", "asc");
-      let fridgeSnapshot = await fridgeRef.get();
-      let currDate = new Date();
-      fridgeSnapshot.forEach(async (fridgeItem) => {
-        let expirationDate = new Date(
-          fridgeItem.data().expirationDate.seconds * 1000
-        );
-        let timeDifference = differenceInCalendarDays(expirationDate, currDate);
-        if (timeDifference === 1 || timeDifference === 3) {
-          console.log("entered valid time difference");
-          let message = [{
+      let userId = user.id
+      let fridgeRef = firestoreDb.collection(`/users/${userId}/currentFridge`).orderBy("expirationDate", "asc")
+      let fridgeSnapshot = await fridgeRef.get()
+      let currDate = new Date()
+      fridgeSnapshot.forEach((fridgeItem) => {
+        let expirationDate = new Date(fridgeItem.data().expirationDate.seconds * 1000)
+        let timeDifference = differenceInCalendarDays(expirationDate, currDate)
+        if (timeDifference === 1 || timeDifference === 3){
+          console.log('entered valid time difference')
+          let obj = {
             to: token,
             sound: "default",
-            body: `${user.data().firstName} ${
-              user.data().lastName
-            }: Your item, ${
-              fridgeItem.data().name
-            }, is set to expire in ${timeDifference} day(s)`,
-            data: { withSome: "data" },
-          }];
-          try {
-            let ticketMessage = await expo.sendPushNotificationsAsync(message);
-            console.log(ticketMessage);
-          } catch (error) {
-            console.log(error);
+            body: `${user.data().firstName} ${user.data().lastName}: Your item, ${fridgeItem.data().name}, is set to expire in ${timeDifference} days`,
+            data: {withSome: "data"}
           }
+          messages.push(obj)
+          console.log('messages in time diff check:', messages)
         }
-      });
+      })
     }
-  });
+  })
+
+  console.log('messages outside of time diff check:', messages)
 
   // usersRef.onSnapshot((usersSnapshot2) => {
   //   console.log('usersSnapshot in onSnapshot:', usersSnapshot2)
   //   usersSnapshot2.forEach((user) => console.log('user.data() in usersRef.onSnapshot:', user.data()))
   // })
-});
+})
 
 // const usersSnapshot = await usersRef.get();
 // console.log('usersSnapshot:', usersSnapshot)
