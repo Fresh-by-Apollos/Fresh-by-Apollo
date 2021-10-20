@@ -14,7 +14,7 @@ import styles from '../fridge-style';
 
 // Icons
 import { Ionicons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -162,38 +162,70 @@ function FridgeItemView({ item, navigation }) {
         }}
       >
         <View style={styles.centeredView}>
-          <Pressable
-            style={{ backgroundColor: 'lightgray', borderRadius: 50 }}
-            onPress={() => {
-              setModalVisible(!modalVisible);
-              setServings(1);
-              setTrashing(false);
-            }}
-          >
-            <AntDesign name="downcircleo" size={45} color="black" />
-          </Pressable>
-
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-
             {trashing ? (
-              <View>
-                <Text>Are you sure you want to trash this item?</Text>
-                <Pressable
-                  style={[styles.button, styles.buttonClose1]}
-                  onPress={() => setModalVisible(false)}
+              <>
+                <SafeAreaView
+                  style={{
+                    backgroundColor: trashing ? '#D54C4C' : '#4C956C',
+                    ...styles.modalHeader,
+                  }}
                 >
-                  <Text style={styles.textStyle}>Cancel</Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.button, styles.buttonClose]}
-                  onPress={() => handleAction(false)}
-                >
-                  <Text style={styles.textStyle}>Submit</Text>
-                </Pressable>
-              </View>
+                  <Pressable
+                    style={styles.modalCancel}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                      setServings(1);
+                      setTrashing(false);
+                    }}
+                  >
+                    <MaterialIcons name="cancel" size={25} color="white" />
+                  </Pressable>
+                  <Text style={styles.modalHeaderText}>Throw Out Food</Text>
+                  <SafeAreaView></SafeAreaView>
+                </SafeAreaView>
+                <Text style={styles.modalDetail}>
+                  Are you sure you want to throw out this item?
+                </Text>
+                <SafeAreaView style={styles.throwOutBtnContainer}>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose1]}
+                    onPress={() => setModalVisible(false)}
+                  >
+                    <Text style={styles.textStyle}>Cancel</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => handleAction(false)}
+                  >
+                    <Text style={styles.textStyle}>Submit</Text>
+                  </Pressable>
+                </SafeAreaView>
+              </>
             ) : (
-              <View>
+              <>
+                <SafeAreaView
+                  style={{
+                    backgroundColor: trashing ? '#D54C4C' : '#4C956C',
+                    ...styles.modalHeader,
+                  }}
+                >
+                  <Pressable
+                    style={styles.modalCancel}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                      setServings(1);
+                      setTrashing(false);
+                    }}
+                  >
+                    <MaterialIcons name="cancel" size={25} color="white" />
+                  </Pressable>
+                  <Text style={styles.modalHeaderText}>Consume Food</Text>
+                  <SafeAreaView></SafeAreaView>
+                </SafeAreaView>
+                <Text style={styles.modalDetail}>
+                  How many servings did you consume?
+                </Text>
                 <NumericInput
                   value={servings}
                   onChange={(value) => setServings(value)}
@@ -217,7 +249,7 @@ function FridgeItemView({ item, navigation }) {
                 >
                   <Text style={styles.textStyle}>Submit</Text>
                 </Pressable>
-              </View>
+              </>
             )}
           </View>
         </View>

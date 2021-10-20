@@ -61,7 +61,7 @@ const ChangePassword = ({ navigation }) => {
         />
       </SafeAreaView>
       <SafeAreaView style={styles.emInputContainer}>
-        <Text style={styles.settingsTextHeader}>Password</Text>
+        <Text style={styles.settingsTextHeader}>Current Password</Text>
         <TextInput
           style={styles.inputStyle}
           clearButtonMode="always"
