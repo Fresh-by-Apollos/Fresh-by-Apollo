@@ -70,7 +70,6 @@ function SingleFridgeItemScreen({ route }) {
                 barWidth={35}
                 labels={({ datum }) => `${datum.y}g`}
               />
-
           </SafeAreaView>
         </View>
       </ScrollView>
