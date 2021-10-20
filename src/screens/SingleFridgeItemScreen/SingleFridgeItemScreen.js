@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, SafeAreaView, ScrollView, Image } from "react-native";
 import styles from "./single-fridge-item-style";
 import { formatDistance } from "date-fns";
-import { VictoryPie, VictoryLegend } from "victory-native";
+import { VictoryBar, VictoryLegend } from "victory-native";
 
 function SingleFridgeItemScreen({ route }) {
   const {
@@ -11,40 +11,48 @@ function SingleFridgeItemScreen({ route }) {
     expirationDate,
     servings,
     allergens,
-    // dietFlags,
+    dietFlags,
     protein,
     carbs,
     fat,
   } = route.params;
+  const [ timeToExpire ] = useState(new Date(expirationDate.seconds * 1000) - new Date())
 
   return (
     <SafeAreaView style={styles.container}>
       {/* <Text style={styles.title}>Selected Item</Text> */}
       <ScrollView>
         <View>
-          <SafeAreaView style={styles.imageContainer}>
+          <SafeAreaView style={styles.dataContainer}>
             <Image style={styles.image} source={{ uri: imageUrl }} />
-          </SafeAreaView>
-          <SafeAreaView style={styles.otherData}>
-            <Text style={styles.baseText}>Item Name: {name}</Text>
-            <Text> </Text>
-            <Text style={styles.baseText}>Servings: {servings}</Text>
-            <Text style={styles.baseText}>
-              Expires:{" "}
-              {formatDistance(
-                new Date(expirationDate.seconds * 1000),
-                new Date(),
-                { addSuffix: true }
-              )}
-            </Text>
-            <Text> </Text>
-            <Text style={styles.baseText}>
-              Allergens: {allergens.length ? allergens.join(", ") : "N/A"}
-            </Text>
-            {/* <Text style={styles.baseText}>
-              Diet Flags:{" "}
-              {dietFlags.length ? dietFlags.join(", ") : "N/A"}
-            </Text> */}
+            <SafeAreaView style={styles.textContainer}>
+              <Text style={styles.baseText}>Name: {name}</Text>
+              <Text> </Text>
+              <Text style={styles.baseText}>Servings: {servings}</Text>
+              <Text> </Text>
+              <Text
+              style={{
+                color: timeToExpire > 0 ? 'black' : '#D54C4C',
+                ...styles.baseText,
+              }}
+              >
+                {timeToExpire > 0 ? 'Expires ' : 'Expired '}
+                {formatDistance(
+                  new Date(expirationDate.seconds * 1000),
+                  new Date(),
+                  { addSuffix: true }
+                )}
+              </Text>
+              <Text> </Text>
+              <Text style={styles.baseText}>
+                Allergens: {allergens.length ? allergens.join(", ") : "N/A"}
+              </Text>
+              <Text> </Text>
+              <Text style={styles.baseText}>
+                Diet Flags:{' '}
+                {dietFlags.length ? dietFlags.join(', ') : 'N/A'}
+              </Text>
+            </SafeAreaView>
           </SafeAreaView>
           <SafeAreaView>
             <VictoryLegend
@@ -52,23 +60,22 @@ function SingleFridgeItemScreen({ route }) {
                 orientation="horizontal"
                 gutter={20}
                 data={[
-                  { name: "Protein", symbol: { fill: "#5CB44E", type: "square" } },
-                  { name: "Carbs", symbol: { fill: "#5A7BCE", type: "square" } },
-                  { name: "Fat", symbol: { fill: "#CE5A5A", type: "square" } }
+                  { name: "Protein", symbol: { fill: "#5f0f40", type: "square" } },
+                  { name: "Carbs", symbol: { fill: "#0f4c5c", type: "square" } },
+                  { name: "Fat", symbol: { fill: "#fb8b24", type: "square" } }
                 ]}
                 height={30}
               />
-              <VictoryPie
+              <VictoryBar
+                horizontal
                 data={[
-                  { x: `${protein}g`, y: protein },
-                  { x: `${carbs}g`, y: carbs },
-                  { x: `${fat}g`, y: fat }
+                  { y: protein, fill: '#5f0f40' },
+                  { y: carbs, fill: '#0f4c5c' },
+                  { y: fat, fill: '#fb8b24'}
                 ]}
-                colorScale={[ '#5CB44E', '#5A7BCE', '#CE5A5A' ]}
-                padAngle={2}
-                innerRadius={50}
-                // startAngle={90}
-                // endAngle={-90}
+                style={{ data: { fill: ({ datum }) => datum.fill }}}
+                barWidth={35}
+                labels={({ datum }) => `${datum.y}g`}
               />
           </SafeAreaView>
         </View>
