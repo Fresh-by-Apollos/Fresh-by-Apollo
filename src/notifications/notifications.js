@@ -16,7 +16,7 @@ console.log("firestoreDb:", firestoreDb);
 firestoreDb.settings({ timestampsInSnapshots: true });
 
 
-cron.schedule("*/1 * * * *", async function loadPushNotifications() {
+cron.schedule("0 19 * * *", async function loadPushNotifications() {
 
   const usersRef = firestoreDb.collection("users");
 

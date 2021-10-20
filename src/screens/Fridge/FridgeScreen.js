@@ -42,10 +42,6 @@ function FridgeScreen({ navigation }) {
     console.log("infinite loop?");
     fetchFridgeItems(dispatch);
     registerForPushNotificationsAsync();
-    // Notifications.addNotificationReceivedListener(_handleNotification);
-    // Notifications.addNotificationResponseReceivedListener(
-    //   _handleNotificationResponse
-    // );
   }, []);
 
   //request permission to send Push Notifications
@@ -73,18 +69,12 @@ function FridgeScreen({ navigation }) {
       const userId = firebase.auth().currentUser.uid;
       const userRef = firebase.firestore().collection("users");
       const user = userRef.doc(userId)
-      // console.log('user:', user)
       await user.update({expoPushToken: token })
         .catch((error) => {
           alert(error);
         });
       const updatedUserRef = firebase.firestore().collection("users");
-      // console.log('updatedUserRef.doc(userId).onSnapshot(function(doc) { console.log(expoPushToken" , doc.data().expoPushToken', updatedUserRef.doc(userId).onSnapshot(function(doc) { console.log("expoPushToken:" , doc.data().expoPushToken)}))
       console.log("Set Expo Notification Token successfully");
-
-      // await SecureStore.setItemAsync('expoPushToken', token)
-      // let token2 = await SecureStore.getItemAsync('expoPushToken')
-      // console.log('token 2:', token2)
     } else {
       alert("Must use physical device for Push Notifications");
     }
@@ -98,14 +88,6 @@ function FridgeScreen({ navigation }) {
       });
     }
   };
-
-  // _handleNotification = (notification) => {
-  //   setNotification({ notification: notification });
-  // };
-
-  // _handleNotificationResponse = (response) => {
-  //   console.log(response);
-  // };
 
   return (
     <SafeAreaView style={styles.container}>
