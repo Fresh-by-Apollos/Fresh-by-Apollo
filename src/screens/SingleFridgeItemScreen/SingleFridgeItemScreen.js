@@ -60,18 +60,18 @@ function SingleFridgeItemScreen({ route }) {
                 orientation="horizontal"
                 gutter={20}
                 data={[
-                  { name: "Protein", symbol: { fill: "#5CB44E", type: "square" } },
-                  { name: "Carbs", symbol: { fill: "#5A7BCE", type: "square" } },
-                  { name: "Fat", symbol: { fill: "#CE5A5A", type: "square" } }
+                  { name: "Protein", symbol: { fill: "#5f0f40", type: "square" } },
+                  { name: "Carbs", symbol: { fill: "#0f4c5c", type: "square" } },
+                  { name: "Fat", symbol: { fill: "#fb8b24", type: "square" } }
                 ]}
                 height={30}
               />
               <VictoryBar
                 horizontal
                 data={[
-                  { y: protein, fill: '#5CB44E' },
-                  { y: carbs, fill: '#5A7BCE' },
-                  { y: fat, fill: '#CE5A5A'}
+                  { y: protein, fill: '#5f0f40' },
+                  { y: carbs, fill: '#0f4c5c' },
+                  { y: fat, fill: '#fb8b24'}
                 ]}
                 style={{ data: { fill: ({ datum }) => datum.fill }}}
                 barWidth={35}
