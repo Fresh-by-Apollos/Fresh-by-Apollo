@@ -62,14 +62,14 @@ function StatisticsScreen({ navigation }) {
           style={styles.statsIcon}
           name="chart-pie"
           size={32}
-          color="#D68C45"
+          color="#eb5e28"
           onPress={() => navigation.navigate("My Fridge")}
         />
         <MaterialCommunityIcons
           style={styles.statsArrowIcon}
           name="menu-right"
           size={32}
-          color="#D68C45"
+          color="#eb5e28"
           onPress={() => navigation.navigate("My Fridge")}
         />
         <SafeAreaView style={styles.currentFridgeContainer}>
