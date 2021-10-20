@@ -2,74 +2,49 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    flex: 5,
+    flex: 1,
+    backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "space-between",
-    flexDirection: "column",
-    height: "100%",
-    width: "100%",
+    justifyContent: "center",
   },
-  titleContainer: {
+  container1: {
+    backgroundColor: "gray",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  titleText: {
-    fontSize: 45,
-    margin: 10,
-    fontWeight: "bold",
-    color: "#4C956C",
+  maintext: {
+    fontSize: 16,
+    margin: 20,
   },
-  captionText: {
-    fontSize: 17,
-  },
-  loginFormContainer: {
-    flex: 2,
+  barcodebox: {
     alignItems: "center",
-    justifyContent: "space-evenly",
-    marginBottom: "50%",
+    justifyContent: "center",
+    height: "50%",
+    width: "80%",
+    overflow: "hidden",
+    borderRadius: 30,
+    backgroundColor: "tomato",
   },
-  signupFormContainer: {
-    flex: 3,
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    marginBottom: "25%",
-  },
-  formTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#4C956C",
-  },
-  inputStyle: {
-    height: 40,
-    width: 300,
+  button: {
+    borderRadius: 20,
     padding: 10,
-    textAlign: "left",
-    borderColor: "gray",
-    borderWidth: 1,
-    borderRadius: 15,
+    elevation: 2,
   },
-  loginButton: {
-    flex: 0.15,
-    justifyContent: "center",
-    alignItems: "center",
-    width: 300,
-    height: "20%",
-    backgroundColor: "#4C956C",
-    borderRadius: 20,
+  buttonOpen: {
+    backgroundColor: "#F194FF",
   },
-  signupButton: {
-    flex: 0.15,
-    justifyContent: "center",
-    alignItems: "center",
-    width: 300,
-    height: "20%",
-    backgroundColor: "#4C956C",
-    borderRadius: 20,
+  buttonClose: {
+    backgroundColor: "#2196F3",
   },
-  buttonText: {
+  textStyle: {
     color: "white",
     fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
 

@@ -13,17 +13,12 @@ import LoginNav from './src/screens/LoginScreen/LoginNav';
 import OnBoardingNav from './src/screens/UserOnboarding/OnBoardingNav';
 
 // Screens
-import Settings from './src/screens/Settings/Settings';
+import SettingsNav from './src/screens/Settings/SettingsNav';
 
 const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
   const { userState } = useStorage();
-
-  async function getFirstTime() {
-    const firstTimeToken = JSON.parse(await getToken('firstTime'));
-    return firstTimeToken;
-  }
 
   return (
     <>
@@ -56,12 +51,12 @@ export default function Navigation() {
               name="Fridge"
               component={FridgeNav}
               options={{
-                tabBarLabel: 'Fridge',
+                tabBarLabel: '',
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons
                     name="fridge"
                     color={color}
-                    size={28}
+                    size={40}
                   />
                 ),
               }}
@@ -70,7 +65,7 @@ export default function Navigation() {
               name="Barcode"
               component={BarcodeNav}
               options={{
-                tabBarLabel: 'Barcode',
+                tabBarLabel: '',
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons
                     name="barcode-scan"
@@ -82,11 +77,11 @@ export default function Navigation() {
             />
             <Tab.Screen
               name="Settings"
-              component={Settings}
+              component={SettingsNav}
               options={{
-                tabBarLabel: 'Settings',
+                tabBarLabel: '',
                 tabBarIcon: ({ color }) => (
-                  <Ionicons name="settings-outline" size={28} color={color} />
+                  <Ionicons name="settings" size={40} color={color} />
                 ),
               }}
             />

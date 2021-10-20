@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Text,
-  Pressable,
-  View,
-  Button,
-  Image,
-  StyleSheet,
-  Dimensions,
-} from "react-native";
+import { Text, Pressable, View, Button, Image } from "react-native";
 import { fetchFridgeItems } from "../../../store/reducers/fridgeReducer";
 import DatePicker from "react-native-neat-date-picker";
 import {
@@ -15,8 +7,11 @@ import {
   removeScannedItem,
 } from "../../../store/reducers/barcodeReducer";
 import NumericInput from "react-native-numeric-input";
-
+import styles from "../infoScreen-styles";
 import { useStorage } from "../../../store/Context";
+
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
   const { scannedItem, dispatch } = useStorage();
@@ -57,10 +52,17 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
     // The parameter 'date' is a Date object so that you can use any Date prototype method.
     setDateObj(date);
   };
+
   return (
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
-        {/* <Text style={styles.modalText}>Hello World!</Text> */}
+        <View style={styles.headerContainer}>
+          <View style={{ marginLeft: "3%" }}>
+            <MaterialIcons name="cancel" size={24} color="white" />
+          </View>
+          <Text style={styles.headerText}>Add Item</Text>
+          <View></View>
+        </View>
         <View style={styles.container}>
           <View style={styles.cardContainer}>
             <Image
@@ -68,26 +70,11 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
               source={{ uri: scannedItem.imageUrl }}
             />
             <View style={styles.infoStyle}>
-              <Text style={styles.titleStyle}>{scannedItem.name}</Text>
+              <Text style={styles.infoTitle}>{scannedItem.name}</Text>
               <Text style={styles.categoryStyle}>{scannedItem.allergens}</Text>
-
-              <View style={styles.iconLabelStyle}>
-                {/* <IconLabel name="ios-time" label={deliveryTime} color={"blue"} /> */}
-                {/* <IconLabel name="ios-pin" label={distance} color={iconColor} /> */}
-              </View>
             </View>
           </View>
         </View>
-
-        <Pressable
-          style={[styles.button, styles.buttonClose]}
-          onPress={() => {
-            removeScannedItem(dispatch);
-            setModalVisible(false);
-          }}
-        >
-          <Text style={styles.textStyle}>Go Back</Text>
-        </Pressable>
 
         <NumericInput
           value={servings}
@@ -104,12 +91,13 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
           rightButtonBackgroundColor="gray"
           leftButtonBackgroundColor="lightgray"
         />
-        <View style={{ marginTop: 40 }}>
+        <View style={styles.expireContainer}>
           <Pressable
-            style={[styles.button, styles.buttonClose]}
+            style={[styles.expirationBtn, styles.buttonClose]}
             onPress={openDatePicker}
           >
-            <Text style={styles.textStyle}>Calender</Text>
+            <Text style={styles.textStyle}>Expiration Date </Text>
+            <FontAwesome5 name="calendar" size={24} color="white" />
           </Pressable>
           <DatePicker
             isVisible={showDatePicker}
@@ -122,7 +110,7 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
           </View>
         </View>
 
-        <View style={{ marginTop: 40 }}>
+        <View>
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={addtoFridge}
@@ -134,108 +122,3 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
     </View>
   );
 };
-
-const deviceWidth = Math.round(Dimensions.get("window").width);
-const offset = 40;
-const radius = 20;
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
-    marginTop: 22,
-  },
-  modalView: {
-    width: deviceWidth,
-    height: 550,
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    backgroundColor: "#4C956C",
-  },
-  buttonOpen: {
-    backgroundColor: "#4C956C",
-  },
-  buttonClose: {
-    backgroundColor: "#4C956C",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
-
-  // ---------------->>>
-  container: {
-    width: deviceWidth - 20,
-    alignItems: "center",
-    marginTop: 0,
-    // display: "flex",
-  },
-  cardContainer: {
-    width: deviceWidth - offset,
-    backgroundColor: "white",
-    height: 110,
-    borderRadius: 10,
-
-    shadowColor: "green",
-    shadowOffset: {
-      width: 5,
-      height: 5,
-    },
-    shadowOpacity: 0.15,
-    shadowRadius: 5,
-    borderBottomColor: "black",
-    elevation: 9,
-    marginBottom: 20,
-  },
-  imageStyle: {
-    height: 90,
-    width: 40,
-    // borderTopLeftRadius: radius,
-    // borderTopRightRadius: radius,
-    opacity: 0.9,
-    // alignContent: "center",
-    // alignSelf: "center",
-    marginLeft: 30,
-    marginTop: 10,
-    resizeMode: "stretch",
-  },
-  titleStyle: {
-    fontSize: 20,
-    fontWeight: "800",
-    position: "absolute",
-    left: 80,
-    top: -85,
-  },
-  categoryStyle: {
-    fontWeight: "200",
-  },
-  infoStyle: {
-    marginHorizontal: 10,
-    marginVertical: 5,
-  },
-  iconLabelStyle: {
-    flexDirection: "row",
-    marginTop: 10,
-  },
-});

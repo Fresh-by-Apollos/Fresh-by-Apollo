@@ -19,14 +19,13 @@ export default function BarcodeNav({ navigation }) {
       <BarcodeStack.Navigator
         screenOptions={{
           headerShown: true,
+          title: "ADD TO FRIDGE",
           headerStyle: {
-            backgroundColor: "#2C6E49",
+            backgroundColor: "#4C956C",
           },
-          headerTitle: "ADD TO FRIDGE",
+          headerTintColor: "#fff",
           headerTitleStyle: {
-            color: "white",
             fontWeight: "bold",
-            fontSize: 25,
           },
         }}
       >
@@ -56,19 +55,6 @@ export default function BarcodeNav({ navigation }) {
           setModalVisible(!modalVisible);
         }}
       >
-        {/* <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Text> {JSON.stringify(scannedItem)} </Text>
-
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
-          </View>
-        </View> */}
         <SreachLookUpModal
           setModalVisible={setModalVisible}
           navigation={navigation}
