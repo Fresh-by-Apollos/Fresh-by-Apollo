@@ -15,10 +15,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   textContainer: {
-    top: 35
+    top: 45
   },
   baseText: {
-    fontSize: 20
+    fontSize: 15
   }
 });
 
