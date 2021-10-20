@@ -134,7 +134,7 @@ function FridgeItemView({ item, navigation }) {
               onPress={() => setModalVisible(true)}
               style={styles.dotModalItem}
             >
-              <Ionicons name="fast-food-outline" size={24} color="#4C956C" />
+              <Ionicons name="fast-food-outline" size={24} color="#2a9d8f" />
               <Text>Consume</Text>
             </TouchableOpacity>
 
@@ -145,7 +145,7 @@ function FridgeItemView({ item, navigation }) {
               }}
               style={styles.dotModalItem}
             >
-              <FontAwesome name="trash-o" size={24} color="#D54C4C" />
+              <FontAwesome name="trash-o" size={24} color="#d62828" />
               <Text>Throw out</Text>
             </TouchableOpacity>
           </View>

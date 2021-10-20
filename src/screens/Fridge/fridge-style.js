@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   otherData: {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     height: '100%',
     width: '40%',
   },

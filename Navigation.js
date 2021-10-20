@@ -51,12 +51,12 @@ export default function Navigation() {
               name="Fridge"
               component={FridgeNav}
               options={{
-                tabBarLabel: 'Fridge',
+                tabBarLabel: '',
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons
                     name="fridge"
                     color={color}
-                    size={28}
+                    size={40}
                   />
                 ),
               }}
@@ -65,7 +65,7 @@ export default function Navigation() {
               name="Barcode"
               component={BarcodeNav}
               options={{
-                tabBarLabel: 'Barcode',
+                tabBarLabel: '',
                 tabBarIcon: ({ color }) => (
                   <MaterialCommunityIcons
                     name="barcode-scan"
@@ -79,9 +79,9 @@ export default function Navigation() {
               name="Settings"
               component={SettingsNav}
               options={{
-                tabBarLabel: 'Settings',
+                tabBarLabel: '',
                 tabBarIcon: ({ color }) => (
-                  <Ionicons name="settings" size={24} color={color} />
+                  <Ionicons name="settings" size={40} color={color} />
                 ),
               }}
             />

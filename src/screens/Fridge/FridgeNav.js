@@ -13,20 +13,20 @@ export default function FridgeNav() {
     <FridgeStack.Navigator
       screenOptions={{
         headerShown: true,
+        title: 'FRIDGE',
         headerStyle: {
-          backgroundColor: "#2C6E49",
-          // width: 10,
+          backgroundColor: '#4C956C',
         },
-
-        headerTitle: "FRIDGE",
-        headerTitleStyle: { color: "white", fontWeight: "bold", fontSize: 25 },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }
       }}
     >
       <FridgeStack.Screen name="My Fridge" component={FridgeScreen} />
       <FridgeStack.Screen
         options={{
-          headerTitle: "",
-          headerBackTitleVisible: false,
+          headerTitle: ""
         }}
         name="Selected Item"
         component={SingleFridgeItemScreen}

@@ -13,11 +13,14 @@ export default function BarcodeNav() {
     <BarcodeStack.Navigator
       screenOptions={{
         headerShown: true,
+        title: 'ADD TO FRIDGE',
         headerStyle: {
-          backgroundColor: "#2C6E49",
+          backgroundColor: '#4C956C',
         },
-        headerTitle: "ADD TO FRIDGE",
-        headerTitleStyle: { color: "white", fontWeight: "bold", fontSize: 25 },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }
       }}
     >
       <BarcodeStack.Screen name="BarcodeScreen" component={BarcodeScreen} />
