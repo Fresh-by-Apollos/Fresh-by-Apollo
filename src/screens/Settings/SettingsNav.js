@@ -16,7 +16,7 @@ export default function SettingsNav() {
         name="SettingsHome"
         component={Settings}
         options={{
-          title: 'Settings',
+          title: 'SETTINGS',
           headerStyle: {
             backgroundColor: '#4C956C',
           },
