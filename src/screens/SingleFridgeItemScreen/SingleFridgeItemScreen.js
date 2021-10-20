@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, SafeAreaView, ScrollView, Image } from "react-native";
 import styles from "./single-fridge-item-style";
 import { formatDistance } from "date-fns";
-import { VictoryPie, VictoryLegend } from "victory-native";
+import { VictoryBar, VictoryLegend } from "victory-native";
 
 function SingleFridgeItemScreen({ route }) {
   const {
@@ -59,18 +59,18 @@ function SingleFridgeItemScreen({ route }) {
                 ]}
                 height={30}
               />
-              <VictoryPie
+              <VictoryBar
+                horizontal
                 data={[
-                  { x: `${protein}g`, y: protein },
-                  { x: `${carbs}g`, y: carbs },
-                  { x: `${fat}g`, y: fat }
+                  { y: protein, fill: '#5CB44E' },
+                  { y: carbs, fill: '#5A7BCE' },
+                  { y: fat, fill: '#CE5A5A'}
                 ]}
-                colorScale={[ '#5CB44E', '#5A7BCE', '#CE5A5A' ]}
-                padAngle={2}
-                innerRadius={50}
-                // startAngle={90}
-                // endAngle={-90}
+                style={{ data: { fill: ({ datum }) => datum.fill }}}
+                barWidth={35}
+                labels={({ datum }) => `${datum.y}g`}
               />
+
           </SafeAreaView>
         </View>
       </ScrollView>
