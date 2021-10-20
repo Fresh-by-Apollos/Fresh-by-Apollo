@@ -11,7 +11,7 @@ function SingleFridgeItemScreen({ route }) {
     expirationDate,
     servings,
     allergens,
-    // dietFlags,
+    dietFlags,
     protein,
     carbs,
     fat,
@@ -25,26 +25,27 @@ function SingleFridgeItemScreen({ route }) {
           <SafeAreaView style={styles.dataContainer}>
             <Image style={styles.image} source={{ uri: imageUrl }} />
             <SafeAreaView style={styles.textContainer}>
-            <Text style={styles.baseText}>Item Name: {name}</Text>
-            <Text> </Text>
-            <Text style={styles.baseText}>Servings: {servings}</Text>
-            <Text> </Text>
-            <Text style={styles.baseText}>
-              Expires:{" "}
-              {formatDistance(
-                new Date(expirationDate.seconds * 1000),
-                new Date(),
-                { addSuffix: true }
-              )}
-            </Text>
-            <Text> </Text>
-            <Text style={styles.baseText}>
-              Allergens: {allergens.length ? allergens.join(", ") : "N/A"}
-            </Text>
-            {/* <Text style={styles.baseText}>
-              Diet Flags:{" "}
-              {dietFlags.length ? dietFlags.join(", ") : "N/A"}
-            </Text> */}
+              <Text style={styles.baseText}>Name: {name}</Text>
+              <Text> </Text>
+              <Text style={styles.baseText}>Servings: {servings}</Text>
+              <Text> </Text>
+              <Text style={styles.baseText}>
+                Expires:{" "}
+                {formatDistance(
+                  new Date(expirationDate.seconds * 1000),
+                  new Date(),
+                  { addSuffix: true }
+                )}
+              </Text>
+              <Text> </Text>
+              <Text style={styles.baseText}>
+                Allergens: {allergens.length ? allergens.join(", ") : "N/A"}
+              </Text>
+              <Text> </Text>
+              <Text style={styles.baseText}>
+                Diet Flags:{' '}
+                {dietFlags.length ? dietFlags.join(', ') : 'N/A'}
+              </Text>
             </SafeAreaView>
           </SafeAreaView>
           <SafeAreaView>
