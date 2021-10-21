@@ -2,7 +2,7 @@ import firebase from "../../firebase/firebase";
 import axios from "axios";
 import { barcodeSnapshot } from "../../../barcodeInfo";
 
-// fridgeState
+// barCode state
 export const scannedItem = {};
 
 // Action Types
