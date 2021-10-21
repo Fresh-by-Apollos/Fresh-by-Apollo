@@ -58,7 +58,7 @@ export const addFridgeItem = async (info) => {
         servings: firebase.firestore.FieldValue.increment(info.servings),
       });
     } else {
-      console.log("On new Add <<<<<<<<----------------");
+      // console.log("On new Add <<<<<<<<----------------");
       // Add a new document in collection "currentFridge"
       firebase
         .firestore()
@@ -76,6 +76,9 @@ export const addFridgeItem = async (info) => {
           fat: info.fat,
           carbs: info.carbs,
           servings: info.servings,
+          storage: info.storageType,
+          freshItem: false,
+          fridgeItemID: 0,
         })
         .then(() => {
           console.log("Document successfully written!");

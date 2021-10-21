@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Button,
-  Modal,
-  Pressable,
-  Alert,
-} from "react-native";
+import { Text, View, StyleSheet, Button, Modal, Alert } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { useStorage } from "../../store/Context";
-import InfoScreen from "./InfoScreen";
+
+import BarcodeLookUpModal from "./Modals/BarcodeLookUpModal";
+import styles from "./styles";
 
 import {
   addFridgeItem,
@@ -22,7 +16,7 @@ export default function BarcodeScreen({ navigation }) {
   const { dispatch, scannedItem } = useStorage();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState("Not yet scanned");
+  const [text, setText] = useState("Scan Barcode");
   const [modalVisible, setModalVisible] = useState(false);
 
   const askForCameraPermission = () => {
@@ -35,19 +29,14 @@ export default function BarcodeScreen({ navigation }) {
   // Request Camera Permission
   useEffect(() => {
     askForCameraPermission();
+    setScanned(false);
   }, []);
-
-  // useEffect(() => {
-  //   console.log(scannedItem);
-  // }, [scannedItem]);
 
   // What happens when we scan the bar code
   const handleBarCodeScanned = ({ data }) => {
     // addFridgeItem();
     setScanned(true);
     getFoodData(data, dispatch);
-    // console.log(scannedItem);
-    // navigation.navigate("BarcodeInfoScreen");
     setModalVisible(true);
   };
 
@@ -83,20 +72,10 @@ export default function BarcodeScreen({ navigation }) {
           setModalVisible(!modalVisible);
         }}
       >
-        {/* <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Text> {JSON.stringify(scannedItem)} </Text>
-
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
-          </View>
-        </View> */}
-        <InfoScreen setModalVisible={setModalVisible} navigation={navigation} />
+        <BarcodeLookUpModal
+          setModalVisible={setModalVisible}
+          navigation={navigation}
+        />
       </Modal>
 
       <View style={styles.barcodebox}>
@@ -113,61 +92,6 @@ export default function BarcodeScreen({ navigation }) {
           color="tomato"
         />
       )}
-
-      {/* <Pressable
-        style={[styles.button, styles.buttonClose]}
-        onPress={() => navigation.navigate("Calender")}
-      >
-        <Text style={styles.textStyle}>Calender</Text>
-      </Pressable> */}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  container1: {
-    backgroundColor: "gray",
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  maintext: {
-    fontSize: 16,
-    margin: 20,
-  },
-  barcodebox: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: 300,
-    width: 300,
-    overflow: "hidden",
-    borderRadius: 30,
-    backgroundColor: "tomato",
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
-});

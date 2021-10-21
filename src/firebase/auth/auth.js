@@ -15,13 +15,11 @@ export const deleteToken = async (key) => {
   await SecureStore.deleteItemAsync(key);
 };
 
-// Sign Up (firstTime = true)
 export const signUp = async (firstName, lastName, email, password) => {
   try {
     await auth
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
-        saveToken('firstTime', 'true');
         const uid = response.user.uid;
         const data = {
           dietRestrictions: [],

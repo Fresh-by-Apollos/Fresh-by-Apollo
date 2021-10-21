@@ -2,9 +2,11 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {},
+  scrollView: {
+    paddingBottom: 300
+  },
   currentFridgeContainer: {
-    top: 60,
-    left: 10
+    top: 60
   },
   statsIcon: {
     position: 'absolute',
@@ -17,16 +19,17 @@ const styles = StyleSheet.create({
     left: 30
   },
   pastFridgeContainer: {
-    top: 140,
-    left: 10
+    top: 140
   },
   header: {
     fontWeight: 'bold',
-    fontSize: 30
+    fontSize: 30,
+    left: 50
   },
-  text: {
-    top: 20,
-    fontSize: 20
+  pastHeader: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    left: 75
   }
 })
 
