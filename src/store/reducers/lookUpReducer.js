@@ -45,7 +45,7 @@ export const addLookupItem = async (info) => {
 
     const resultArray = result.filter(
       (doc) =>
-        Number(doc.fridgeItemID) === Number(info.fridgeItemID) &&
+        Number(doc.fridgeItemID) === Number(info.fridgeItemId) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
           'en-US'
         ) == dateParsed &&

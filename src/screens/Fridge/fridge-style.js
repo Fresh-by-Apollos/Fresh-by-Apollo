@@ -162,7 +162,6 @@ const styles = StyleSheet.create({
     marginTop: '7%',
     width: '45%',
   },
-
   buttonOpen: {
     backgroundColor: '#4C956C',
   },
