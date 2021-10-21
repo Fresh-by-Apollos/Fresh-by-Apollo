@@ -1,12 +1,7 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-=======
-import React, { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
->>>>>>> main
 
 import { Ionicons } from "@expo/vector-icons";
 
