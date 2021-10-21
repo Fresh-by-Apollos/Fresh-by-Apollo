@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from '@expo/vector-icons';
-
-import { Ionicons } from "@expo/vector-icons";
-
 import * as Notifications from "expo-notifications";
 
 // This refers to the function defined earlier in this guide, in Push Notifications Set Up
