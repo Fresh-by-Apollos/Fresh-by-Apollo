@@ -14,6 +14,7 @@ fresh-by-apollos-firebase-adminsdk-agpgk-2420354ca8.json
 Dockerfile
 build/
 .dockerignore
+cloudbuild.yaml
 
 # macOS
 .DS_Store

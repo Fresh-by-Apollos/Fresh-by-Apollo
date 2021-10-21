@@ -1,8 +1,9 @@
-import cron from "node-cron";
-
 import { Expo } from "expo-server-sdk";
 import * as admin from "firebase-admin";
 import { differenceInCalendarDays } from "date-fns";
+import express from "express";
+const app = express();
+const PORT = 8080;
 
 let expo = new Expo();
 
@@ -15,9 +16,14 @@ console.log("firestoreDb:", firestoreDb);
 
 firestoreDb.settings({ timestampsInSnapshots: true });
 
+app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`));
 
-cron.schedule("53 18 * * *", async function loadPushNotifications() {
+app.get("/", (req, res) => {
+  loadPushNotifications()
+  res.send('Push notifications processed');
+});
 
+async function loadPushNotifications() {
   const usersRef = firestoreDb.collection("users");
 
   const usersSnapshot = await usersRef.get();
@@ -37,17 +43,18 @@ cron.schedule("53 18 * * *", async function loadPushNotifications() {
         );
         let timeDifference = differenceInCalendarDays(expirationDate, currDate);
         if (timeDifference === 1 || timeDifference === 3) {
-          console.log("entered valid time difference");
-          let message = [{
-            to: token,
-            sound: "default",
-            body: `${user.data().firstName} ${
-              user.data().lastName
-            }: Your item, ${
-              fridgeItem.data().name
-            }, is set to expire in ${timeDifference} day(s)`,
-            data: { withSome: "data" },
-          }];
+          let message = [
+            {
+              to: token,
+              sound: "default",
+              body: `${user.data().firstName} ${
+                user.data().lastName
+              }: Your item, ${
+                fridgeItem.data().name
+              }, is set to expire in ${timeDifference} day(s)`,
+              data: { withSome: "data" },
+            },
+          ];
           try {
             let ticketMessage = await expo.sendPushNotificationsAsync(message);
             console.log(ticketMessage);
@@ -58,4 +65,4 @@ cron.schedule("53 18 * * *", async function loadPushNotifications() {
       });
     }
   });
-});
+}
