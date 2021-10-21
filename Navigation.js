@@ -4,7 +4,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { getToken } from './src/firebase/auth/auth';
+import Toast, {
+  SuccessToast,
+  ErrorToast,
+  InfoToast,
+} from 'react-native-toast-message';
 
 // Navigation
 import FridgeNav from './src/screens/Fridge/FridgeNav';
@@ -19,6 +23,30 @@ const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
   const { userState } = useStorage();
+
+  const toastConfig = {
+    success: (props) => (
+      <SuccessToast
+        {...props}
+        text1Style={{ marginRight: '10%' }}
+        text2Style={{ fontSize: 14 }}
+      />
+    ),
+    error: (props) => (
+      <ErrorToast
+        {...props}
+        text1Style={{ marginRight: '10%' }}
+        text2Style={{ fontSize: 14 }}
+      />
+    ),
+    info: (props) => (
+      <InfoToast
+        {...props}
+        text1Style={{ marginRight: '10%' }}
+        text2Style={{ fontSize: 14 }}
+      />
+    ),
+  };
 
   return (
     <>
@@ -86,6 +114,7 @@ export default function Navigation() {
               }}
             />
           </Tab.Navigator>
+          <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
         </NavigationContainer>
       )}
     </>

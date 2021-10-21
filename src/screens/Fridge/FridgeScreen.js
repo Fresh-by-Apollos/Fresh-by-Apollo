@@ -13,6 +13,7 @@ import { useStorage } from '../../store/Context';
 import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
 import styles from './fridge-style';
 import FridgeItemView from './components/FridgeItemView';
+import Toast, { SuccessToast } from 'react-native-toast-message';
 
 function FridgeScreen({ navigation }) {
   const { fridgeState, dispatch } = useStorage();
@@ -52,7 +53,6 @@ function FridgeScreen({ navigation }) {
           </View>
         ) : (
           <View style={styles.notEmpty}>
-            {/* {console.log(fridgeState)} */}
             {fridgeState.map((item) => (
               <FridgeItemView
                 key={

@@ -21,6 +21,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 // Libaries
 import { formatDistance } from 'date-fns';
 import NumericInput from 'react-native-numeric-input';
+import Toast from 'react-native-toast-message';
 
 // Context
 import {
@@ -245,7 +246,9 @@ function FridgeItemView({ item, navigation }) {
                 />
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
-                  onPress={() => handleAction(true)}
+                  onPress={() => {
+                    handleAction(true);
+                  }}
                 >
                   <Text style={styles.textStyle}>Submit</Text>
                 </Pressable>
