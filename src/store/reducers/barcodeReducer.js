@@ -3,7 +3,7 @@ import axios from 'axios';
 import { barcodeSnapshot } from '../../../barcodeInfo';
 import Toast from 'react-native-toast-message';
 
-// fridgeState
+// barCode state
 export const scannedItem = {};
 
 // Action Types
