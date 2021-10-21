@@ -24,12 +24,31 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  expirationContainer: {
+    borderWidth: 1,
+    padding: '5%',
+    borderRadius: 15,
+    borderColor: 'lightgray',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
   expirationBtn: {
     borderRadius: 20,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
     height: '30%',
+    width: '25%',
+    marginRight: '8%',
+  },
+  expirationText: {
+    fontSize: 15,
+    fontWeight: 'bold',
   },
   button: {
     borderRadius: 20,
@@ -37,6 +56,8 @@ const styles = StyleSheet.create({
     padding: '2%',
     elevation: 2,
     backgroundColor: '#4C956C',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonOpen: {
     backgroundColor: '#4C956C',
@@ -47,7 +68,9 @@ const styles = StyleSheet.create({
   expireContainer: {
     height: '30%',
     width: '60%',
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   textStyle: {
     color: 'white',
@@ -76,6 +99,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: '3%',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   headerText: {
     fontSize: 17,
