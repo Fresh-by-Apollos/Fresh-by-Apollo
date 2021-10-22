@@ -1,13 +1,13 @@
-import firebase from '../../firebase/firebase';
-import axios from 'axios';
-import Toast from 'react-native-toast-message';
+import firebase from "../../firebase/firebase";
+import axios from "axios";
+import Toast from "react-native-toast-message";
 
 // fridgeState
 export const lookUpItem = {};
 
 // Action Types
-const ADD_LOOKUP_ITEM = 'ADD_LOOKUP_ITEM';
-const REMOVE_LOOKUP_ITEM = 'REMOVE_LOOKUP_ITEMS';
+const ADD_LOOKUP_ITEM = "ADD_LOOKUP_ITEM";
+const REMOVE_LOOKUP_ITEM = "REMOVE_LOOKUP_ITEMS";
 
 // Action Creators
 const _addLookupItem = (item) => {
@@ -47,15 +47,12 @@ export const addLookupItem = async (info) => {
       (doc) =>
         Number(doc.fridgeItemID) === Number(info.fridgeItemId) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
-          'en-US'
+          "en-US"
         ) == dateParsed &&
         doc.fridgeItemID !== 0
     );
 
-    // console.log(resultArray);
-
     if (resultArray.length > 0) {
-      // console.log(resultArray);
       const fridgeItem = firebase
         .firestore()
         .collection(`/users/${userId}/currentFridge`)
@@ -65,11 +62,11 @@ export const addLookupItem = async (info) => {
         servings: firebase.firestore.FieldValue.increment(info.servings),
       });
       Toast.show({
-        position: 'top',
+        position: "top",
         topOffset: 90,
-        type: 'success',
+        type: "success",
         text1: resultArray[0].name,
-        text2: 'added to Fridge',
+        text2: "added to Fridge",
         visibilityTime: 600,
         autoHide: true,
       });
@@ -95,19 +92,19 @@ export const addLookupItem = async (info) => {
           fridgeItemID: info.fridgeItemId,
         })
         .then(() => {
-          console.log('Document successfully written!');
+          console.log("Document successfully written!");
           Toast.show({
-            position: 'top',
+            position: "top",
             topOffset: 90,
-            type: 'success',
+            type: "success",
             text1: info.name,
-            text2: 'added to Fridge',
+            text2: "added to Fridge",
             visibilityTime: 600,
             autoHide: true,
           });
         })
         .catch((error) => {
-          console.error('Error writing document: ', error);
+          console.error("Error writing document: ", error);
         });
     }
   } catch (error) {
@@ -122,7 +119,7 @@ export const getLookupItem = async (itemName, dispatch) => {
   const itemInfo = await axios.get(
     `https://api.spoonacular.com/food/ingredients/${item.data.results[0].id}/information?amount=1&apiKey=fb5674256e7b41928221101869eae05c`
   );
-  console.log(item.data.results[0].image);
+
   const itemImageURL = `https://spoonacular.com/cdn/ingredients_100x100/${item.data.results[0].image}`;
 
   const { id, name, nutrition } = itemInfo.data;

@@ -1,11 +1,11 @@
-import firebase from '../../firebase/firebase';
-import Toast from 'react-native-toast-message';
+import firebase from "../../firebase/firebase";
+import Toast from "react-native-toast-message";
 
 // fridgeState
 export const fridgeState = [];
 
 // Action Types
-const SET_FRIDGE = 'SET_FRIDGE';
+const SET_FRIDGE = "SET_FRIDGE";
 
 // Action Creators
 const _setFridge = (items) => {
@@ -22,7 +22,7 @@ export const fetchFridgeItems = async (dispatch) => {
     const fridgeRef = firebase
       .firestore()
       .collection(`/users/${userId}/currentFridge`)
-      .orderBy('expirationDate', 'asc');
+      .orderBy("expirationDate", "asc");
     const snapshot = await fridgeRef.get();
     const resultArray = [];
     snapshot.forEach((doc) => {
@@ -55,6 +55,7 @@ const addPastFridgeItem = async (info, amount) => {
       .collection(`/users/${userId}/pastFridge`);
 
     const snapshot = await fridgeRef.get();
+
     const result = [];
     snapshot.forEach((doc) => {
       result.push({
@@ -65,13 +66,13 @@ const addPastFridgeItem = async (info, amount) => {
 
     const dateParsed = new Date(
       info.expirationDate.seconds * 1000
-    ).toLocaleDateString('en-US');
+    ).toLocaleDateString("en-US");
 
     const resultArray = result.filter(
       (doc) =>
         Number(doc.barcode) === Number(info.barcode) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
-          'en-US'
+          "en-US"
         ) == dateParsed
     );
 
@@ -106,10 +107,10 @@ const addPastFridgeItem = async (info, amount) => {
           dateHandled: new Date(),
         })
         .then(() => {
-          console.log('Document successfully written!');
+          console.log("Document successfully written!");
         })
         .catch((error) => {
-          console.error('Error writing document: ', error);
+          console.error("Error writing document: ", error);
         });
     }
   } catch (error) {
@@ -135,19 +136,19 @@ export const updateFridgeItem = async (
 
       fridgeIteminfo.wasConsumed
         ? Toast.show({
-            position: 'bottom',
+            position: "bottom",
             bottomOffset: 90,
-            type: 'success',
+            type: "success",
             text1: `${fridgeIteminfo.name} consumed`,
             visibilityTime: 600,
             autoHide: true,
           })
         : Toast.show({
-            position: 'bottom',
+            position: "bottom",
             bottomOffset: 90,
-            type: 'error',
+            type: "error",
             text1: fridgeIteminfo.name,
-            text2: 'was removed',
+            text2: "was removed",
             visibilityTime: 600,
             autoHide: true,
           });
@@ -157,9 +158,9 @@ export const updateFridgeItem = async (
       });
       console.log(fridgeIteminfo);
       Toast.show({
-        position: 'bottom',
+        position: "bottom",
         bottomOffset: 90,
-        type: 'success',
+        type: "success",
         text1: `${amount} ${fridgeIteminfo.name} consumed`,
         visibilityTime: 600,
         autoHide: true,
