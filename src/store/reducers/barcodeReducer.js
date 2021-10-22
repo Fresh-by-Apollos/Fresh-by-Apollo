@@ -1,12 +1,13 @@
-import firebase from "../../firebase/firebase";
-import axios from "axios";
-import { barcodeSnapshot } from "../../../barcodeInfo";
+import firebase from '../../firebase/firebase';
+import axios from 'axios';
+import { barcodeSnapshot } from '../../../barcodeInfo';
+import Toast from 'react-native-toast-message';
 
 // barCode state
 export const scannedItem = {};
 
 // Action Types
-const SET_SCANNED_ITEM = "SET_SCANNED_ITEM";
+const SET_SCANNED_ITEM = 'SET_SCANNED_ITEM';
 
 // Action Creators
 const _setScannedItem = (item) => {
@@ -18,7 +19,6 @@ const _setScannedItem = (item) => {
 
 export const addFridgeItem = async (info) => {
   try {
-    // const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2"; // User backup
     const userId = firebase.auth().currentUser.uid;
     const fridgeRef = firebase
       .firestore()
@@ -41,14 +41,13 @@ export const addFridgeItem = async (info) => {
       (doc) =>
         Number(doc.barcode) === Number(info.barcode) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
-          "en-US"
+          'en-US'
         ) == dateParsed
     );
 
     // console.log(resultArray);
 
     if (resultArray.length > 0) {
-      // console.log(resultArray);
       const fridgeItem = firebase
         .firestore()
         .collection(`/users/${userId}/currentFridge`)
@@ -56,6 +55,15 @@ export const addFridgeItem = async (info) => {
 
       await fridgeItem.update({
         servings: firebase.firestore.FieldValue.increment(info.servings),
+      });
+      Toast.show({
+        position: 'bottom',
+        bottomOffset: 90,
+        type: 'success',
+        text1: resultArray[0].name,
+        text2: 'added to Fridge',
+        visibilityTime: 600,
+        autoHide: true,
       });
     } else {
       // console.log("On new Add <<<<<<<<----------------");
@@ -81,10 +89,19 @@ export const addFridgeItem = async (info) => {
           fridgeItemID: 0,
         })
         .then(() => {
-          console.log("Document successfully written!");
+          console.log('Document successfully written!');
+          Toast.show({
+            position: 'bottom',
+            bottomOffset: 90,
+            type: 'success',
+            text1: info.name,
+            text2: 'added to Fridge',
+            visibilityTime: 600,
+            autoHide: true,
+          });
         })
         .catch((error) => {
-          console.error("Error writing document: ", error);
+          console.error('Error writing document: ', error);
         });
     }
   } catch (error) {
@@ -126,10 +143,10 @@ export const getFoodData = async (barcode_num, dispatch) => {
     const macros = nutrients.reduce(function (acc, nutrient) {
       const name = nutrient.name;
       if (
-        name == "Protein" ||
-        name == "Total lipid (fat)" ||
-        name == "Carbohydrate, by difference" ||
-        name.includes("Carb")
+        name == 'Protein' ||
+        name == 'Total lipid (fat)' ||
+        name == 'Carbohydrate, by difference' ||
+        name.includes('Carb')
       ) {
         !acc[name] && (acc[name] = (nutrient.per_100g / 100) * servingSize);
       }
@@ -144,9 +161,9 @@ export const getFoodData = async (barcode_num, dispatch) => {
       imageUrl,
       dietFlags,
       barcode: barcode,
-      protein: macros["Protein"] || 0,
-      carbs: macros["Carbohydrate, by difference"] || 0,
-      fat: macros["Total lipid (fat)"] || 0,
+      protein: macros['Protein'] || 0,
+      carbs: macros['Carbohydrate, by difference'] || 0,
+      fat: macros['Total lipid (fat)'] || 0,
     };
 
     dispatch(_setScannedItem(data));

@@ -1,10 +1,11 @@
-import firebase from "../../firebase/firebase";
+import firebase from '../../firebase/firebase';
+import Toast from 'react-native-toast-message';
 
 // fridgeState
 export const fridgeState = [];
 
 // Action Types
-const SET_FRIDGE = "SET_FRIDGE";
+const SET_FRIDGE = 'SET_FRIDGE';
 
 // Action Creators
 const _setFridge = (items) => {
@@ -21,7 +22,7 @@ export const fetchFridgeItems = async (dispatch) => {
     const fridgeRef = firebase
       .firestore()
       .collection(`/users/${userId}/currentFridge`)
-      .orderBy("expirationDate", "asc");
+      .orderBy('expirationDate', 'asc');
     const snapshot = await fridgeRef.get();
     const resultArray = [];
     snapshot.forEach((doc) => {
@@ -65,13 +66,13 @@ const addPastFridgeItem = async (info, amount) => {
 
     const dateParsed = new Date(
       info.expirationDate.seconds * 1000
-    ).toLocaleDateString("en-US");
+    ).toLocaleDateString('en-US');
 
     const resultArray = result.filter(
       (doc) =>
         Number(doc.barcode) === Number(info.barcode) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
-          "en-US"
+          'en-US'
         ) == dateParsed
     );
 
@@ -106,10 +107,10 @@ const addPastFridgeItem = async (info, amount) => {
           dateHandled: new Date(),
         })
         .then(() => {
-          console.log("Document successfully written!");
+          console.log('Document successfully written!');
         })
         .catch((error) => {
-          console.error("Error writing document: ", error);
+          console.error('Error writing document: ', error);
         });
     }
   } catch (error) {
@@ -132,9 +133,27 @@ export const updateFridgeItem = async (
 
     if (consumedAll) {
       await fridgeItem.delete();
+      Toast.show({
+        position: 'bottom',
+        bottomOffset: 90,
+        type: 'error',
+        text1: fridgeIteminfo.name,
+        text2: 'removed from Fridge',
+        visibilityTime: 600,
+        autoHide: true,
+      });
     } else {
       await fridgeItem.update({
         servings: firebase.firestore.FieldValue.increment(-Number(amount)),
+      });
+      console.log(fridgeIteminfo);
+      Toast.show({
+        position: 'bottom',
+        bottomOffset: 90,
+        type: 'success',
+        text1: `${amount} ${fridgeIteminfo.name} consumed`,
+        visibilityTime: 600,
+        autoHide: true,
       });
     }
 

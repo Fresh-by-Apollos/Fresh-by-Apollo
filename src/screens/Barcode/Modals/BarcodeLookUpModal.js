@@ -1,23 +1,30 @@
-import React, { useState } from "react";
-import { Text, Pressable, View, Button, Image } from "react-native";
-import { fetchFridgeItems } from "../../../store/reducers/fridgeReducer";
-import DatePicker from "react-native-neat-date-picker";
+import React, { useState } from 'react';
+import { Text, Pressable, View, Button, Image } from 'react-native';
+import { fetchFridgeItems } from '../../../store/reducers/fridgeReducer';
+import DatePicker from 'react-native-neat-date-picker';
 import {
   addFridgeItem,
   removeScannedItem,
-} from "../../../store/reducers/barcodeReducer";
-import NumericInput from "react-native-numeric-input";
-import styles from "../infoScreen-styles";
-import { useStorage } from "../../../store/Context";
+} from '../../../store/reducers/barcodeReducer';
+import NumericInput from 'react-native-numeric-input';
+import { formatDistance } from 'date-fns';
+import styles from '../infoScreen-styles';
+import { useStorage } from '../../../store/Context';
 
-import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
-export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
+export default BarcodeLookUpModal = ({
+  setScanned,
+  setModalVisible,
+  navigation,
+}) => {
   const { scannedItem, dispatch } = useStorage();
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [dateObj, setDateObj] = useState();
+  const [dateObj, setDateObj] = useState(null);
   const [servings, setServings] = useState(1);
+
+  console.log(dateObj);
 
   const handleChange = ({ target }) => {
     setServings(target.value);
@@ -33,16 +40,21 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
   };
 
   const addtoFridge = async () => {
-    setModalVisible(false);
-    const itemData = {
-      ...scannedItem,
-      expirationDate: dateObj,
-      servings,
-      storageType: "pantry",
-    };
-    await addFridgeItem(itemData);
-    fetchFridgeItems(dispatch);
-    removeScannedItem(dispatch);
+    if (dateObj) {
+      setModalVisible(false);
+      setScanned(false);
+      const itemData = {
+        ...scannedItem,
+        expirationDate: dateObj,
+        servings,
+        storageType: 'pantry',
+      };
+      await addFridgeItem(itemData);
+      fetchFridgeItems(dispatch);
+      removeScannedItem(dispatch);
+    } else {
+      alert('Please input an expiration date');
+    }
   };
 
   const onConfirm = (date) => {
@@ -57,9 +69,15 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
         <View style={styles.headerContainer}>
-          <View style={{ marginLeft: "3%" }}>
+          <Pressable
+            style={{ marginLeft: '3%' }}
+            onPress={() => {
+              setModalVisible(false);
+              setScanned(false);
+            }}
+          >
             <MaterialIcons name="cancel" size={24} color="white" />
-          </View>
+          </Pressable>
           <Text style={styles.headerText}>Add Item</Text>
           <View></View>
         </View>
@@ -87,7 +105,7 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
           valueType="real"
           rounded
           textColor="black"
-          iconStyle={{ color: "white" }}
+          iconStyle={{ color: 'white' }}
           rightButtonBackgroundColor="gray"
           leftButtonBackgroundColor="lightgray"
         />
@@ -96,17 +114,27 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
             style={[styles.expirationBtn, styles.buttonClose]}
             onPress={openDatePicker}
           >
-            <Text style={styles.textStyle}>Expiration Date </Text>
             <FontAwesome5 name="calendar" size={24} color="white" />
           </Pressable>
           <DatePicker
             isVisible={showDatePicker}
-            mode={"single"}
+            mode={'single'}
             onCancel={onCancel}
             onConfirm={onConfirm}
           />
-          <View>
-            <Text>{JSON.stringify(dateObj)}</Text>
+          <View style={styles.expirationContainer}>
+            {dateObj ? (
+              <Text style={styles.expirationText}>
+                Expires{' '}
+                {dateObj
+                  ? formatDistance(new Date(dateObj), new Date(), {
+                      addSuffix: true,
+                    })
+                  : ''}
+              </Text>
+            ) : (
+              <Text>Enter Expiration Date</Text>
+            )}
           </View>
         </View>
 

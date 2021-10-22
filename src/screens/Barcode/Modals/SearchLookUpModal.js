@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
 import {
   Text,
   Pressable,
@@ -15,26 +14,19 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   Modal,
-} from "react-native";
-import { fetchFridgeItems } from "../../../store/reducers/fridgeReducer";
-import DatePicker from "react-native-neat-date-picker";
-import {
-  addFridgeItem,
-  removeScannedItem,
-} from "../../../store/reducers/barcodeReducer";
-import NumericInput from "react-native-numeric-input";
-import { getLookupItem } from "../../../store/reducers/lookUpReducer";
-import LookupItemView from "../../components/LookupItemView";
-import { useStorage } from "../../../store/Context";
-import { addLookupItem } from "../../../store/reducers/lookUpReducer";
-import { removeAllLookupItems } from "../../../store/reducers/lookUpReducer";
+} from 'react-native';
+import { fetchFridgeItems } from '../../../store/reducers/fridgeReducer';
+import { getLookupItem } from '../../../store/reducers/lookUpReducer';
+import LookupItemView from '../../components/LookupItemView';
+import { useStorage } from '../../../store/Context';
+import { addLookupItem } from '../../../store/reducers/lookUpReducer';
+import { removeAllLookupItems } from '../../../store/reducers/lookUpReducer';
 
 // Mabye add fresh item flied
 export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
   const { lookUpItem, dispatch } = useStorage();
-  const [showDatePicker, setShowDatePicker] = useState(false);
   const [dateObj, setDateObj] = useState();
-  const [itemInput, setItemInput] = useState("");
+  const [itemInput, setItemInput] = useState('');
   const [servings, setServings] = useState(1);
   const [sreachedItems, setSreachedItems] = useState([]);
 
@@ -51,13 +43,11 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
 
   const sreachItem = async () => {
     setShowKeyboard(false);
-    console.log(itemInput);
     getLookupItem(itemInput, dispatch);
     setItemModalVisible(true);
   };
 
   const addLookupItems = async () => {
-    console.log(sreachedItems, "<-------------------------------");
     removeAllLookupItems(dispatch);
   };
 
@@ -67,10 +57,10 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
       ...sreachedItems[0],
       expirationDate: dateObj,
       servings,
-      storageType: "pantry",
+      storageType: 'pantry',
     };
 
-    console.log("hskjdhfjkshdksj", itemData);
+    console.log('hskjdhfjkshdksj', itemData);
     await addLookupItem(itemData);
     fetchFridgeItems(dispatch);
     removelookUpItem(dispatch);
@@ -92,24 +82,10 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
           <Text style={styles.titleText}>FRESH</Text>
         </SafeAreaView>
         <DismissKeyboard>
-          <SafeAreaView style={{ width: "100%", height: "100%" }}>
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 18,
-                color: "gray",
-                textAlign: "center",
-              }}
-            >
-              Sreach for an Item
-            </Text>
+          <SafeAreaView style={{ width: '100%', height: '100%' }}>
             <SafeAreaView style={styles.container2}>
               <View>
-                {console.log("---->>", showKeyboard)}
                 <SafeAreaView style={styles.loginFormContainer}>
-                  {/* <SafeAreaView style={styles.titleContainer}>
-                    <Text style={styles.titleText}>FRESH</Text>
-                  </SafeAreaView> */}
                   <TextInput
                     style={styles.inputStyle}
                     autoFocus={showKeyboard}
@@ -126,24 +102,24 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
                     style={[styles.button, styles.buttonClose]}
                     onPress={() => {
                       sreachItem();
-                      setItemInput("");
+                      setItemInput('');
                     }}
                   >
-                    <Text style={styles.textStyle}>SREACH</Text>
+                    <Text style={styles.textStyle}>Search</Text>
                   </Pressable>
                 </SafeAreaView>
               </View>
             </SafeAreaView>
           </SafeAreaView>
         </DismissKeyboard>
-        <ScrollView style={{ position: "absolute", top: 145, left: 28 }}>
+        <ScrollView style={{ position: 'absolute', top: 145, left: 28 }}>
           {addedItems.map((lookUpItem) => (
             <View key={Math.random() * (1000 - 1) + 1} style={styles.container}>
               <Text
                 style={{
-                  textAlign: "center",
+                  textAlign: 'center',
                   marginBottom: 20,
-                  fontWeight: "bold",
+                  fontWeight: 'bold',
                   fontSize: 17,
                 }}
               >
@@ -169,7 +145,7 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
           transparent={true}
           visible={itemModalVisible}
           onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
+            Alert.alert('Modal has been closed.');
             setItemModalVisible(!modalVisible);
           }}
         >
@@ -186,37 +162,37 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
             </View>
           </View>
         </Modal>
-        <View style={{ position: "absolute", top: 500 }}></View>
+        <View style={{ position: 'absolute', top: 500 }}></View>
       </View>
     </View>
   );
 };
 
-const deviceWidth = Math.round(Dimensions.get("window").width);
+const deviceWidth = Math.round(Dimensions.get('window').width);
 const offset = 40;
 const radius = 20;
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     marginTop: 22,
   },
   centeredView1: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     marginBottom: 400,
   },
   modalView: {
     width: deviceWidth,
     height: 700,
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -229,11 +205,11 @@ const styles = StyleSheet.create({
     width: deviceWidth,
     height: 200,
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 15,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -246,46 +222,46 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    backgroundColor: "#4C956C",
+    backgroundColor: '#4C956C',
     height: 38,
   },
   buttonOpen: {
-    backgroundColor: "#4C956C",
+    backgroundColor: '#4C956C',
   },
   buttonClose: {
-    backgroundColor: "#4C956C",
+    backgroundColor: '#4C956C',
   },
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center",
+    textAlign: 'center',
   },
 
   // ---------------->>>
   container: {
     width: deviceWidth - 20,
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 0,
     // display: "flex",
   },
   cardContainer: {
     width: deviceWidth - offset,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     height: 110,
     borderRadius: 10,
 
-    shadowColor: "green",
+    shadowColor: 'green',
     shadowOffset: {
       width: 5,
       height: 5,
     },
     shadowOpacity: 0.15,
     shadowRadius: 5,
-    borderBottomColor: "black",
+    borderBottomColor: 'black',
     elevation: 9,
     marginBottom: 20,
   },
@@ -299,24 +275,24 @@ const styles = StyleSheet.create({
     // alignSelf: "center",
     marginLeft: 30,
     marginTop: 10,
-    resizeMode: "stretch",
+    resizeMode: 'stretch',
   },
   titleStyle: {
     fontSize: 20,
-    fontWeight: "800",
-    position: "absolute",
+    fontWeight: '800',
+    position: 'absolute',
     left: 80,
     top: -85,
   },
   categoryStyle: {
-    fontWeight: "200",
+    fontWeight: '200',
   },
   infoStyle: {
     marginHorizontal: 10,
     marginVertical: 5,
   },
   iconLabelStyle: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginTop: 10,
   },
 
@@ -335,8 +311,8 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 15,
     // margin: 10,
-    fontWeight: "bold",
-    color: "#4C956C",
+    fontWeight: 'bold',
+    color: '#4C956C',
   },
   captionText: {
     fontSize: 17,
@@ -347,25 +323,25 @@ const styles = StyleSheet.create({
 
     // justifyContent: "space-evenly",
     // marginBottom: "70%",
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   signupFormContainer: {
     flex: 3,
-    alignItems: "center",
-    justifyContent: "space-evenly",
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
     // marginBottom: "25%",
   },
   formTitle: {
     fontSize: 20,
-    fontWeight: "bold",
-    color: "#4C956C",
+    fontWeight: 'bold',
+    color: '#4C956C',
   },
   inputStyle: {
     height: 40,
     width: 230,
     padding: 10,
-    textAlign: "left",
-    borderColor: "gray",
+    textAlign: 'left',
+    borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 15,
     marginRight: 15,
@@ -375,25 +351,25 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     // alignItems: "center",
     width: 300,
-    height: "20%",
-    backgroundColor: "#4C956C",
+    height: '20%',
+    backgroundColor: '#4C956C',
     borderRadius: 20,
   },
   signupButton: {
     flex: 0.15,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 300,
-    height: "20%",
-    backgroundColor: "#4C956C",
+    height: '20%',
+    backgroundColor: '#4C956C',
     borderRadius: 20,
   },
   buttonText: {
-    color: "white",
-    fontWeight: "bold",
+    color: 'white',
+    fontWeight: 'bold',
   },
   numericInput: {
-    position: "absolute",
+    position: 'absolute',
     left: 40,
     top: 299,
   },

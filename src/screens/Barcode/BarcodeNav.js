@@ -1,14 +1,14 @@
-import * as React from "react";
-import { useState } from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Button, Text, Pressable, Modal } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import * as React from 'react';
+import { useState } from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Button, Text, Pressable, Modal } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 // Screens
-import BarcodeScreen from "./BarcodeScreen";
-import InfoScreen from "./Modals/BarcodeLookUpModal";
-import BarcodeLookUpModal from "./Modals/BarcodeLookUpModal";
-import Calender from "./Calender";
-import SreachLookUpModal from "./Modals/SreachLookUpModal";
+import BarcodeScreen from './BarcodeScreen';
+import InfoScreen from './Modals/BarcodeLookUpModal';
+import BarcodeLookUpModal from './Modals/BarcodeLookUpModal';
+import Calender from './Calender';
+import SreachLookUpModal from './Modals/SearchLookUpModal';
 
 const BarcodeStack = createNativeStackNavigator();
 
@@ -19,13 +19,13 @@ export default function BarcodeNav({ navigation }) {
       <BarcodeStack.Navigator
         screenOptions={{
           headerShown: true,
-          title: "ADD TO FRIDGE",
+          title: 'ADD TO FRIDGE',
           headerStyle: {
-            backgroundColor: "#4C956C",
+            backgroundColor: '#4C956C',
           },
-          headerTintColor: "#fff",
+          headerTintColor: '#fff',
           headerTitleStyle: {
-            fontWeight: "bold",
+            fontWeight: 'bold',
           },
         }}
       >
@@ -51,7 +51,7 @@ export default function BarcodeNav({ navigation }) {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
+          Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}
       >

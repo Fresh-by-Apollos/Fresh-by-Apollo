@@ -1,12 +1,13 @@
-import firebase from "../../firebase/firebase";
-import axios from "axios";
+import firebase from '../../firebase/firebase';
+import axios from 'axios';
+import Toast from 'react-native-toast-message';
 
 // fridgeState
 export const lookUpItem = {};
 
 // Action Types
-const ADD_LOOKUP_ITEM = "ADD_LOOKUP_ITEM";
-const REMOVE_LOOKUP_ITEM = "REMOVE_LOOKUP_ITEMS";
+const ADD_LOOKUP_ITEM = 'ADD_LOOKUP_ITEM';
+const REMOVE_LOOKUP_ITEM = 'REMOVE_LOOKUP_ITEMS';
 
 // Action Creators
 const _addLookupItem = (item) => {
@@ -24,8 +25,6 @@ const _removeAll = () => {
 
 export const addLookupItem = async (info) => {
   try {
-    console.log(info, "<-adkfjalkdfja ");
-    // const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2"; // User backup
     const userId = firebase.auth().currentUser.uid;
     const fridgeRef = firebase
       .firestore()
@@ -48,7 +47,7 @@ export const addLookupItem = async (info) => {
       (doc) =>
         Number(doc.fridgeItemID) === Number(info.fridgeItemID) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
-          "en-US"
+          'en-US'
         ) == dateParsed &&
         doc.fridgeItemID !== 0
     );
@@ -65,10 +64,16 @@ export const addLookupItem = async (info) => {
       await fridgeItem.update({
         servings: firebase.firestore.FieldValue.increment(info.servings),
       });
+      Toast.show({
+        position: 'bottom',
+        bottomOffset: 90,
+        type: 'success',
+        text1: resultArray[0].name,
+        text2: 'added to Fridge',
+        visibilityTime: 600,
+        autoHide: true,
+      });
     } else {
-      console.log(info, "<-adkfjalkdfja ");
-      //   console.log("On new Add <<<<<<<<----------------");
-      // Add a new document in collection "currentFridge"
       firebase
         .firestore()
         .collection(`users/${userId}/currentFridge`)
@@ -90,10 +95,19 @@ export const addLookupItem = async (info) => {
           fridgeItemID: info.fridgeItemId,
         })
         .then(() => {
-          console.log("Document successfully written!");
+          console.log('Document successfully written!');
+          Toast.show({
+            position: 'bottom',
+            bottomOffset: 90,
+            type: 'success',
+            text1: info.name,
+            text2: 'added to Fridge',
+            visibilityTime: 600,
+            autoHide: true,
+          });
         })
         .catch((error) => {
-          console.error("Error writing document: ", error);
+          console.error('Error writing document: ', error);
         });
     }
   } catch (error) {

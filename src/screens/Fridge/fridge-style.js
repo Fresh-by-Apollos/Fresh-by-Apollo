@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   fridgeItems: {
     flexDirection: 'row',
     width: '93%',
-    height: '30%',
+    height: 150,
     alignItems: 'center',
     justifyContent: 'space-between',
     margin: '3%',
@@ -190,6 +190,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: '7%',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 
   modalHeaderText: {
