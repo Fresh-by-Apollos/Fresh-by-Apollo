@@ -14,12 +14,16 @@ import {
 
 import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
 import DatePicker from "react-native-neat-date-picker";
+import { formatDistance } from "date-fns";
 
 import NumericInput from "react-native-numeric-input";
 import {
   removeAllLookupItems,
   addLookupItem,
 } from "../../store/reducers/lookUpReducer";
+import styles from "./lookUpResult-styles";
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 import { useStorage } from "../../store/Context";
 
@@ -50,19 +54,23 @@ export default LooupItemView = ({
   };
 
   const addtoFridge = async () => {
-    setItemModalVisible(false);
-    const itemData = {
-      ...lookUpItem,
-      expirationDate: dateObj,
-      servings,
-      storageType: "pantry",
-    };
+    if (!dateObj) {
+      alert("Please enter an expiration date");
+    } else {
+      setItemModalVisible(false);
+      const itemData = {
+        ...lookUpItem,
+        expirationDate: dateObj,
+        servings,
+        storageType: "pantry",
+      };
 
-    setAddedItems([...addedItems, itemData]);
-    await addLookupItem(itemData);
-    await fetchFridgeItems(dispatch);
-    removeAllLookupItems(dispatch);
-    setShowKeyboard(true);
+      setAddedItems([...addedItems, itemData]);
+      await addLookupItem(itemData);
+      fetchFridgeItems(dispatch);
+      removeAllLookupItems(dispatch);
+      setShowKeyboard(true);
+    }
   };
 
   const onConfirm = (date) => {
@@ -72,14 +80,17 @@ export default LooupItemView = ({
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       {Object.keys(lookUpItem).length == 0 ? (
-        <View>
-          <Text style={{ textAlign: "center", fontSize: 18 }}>
-            Sorry could not find Item
-          </Text>
+        <View style={styles.notFoundContainer}>
+          <View style={styles.errorContainer}>
+            <MaterialIcons name="error" size={30} color="#D54C4C" />
+            <Text style={{ fontSize: 20, fontWeight: "600", marginLeft: "3%" }}>
+              Item not Found
+            </Text>
+          </View>
           <Pressable
-            style={[styles.button]}
+            style={[styles.secondaryButton]}
             onPress={() => {
               setItemModalVisible(false);
               setShowKeyboard(true);
@@ -89,152 +100,70 @@ export default LooupItemView = ({
           </Pressable>
         </View>
       ) : (
-        <View style={styles.container}>
-          <View style={styles.cardContainer}>
+        <View style={styles.resultContainer}>
+          <View style={styles.itemDetailContainer}>
             <Image
               style={styles.imageStyle}
               source={{ uri: lookUpItem.image }}
             />
-            <View style={styles.infoStyle}>
-              <Text style={styles.titleStyle}>{lookUpItem.name}</Text>
-              <Text style={styles.categoryStyle}>{lookUpItem.allergens}</Text>
-
-              <View style={styles.numericInput}>
-                <NumericInput
-                  value={servings}
-                  onChange={(value) => setServings(value)}
-                  onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-                  totalWidth={100}
-                  totalHeight={30}
-                  iconSize={25}
-                  step={1}
-                  valueType="real"
-                  rounded
-                  textColor="black"
-                  iconStyle={{ color: "white" }}
-                  rightButtonBackgroundColor="gray"
-                  leftButtonBackgroundColor="lightgray"
-                />
-              </View>
-              <View style={{ position: "absolute", left: 200, top: -50 }}>
-                <Pressable style={[styles.button]} onPress={openDatePicker}>
-                  <Text style={styles.textStyle}>Calender</Text>
-                </Pressable>
-                <DatePicker
-                  isVisible={showDatePicker}
-                  mode={"single"}
-                  onCancel={onCancel}
-                  onConfirm={onConfirm}
-                />
-              </View>
+            <Text style={styles.itemName}>{lookUpItem.name}</Text>
+            <View></View>
+          </View>
+          <NumericInput
+            value={servings}
+            onChange={(value) => setServings(value)}
+            onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+            totalWidth={100}
+            totalHeight={30}
+            iconSize={25}
+            step={1}
+            valueType="real"
+            rounded
+            textColor="black"
+            iconStyle={{ color: "white" }}
+            rightButtonBackgroundColor="gray"
+            leftButtonBackgroundColor="lightgray"
+          />
+          <View style={styles.buttonContainer}>
+            <Pressable style={styles.calendarBtn} onPress={openDatePicker}>
+              <FontAwesome5 name="calendar" size={24} color="white" />
+            </Pressable>
+            <DatePicker
+              isVisible={showDatePicker}
+              mode={"single"}
+              onCancel={onCancel}
+              onConfirm={onConfirm}
+            />
+            <View style={styles.expirationContainer}>
+              {dateObj ? (
+                <Text style={styles.expirationText}>
+                  Expires{" "}
+                  {formatDistance(new Date(dateObj), new Date(), {
+                    addSuffix: true,
+                  })}
+                </Text>
+              ) : (
+                <Text>Enter Expiration Date</Text>
+              )}
             </View>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: "row",
-                justifyContent: "center",
+          </View>
+          <View style={styles.buttonContainer}>
+            <Pressable
+              style={[styles.button]}
+              onPress={() => {
+                setItemModalVisible(false);
+                setShowKeyboard(true);
+                removeAllLookupItems(dispatch);
               }}
             >
-              <Pressable
-                style={[
-                  styles.button,
-                  { marginRight: 20, width: 100, backgroundColor: "darkred" },
-                ]}
-                onPress={() => {
-                  setItemModalVisible(false);
-                  setShowKeyboard(true);
-                  removeAllLookupItems(dispatch);
-                }}
-              >
-                <Text style={styles.textStyle}>Cancel</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, { width: 100 }]}
-                onPress={() => addtoFridge()}
-              >
-                <Text style={styles.textStyle}>Add</Text>
-              </Pressable>
-            </View>
+              <Text style={styles.textStyle}>Cancel</Text>
+            </Pressable>
+            <Pressable style={[styles.button]} onPress={() => addtoFridge()}>
+              <Text style={styles.textStyle}>Add</Text>
+            </Pressable>
           </View>
         </View>
       )}
     </View>
   );
 };
-
-const deviceWidth = Math.round(Dimensions.get("window").width);
-const offset = 40;
-const radius = 20;
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    backgroundColor: "#4C956C",
-    height: 38,
-  },
-
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-
-  // ---------------->>>
-  container: {
-    width: deviceWidth - 20,
-    alignItems: "center",
-    marginTop: 0,
-    // display: "flex",
-  },
-  cardContainer: {
-    width: deviceWidth - offset,
-    backgroundColor: "white",
-    height: 110,
-    borderRadius: 10,
-    // backgroundColor: "red",
-
-    // shadowColor: "green",
-    // shadowOffset: {
-    //   width: 5,
-    //   height: 5,
-    // },
-    // shadowOpacity: 0.15,
-    // shadowRadius: 5,
-    borderBottomColor: "black",
-    elevation: 9,
-    // marginBottom: 20,
-  },
-  imageStyle: {
-    height: 90,
-    width: 40,
-    // borderTopLeftRadius: radius,
-    // borderTopRightRadius: radius,
-    opacity: 0.9,
-    // alignContent: "center",
-    // alignSelf: "center",
-    marginLeft: 30,
-    // marginTop: 10,
-    resizeMode: "stretch",
-  },
-  titleStyle: {
-    fontSize: 20,
-    fontWeight: "800",
-    position: "absolute",
-    left: 80,
-    top: -85,
-  },
-  categoryStyle: {
-    fontWeight: "200",
-  },
-  infoStyle: {
-    marginHorizontal: 10,
-    marginVertical: 5,
-  },
-
-  numericInput: {
-    position: "absolute",
-    left: 80,
-    top: -50,
-  },
-});

@@ -1,40 +1,46 @@
-import React, { useState, useEffect } from "react";
 import {
   Text,
   Pressable,
   View,
-  Button,
   Image,
-  Modal,
   SafeAreaView,
+  Modal,
 } from "react-native";
-import { fetchFridgeItems } from "../../../store/reducers/fridgeReducer";
+import styles from "../scanModal-styles";
+import React, { useState, useEffect } from "react";
+
+// Icons
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+
+// Libaries
+import { formatDistance } from "date-fns";
+import NumericInput from "react-native-numeric-input";
 import DatePicker from "react-native-neat-date-picker";
+
+// Modals
+import DietWarningsModal from "./DietWarningsModal";
+
+// Context
 import {
   addFridgeItem,
   removeScannedItem,
 } from "../../../store/reducers/barcodeReducer";
-import NumericInput from "react-native-numeric-input";
-import styles from "../infoScreen-styles";
 import { useStorage } from "../../../store/Context";
+import { fetchFridgeItems } from "../../../store/reducers/fridgeReducer";
 
-import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-
-import DietWarningsModal from "./DietWarningsModal";
-
-export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
+export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
   const { scannedItem, dispatch, userState } = useStorage();
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [dateObj, setDateObj] = useState();
+  const [dateObj, setDateObj] = useState(null);
   const [servings, setServings] = useState(1);
+
   const [flagModalVisible, setFlagModalVisible] = useState(false);
+  const { dietFlags, dietLabels } = scannedItem;
   const [dietRestrictWarnings, setDietRestrictWarnings] = useState({
     dietLabels: [],
     dietFlags: [],
   });
-
-  const { dietFlags, dietLabels } = scannedItem;
 
   useEffect(() => {
     checkScannedItem();
@@ -43,22 +49,28 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
   const openDatePicker = () => {
     setShowDatePicker(true);
   };
-  // .
+
   const onCancel = () => {
+    setScanned(false);
     setShowDatePicker(false);
   };
 
   const addtoFridge = async () => {
-    setModalVisible(false);
-    const itemData = {
-      ...scannedItem,
-      expirationDate: dateObj,
-      servings,
-      storageType: "pantry",
-    };
-    await addFridgeItem(itemData);
-    fetchFridgeItems(dispatch);
-    removeScannedItem(dispatch);
+    if (dateObj) {
+      setModalVisible(false);
+      setScanned(false);
+      const itemData = {
+        ...scannedItem,
+        expirationDate: dateObj,
+        servings,
+        storageType: "pantry",
+      };
+      await addFridgeItem(itemData);
+      fetchFridgeItems(dispatch);
+      removeScannedItem(dispatch);
+    } else {
+      alert("Please input an expiration date");
+    }
   };
 
   const onConfirm = (date) => {
@@ -84,9 +96,8 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
         setFlagModalVisible(true);
       }
     }
-
-    // if yo.length > 0: setConflict(yo)
   };
+
   return (
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
@@ -97,12 +108,19 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
                 backgroundColor: "#D54C4C",
                 ...styles.modalHeader,
               }}
-              onPress={() => setModalVisible(false)}
             >
-              <View style={{ marginLeft: "3%" }}>
+              <Pressable
+                onPress={() => {
+                  {
+                    setModalVisible(false);
+                    setScanned(false);
+                  }
+                }}
+                style={{ marginLeft: "3%" }}
+              >
                 <MaterialIcons name="cancel" size={24} color="white" />
-              </View>
-              <Text style={styles.headerText}>Oo ps ..</Text>
+              </Pressable>
+              <Text style={styles.headerText}>Oops ..</Text>
               <View></View>
             </View>
 
@@ -124,9 +142,12 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
 
             <SafeAreaView style={styles.throwOutBtnContainer}>
               <Pressable
-                style={[styles.button, styles.buttonClose1, { flex: 1 }]}
+                style={[styles.button3, styles.buttonClose1, { flex: 1 }]}
                 onPress={() => {
-                  setModalVisible(false);
+                  {
+                    setModalVisible(false);
+                    setScanned(false);
+                  }
                 }}
               >
                 <Text style={styles.textStyle}>Go back</Text>
@@ -136,14 +157,15 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
         ) : (
           <>
             <View style={styles.headerContainer}>
-              <View style={{ marginLeft: "3%" }}>
-                <MaterialIcons
-                  onPress={() => setModalVisible(false)}
-                  name="cancel"
-                  size={24}
-                  color="white"
-                />
-              </View>
+              <Pressable
+                style={{ marginLeft: "3%" }}
+                onPress={() => {
+                  setModalVisible(false);
+                  setScanned(false);
+                }}
+              >
+                <MaterialIcons name="cancel" size={24} color="white" />
+              </Pressable>
               <Text style={styles.headerText}>Add Item</Text>
               <View></View>
             </View>
@@ -161,7 +183,6 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
                 </View>
               </View>
             </View>
-
             <NumericInput
               value={servings}
               onChange={(value) => setServings(value)}
@@ -182,7 +203,6 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
                 style={[styles.expirationBtn, styles.buttonClose]}
                 onPress={openDatePicker}
               >
-                <Text style={styles.textStyle}>Expiration Date </Text>
                 <FontAwesome5 name="calendar" size={24} color="white" />
               </Pressable>
               <DatePicker
@@ -191,38 +211,45 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
                 onCancel={onCancel}
                 onConfirm={onConfirm}
               />
-              <View>
-                <Text>{JSON.stringify(dateObj)}</Text>
+              <View style={styles.expirationContainer}>
+                {dateObj ? (
+                  <Text style={styles.expirationText}>
+                    Expires{" "}
+                    {formatDistance(new Date(dateObj), new Date(), {
+                      addSuffix: true,
+                    })}
+                  </Text>
+                ) : (
+                  <Text>Enter Expiration Date</Text>
+                )}
               </View>
             </View>
-
             <View>
               <Pressable
-                style={[styles.button, styles.buttonClose, { height: 50 }]}
+                style={[styles.button, styles.buttonClose]}
                 onPress={addtoFridge}
               >
                 <Text style={styles.textStyle}>Add to Fridge</Text>
               </Pressable>
             </View>
-
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={flagModalVisible}
-              onRequestClose={() => {
-                Alert.alert("Modal has been closed.");
-                setFlagModalVisible(!flagModalVisible);
-              }}
-            >
-              <DietWarningsModal
-                flagModalVisible={flagModalVisible}
-                setFlagModalVisible={setFlagModalVisible}
-                dietRestrictWarnings={dietRestrictWarnings}
-                setModalVisible={setModalVisible}
-              />
-            </Modal>
           </>
         )}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={flagModalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setFlagModalVisible(!flagModalVisible);
+          }}
+        >
+          <DietWarningsModal
+            flagModalVisible={flagModalVisible}
+            setFlagModalVisible={setFlagModalVisible}
+            dietRestrictWarnings={dietRestrictWarnings}
+            setModalVisible={setModalVisible}
+          />
+        </Modal>
       </View>
     </View>
   );

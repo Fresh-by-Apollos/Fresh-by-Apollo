@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, Pressable, View, SafeAreaView } from "react-native";
 import styles from "../barcodeLookUpStyles";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -10,6 +10,7 @@ export default DietWarningsModal = ({
 }) => {
   return (
     <View style={styles.centeredView}>
+      {console.log(dietRestrictWarnings)}
       <View style={styles.modalView}>
         <SafeAreaView
           style={{

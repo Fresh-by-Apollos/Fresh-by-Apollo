@@ -73,6 +73,7 @@ export default function BarcodeScreen({ navigation }) {
       >
         <BarcodeLookUpModal
           setModalVisible={setModalVisible}
+          setScanned={setScanned}
           navigation={navigation}
         />
       </Modal>

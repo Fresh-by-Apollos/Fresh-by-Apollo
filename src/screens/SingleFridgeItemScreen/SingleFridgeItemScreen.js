@@ -30,7 +30,6 @@ function SingleFridgeItemScreen({ route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <Text style={styles.title}>Selected Item</Text> */}
       <ScrollView>
         <View>
           <SafeAreaView style={styles.dataContainer}>

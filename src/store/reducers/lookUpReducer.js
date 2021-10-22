@@ -1,5 +1,6 @@
 import firebase from "../../firebase/firebase";
 import axios from "axios";
+import Toast from "react-native-toast-message";
 
 // fridgeState
 export const lookUpItem = {};
@@ -60,6 +61,15 @@ export const addLookupItem = async (info) => {
       await fridgeItem.update({
         servings: firebase.firestore.FieldValue.increment(info.servings),
       });
+      Toast.show({
+        position: "top",
+        topOffset: 90,
+        type: "success",
+        text1: resultArray[0].name,
+        text2: "added to Fridge",
+        visibilityTime: 600,
+        autoHide: true,
+      });
     } else {
       firebase
         .firestore()
@@ -83,6 +93,15 @@ export const addLookupItem = async (info) => {
         })
         .then(() => {
           console.log("Document successfully written!");
+          Toast.show({
+            position: "top",
+            topOffset: 90,
+            type: "success",
+            text1: info.name,
+            text2: "added to Fridge",
+            visibilityTime: 600,
+            autoHide: true,
+          });
         })
         .catch((error) => {
           console.error("Error writing document: ", error);

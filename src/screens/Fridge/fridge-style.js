@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   fridgeItems: {
     flexDirection: "row",
     width: "93%",
-    height: 200,
+    height: 150,
     alignItems: "center",
     justifyContent: "space-between",
     margin: "3%",
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
 
   itemNameText: {
     fontWeight: "bold",
+    fontSize: 17,
     maxWidth: 200,
   },
 
@@ -162,7 +163,6 @@ const styles = StyleSheet.create({
     marginTop: "7%",
     width: "45%",
   },
-
   buttonOpen: {
     backgroundColor: "#4C956C",
   },
@@ -190,6 +190,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: "7%",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 
   modalHeaderText: {

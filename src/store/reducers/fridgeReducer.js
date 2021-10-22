@@ -1,4 +1,5 @@
 import firebase from "../../firebase/firebase";
+import Toast from "react-native-toast-message";
 
 // fridgeState
 export const fridgeState = [];
@@ -26,7 +27,7 @@ export const fetchFridgeItems = async (dispatch) => {
     const resultArray = [];
     snapshot.forEach((doc) => {
       resultArray.push({
-        id: doc.id, // Now we have direct access to this doc on FridgeItemView!!
+        id: doc.id,
         imageUrl: doc.data().image,
         name: doc.data().name,
         servings: doc.data().servings,
@@ -132,9 +133,37 @@ export const updateFridgeItem = async (
 
     if (consumedAll) {
       await fridgeItem.delete();
+
+      fridgeIteminfo.wasConsumed
+        ? Toast.show({
+            position: "bottom",
+            bottomOffset: 90,
+            type: "success",
+            text1: `${fridgeIteminfo.name} consumed`,
+            visibilityTime: 600,
+            autoHide: true,
+          })
+        : Toast.show({
+            position: "bottom",
+            bottomOffset: 90,
+            type: "error",
+            text1: fridgeIteminfo.name,
+            text2: "was removed",
+            visibilityTime: 600,
+            autoHide: true,
+          });
     } else {
       await fridgeItem.update({
         servings: firebase.firestore.FieldValue.increment(-Number(amount)),
+      });
+      console.log(fridgeIteminfo);
+      Toast.show({
+        position: "bottom",
+        bottomOffset: 90,
+        type: "success",
+        text1: `${amount} ${fridgeIteminfo.name} consumed`,
+        visibilityTime: 600,
+        autoHide: true,
       });
     }
 
