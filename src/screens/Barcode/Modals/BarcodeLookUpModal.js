@@ -102,7 +102,7 @@ export default BarcodeLookUpModal = ({ setModalVisible, navigation }) => {
               <View style={{ marginLeft: "3%" }}>
                 <MaterialIcons name="cancel" size={24} color="white" />
               </View>
-              <Text style={styles.headerText}>Opps ..</Text>
+              <Text style={styles.headerText}>Oo ps ..</Text>
               <View></View>
             </View>
 
