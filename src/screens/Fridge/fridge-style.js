@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
 
   itemNameText: {
     fontWeight: 'bold',
+    fontSize: 17,
     maxWidth: 200,
   },
 

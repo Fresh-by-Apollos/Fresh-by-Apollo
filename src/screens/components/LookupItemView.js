@@ -107,22 +107,23 @@ export default LooupItemView = ({
               source={{ uri: lookUpItem.image }}
             />
             <Text style={styles.itemName}>{lookUpItem.name}</Text>
-            <NumericInput
-              value={servings}
-              onChange={(value) => setServings(value)}
-              onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-              totalWidth={100}
-              totalHeight={30}
-              iconSize={25}
-              step={1}
-              valueType="real"
-              rounded
-              textColor="black"
-              iconStyle={{ color: 'white' }}
-              rightButtonBackgroundColor="gray"
-              leftButtonBackgroundColor="lightgray"
-            />
+            <View></View>
           </View>
+          <NumericInput
+            value={servings}
+            onChange={(value) => setServings(value)}
+            onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+            totalWidth={100}
+            totalHeight={30}
+            iconSize={25}
+            step={1}
+            valueType="real"
+            rounded
+            textColor="black"
+            iconStyle={{ color: 'white' }}
+            rightButtonBackgroundColor="gray"
+            leftButtonBackgroundColor="lightgray"
+          />
           <View style={styles.buttonContainer}>
             <Pressable style={styles.calendarBtn} onPress={openDatePicker}>
               <FontAwesome5 name="calendar" size={24} color="white" />

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     height: '30%',
     width: '80%',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
   },
   itemName: {
     fontSize: 25,
