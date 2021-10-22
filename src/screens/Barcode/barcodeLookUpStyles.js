@@ -1,16 +1,9 @@
-import { StyleSheet } from "react-native";
-import { Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 const deviceWidth = Math.round(Dimensions.get("window").width);
 const offset = 40;
 const radius = 20;
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "column",
-    height: "100%",
-    width: "100%",
-  },
-
+const barcodeLookUpStyles = StyleSheet.create({
   title: {
     fontSize: 40,
     paddingTop: 10,
@@ -59,7 +52,7 @@ const styles = StyleSheet.create({
   fridgeItems: {
     flexDirection: "row",
     width: "93%",
-    height: 150,
+    height: 200,
     alignItems: "center",
     justifyContent: "space-between",
     margin: "3%",
@@ -103,7 +96,6 @@ const styles = StyleSheet.create({
 
   itemNameText: {
     fontWeight: "bold",
-    fontSize: 17,
     maxWidth: 200,
   },
 
@@ -127,24 +119,16 @@ const styles = StyleSheet.create({
 
   // -----------
   centeredView: {
-    height: "50%",
-    width: "100%",
-    marginTop: "140%",
-    flexDirection: "column",
-    justifyContent: "center",
+    flex: 1,
+    justifyContent: "flex-end",
     alignItems: "center",
   },
-
   modalView: {
     width: deviceWidth,
-    height: "100%",
-    margin: "2%",
+    height: "60%",
     backgroundColor: "white",
-    paddingTop: 0,
-    padding: "10%",
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "flex-start",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -163,6 +147,7 @@ const styles = StyleSheet.create({
     marginTop: "7%",
     width: "45%",
   },
+
   buttonOpen: {
     backgroundColor: "#4C956C",
   },
@@ -190,13 +175,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: "7%",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
 
   modalHeaderText: {
@@ -224,4 +202,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles;
+export default barcodeLookUpStyles;

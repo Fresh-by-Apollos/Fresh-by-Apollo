@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 import {
   Text,
@@ -10,22 +10,22 @@ import {
   Dimensions,
   Keyboard,
   TouchableWithoutFeedback,
-} from 'react-native';
+} from "react-native";
 
-import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
-import DatePicker from 'react-native-neat-date-picker';
-import { formatDistance } from 'date-fns';
+import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
+import DatePicker from "react-native-neat-date-picker";
+import { formatDistance } from "date-fns";
 
-import NumericInput from 'react-native-numeric-input';
+import NumericInput from "react-native-numeric-input";
 import {
   removeAllLookupItems,
   addLookupItem,
-} from '../../store/reducers/lookUpReducer';
-import styles from './lookUpResult-styles';
-import { MaterialIcons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+} from "../../store/reducers/lookUpReducer";
+import styles from "./lookUpResult-styles";
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
-import { useStorage } from '../../store/Context';
+import { useStorage } from "../../store/Context";
 
 // Mabye add fresh item flied
 export default LooupItemView = ({
@@ -55,14 +55,14 @@ export default LooupItemView = ({
 
   const addtoFridge = async () => {
     if (!dateObj) {
-      alert('Please enter an expiration date');
+      alert("Please enter an expiration date");
     } else {
       setItemModalVisible(false);
       const itemData = {
         ...lookUpItem,
         expirationDate: dateObj,
         servings,
-        storageType: 'pantry',
+        storageType: "pantry",
       };
 
       setAddedItems([...addedItems, itemData]);
@@ -85,7 +85,7 @@ export default LooupItemView = ({
         <View style={styles.notFoundContainer}>
           <View style={styles.errorContainer}>
             <MaterialIcons name="error" size={30} color="#D54C4C" />
-            <Text style={{ fontSize: 20, fontWeight: '600', marginLeft: '3%' }}>
+            <Text style={{ fontSize: 20, fontWeight: "600", marginLeft: "3%" }}>
               Item not Found
             </Text>
           </View>
@@ -120,7 +120,7 @@ export default LooupItemView = ({
             valueType="real"
             rounded
             textColor="black"
-            iconStyle={{ color: 'white' }}
+            iconStyle={{ color: "white" }}
             rightButtonBackgroundColor="gray"
             leftButtonBackgroundColor="lightgray"
           />
@@ -130,14 +130,14 @@ export default LooupItemView = ({
             </Pressable>
             <DatePicker
               isVisible={showDatePicker}
-              mode={'single'}
+              mode={"single"}
               onCancel={onCancel}
               onConfirm={onConfirm}
             />
             <View style={styles.expirationContainer}>
               {dateObj ? (
                 <Text style={styles.expirationText}>
-                  Expires{' '}
+                  Expires{" "}
                   {formatDistance(new Date(dateObj), new Date(), {
                     addSuffix: true,
                   })}
