@@ -126,11 +126,9 @@ export default BarcodeLookUpModal = ({
             {dateObj ? (
               <Text style={styles.expirationText}>
                 Expires{' '}
-                {dateObj
-                  ? formatDistance(new Date(dateObj), new Date(), {
-                      addSuffix: true,
-                    })
-                  : ''}
+                {formatDistance(new Date(dateObj), new Date(), {
+                  addSuffix: true,
+                })}
               </Text>
             ) : (
               <Text>Enter Expiration Date</Text>

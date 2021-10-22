@@ -47,6 +47,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  expirationContainer: {
+    borderWidth: 1,
+    padding: '4%',
+    borderRadius: 15,
+    borderColor: 'lightgray',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
+  expirationText: {
+    fontSize: 15,
+    fontWeight: '600',
+  },
+
   calendarBtn: {
     height: '100%',
     width: '20%',

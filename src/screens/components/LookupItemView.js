@@ -14,6 +14,7 @@ import {
 
 import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
 import DatePicker from 'react-native-neat-date-picker';
+import { formatDistance } from 'date-fns';
 
 import NumericInput from 'react-native-numeric-input';
 import {
@@ -53,19 +54,23 @@ export default LooupItemView = ({
   };
 
   const addtoFridge = async () => {
-    setItemModalVisible(false);
-    const itemData = {
-      ...lookUpItem,
-      expirationDate: dateObj,
-      servings,
-      storageType: 'pantry',
-    };
+    if (!dateObj) {
+      alert('Please enter an expiration date');
+    } else {
+      setItemModalVisible(false);
+      const itemData = {
+        ...lookUpItem,
+        expirationDate: dateObj,
+        servings,
+        storageType: 'pantry',
+      };
 
-    setAddedItems([...addedItems, itemData]);
-    await addLookupItem(itemData);
-    fetchFridgeItems(dispatch);
-    removeAllLookupItems(dispatch);
-    setShowKeyboard(true);
+      setAddedItems([...addedItems, itemData]);
+      await addLookupItem(itemData);
+      fetchFridgeItems(dispatch);
+      removeAllLookupItems(dispatch);
+      setShowKeyboard(true);
+    }
   };
 
   const onConfirm = (date) => {
@@ -128,8 +133,17 @@ export default LooupItemView = ({
               onCancel={onCancel}
               onConfirm={onConfirm}
             />
-            <View>
-              <Text>Text</Text>
+            <View style={styles.expirationContainer}>
+              {dateObj ? (
+                <Text style={styles.expirationText}>
+                  Expires{' '}
+                  {formatDistance(new Date(dateObj), new Date(), {
+                    addSuffix: true,
+                  })}
+                </Text>
+              ) : (
+                <Text>Enter Expiration Date</Text>
+              )}
             </View>
           </View>
           <View style={styles.buttonContainer}>

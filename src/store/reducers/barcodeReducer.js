@@ -66,7 +66,6 @@ export const addFridgeItem = async (info) => {
         autoHide: true,
       });
     } else {
-      // console.log("On new Add <<<<<<<<----------------");
       // Add a new document in collection "currentFridge"
       firebase
         .firestore()

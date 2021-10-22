@@ -44,9 +44,13 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
   );
 
   const sreachItem = async () => {
-    setShowKeyboard(false);
-    getLookupItem(itemInput, dispatch);
-    setItemModalVisible(true);
+    if (!itemInput) {
+      alert('Please enter an item to search');
+    } else {
+      setShowKeyboard(false);
+      getLookupItem(itemInput, dispatch);
+      setItemModalVisible(true);
+    }
   };
 
   const addLookupItems = async () => {
@@ -69,15 +73,6 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
 
   return (
     <View style={styles.centeredView}>
-      {/* <Pressable
-        style={[styles.button, styles.buttonClose]}
-        onPress={() => {
-          setModalVisible(false);
-          addLookupItems();
-        }}
-      >
-        <Text style={styles.textStyle}>FINISH</Text>
-      </Pressable> */}
       <View style={styles.modalView}>
         <SafeAreaView style={styles.headerContainer}>
           <Pressable
@@ -93,7 +88,7 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
           <View></View>
         </SafeAreaView>
         <DismissKeyboard>
-          <SafeAreaView style={{ width: '100%', height: '100%' }}>
+          <SafeAreaView style={{ width: '100%', height: 600 }}>
             <SafeAreaView style={styles.container2}>
               <TextInput
                 style={styles.inputStyle}
@@ -121,23 +116,27 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
               <View style={styles.scrollHeaderContainer}>
                 <Text style={styles.scrollViewheader}>Recently Added</Text>
               </View>
-              <ScrollView contentContainerStyle={styles.listOfItemsContainer}>
-                {addedItems.map((lookUpItem) => (
-                  <View
-                    key={Math.random() * (1000 - 1) + 1}
-                    style={styles.container}
-                  >
-                    <View style={styles.cardContainer}>
-                      <Image
-                        style={styles.imageStyle}
-                        source={{ uri: lookUpItem.image }}
-                      />
-                      <Text style={styles.captionText}>{lookUpItem.name}</Text>
-                      <Text>{lookUpItem.servings}</Text>
+              <View style={{ height: 460, width: '100%' }}>
+                <ScrollView contentContainerStyle={styles.listOfItemsContainer}>
+                  {addedItems.map((lookUpItem) => (
+                    <View
+                      key={Math.random() * (1000 - 1) + 1}
+                      style={styles.container}
+                    >
+                      <View style={styles.cardContainer}>
+                        <Image
+                          style={styles.imageStyle}
+                          source={{ uri: lookUpItem.image }}
+                        />
+                        <Text style={styles.captionText}>
+                          {lookUpItem.name}
+                        </Text>
+                        <Text>{lookUpItem.servings}</Text>
+                      </View>
                     </View>
-                  </View>
-                ))}
-              </ScrollView>
+                  ))}
+                </ScrollView>
+              </View>
             </SafeAreaView>
           </SafeAreaView>
         </DismissKeyboard>

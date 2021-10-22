@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
 const deviceWidth = Math.round(Dimensions.get('window').width);
+const deviceHeight = Math.round(Dimensions.get('window').height);
 const offset = 40;
 const radius = 20;
 const styles = StyleSheet.create({
@@ -10,7 +11,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '40%',
     width: deviceWidth,
-    height: '100%',
+    height: deviceHeight,
   },
   centeredView1: {
     flex: 1,
@@ -76,7 +77,6 @@ const styles = StyleSheet.create({
 
   // ---------------->>>
   listOfItemsContainer: {
-    height: '100%',
     width: deviceWidth,
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     paddingLeft: '4%',
     paddingRight: '10%',
+    marginBottom: '2%',
 
     // shadowOffset: {
     //   width: 5,
