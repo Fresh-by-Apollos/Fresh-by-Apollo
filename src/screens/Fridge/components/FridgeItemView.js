@@ -85,11 +85,12 @@ function FridgeItemView({ item, navigation }) {
             {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
           </Text>
           <SafeAreaView>
-            <Text>Servings: {item.servings}</Text>
+            <Text style={{ fontSize: 14 }}>Servings: {item.servings}</Text>
             <Text
               style={{
                 color: timeToExpire > 0 ? 'black' : '#D54C4C',
                 ...styles.expireText,
+                fontSize: 15,
               }}
             >
               {timeToExpire > 0 ? 'Expires ' : 'Expired '}
@@ -98,14 +99,6 @@ function FridgeItemView({ item, navigation }) {
                 new Date(),
                 { addSuffix: true }
               )}
-            </Text>
-            <Text style={styles.baseText}>
-              Allergens:{' '}
-              {item.allergens.length ? item.allergens.join(', ') : 'N/A'}
-            </Text>
-            <Text style={styles.baseText}>
-              Diet Flags:{' '}
-              {item.dietFlags.length ? item.dietFlags.join(', ') : 'N/A'}
             </Text>
           </SafeAreaView>
         </SafeAreaView>

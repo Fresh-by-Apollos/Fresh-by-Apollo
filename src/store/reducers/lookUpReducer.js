@@ -45,7 +45,7 @@ export const addLookupItem = async (info) => {
 
     const resultArray = result.filter(
       (doc) =>
-        Number(doc.fridgeItemID) === Number(info.fridgeItemID) &&
+        Number(doc.fridgeItemID) === Number(info.fridgeItemId) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
           'en-US'
         ) == dateParsed &&
@@ -65,8 +65,8 @@ export const addLookupItem = async (info) => {
         servings: firebase.firestore.FieldValue.increment(info.servings),
       });
       Toast.show({
-        position: 'bottom',
-        bottomOffset: 90,
+        position: 'top',
+        topOffset: 90,
         type: 'success',
         text1: resultArray[0].name,
         text2: 'added to Fridge',
@@ -97,8 +97,8 @@ export const addLookupItem = async (info) => {
         .then(() => {
           console.log('Document successfully written!');
           Toast.show({
-            position: 'bottom',
-            bottomOffset: 90,
+            position: 'top',
+            topOffset: 90,
             type: 'success',
             text1: info.name,
             text2: 'added to Fridge',

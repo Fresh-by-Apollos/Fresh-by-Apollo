@@ -8,7 +8,7 @@ import {
 } from '../../../store/reducers/barcodeReducer';
 import NumericInput from 'react-native-numeric-input';
 import { formatDistance } from 'date-fns';
-import styles from '../infoScreen-styles';
+import styles from '../scanModal-styles';
 import { useStorage } from '../../../store/Context';
 
 import { MaterialIcons } from '@expo/vector-icons';
@@ -126,11 +126,9 @@ export default BarcodeLookUpModal = ({
             {dateObj ? (
               <Text style={styles.expirationText}>
                 Expires{' '}
-                {dateObj
-                  ? formatDistance(new Date(dateObj), new Date(), {
-                      addSuffix: true,
-                    })
-                  : ''}
+                {formatDistance(new Date(dateObj), new Date(), {
+                  addSuffix: true,
+                })}
               </Text>
             ) : (
               <Text>Enter Expiration Date</Text>

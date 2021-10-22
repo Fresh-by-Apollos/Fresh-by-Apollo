@@ -27,7 +27,7 @@ export const fetchFridgeItems = async (dispatch) => {
     const resultArray = [];
     snapshot.forEach((doc) => {
       resultArray.push({
-        id: doc.id, // Now we have direct access to this doc on FridgeItemView!!
+        id: doc.id,
         imageUrl: doc.data().image,
         name: doc.data().name,
         servings: doc.data().servings,
@@ -55,7 +55,6 @@ const addPastFridgeItem = async (info, amount) => {
       .collection(`/users/${userId}/pastFridge`);
 
     const snapshot = await fridgeRef.get();
-    // console.log(info);
     const result = [];
     snapshot.forEach((doc) => {
       result.push({
@@ -133,15 +132,25 @@ export const updateFridgeItem = async (
 
     if (consumedAll) {
       await fridgeItem.delete();
-      Toast.show({
-        position: 'bottom',
-        bottomOffset: 90,
-        type: 'error',
-        text1: fridgeIteminfo.name,
-        text2: 'removed from Fridge',
-        visibilityTime: 600,
-        autoHide: true,
-      });
+
+      fridgeIteminfo.wasConsumed
+        ? Toast.show({
+            position: 'bottom',
+            bottomOffset: 90,
+            type: 'success',
+            text1: `${fridgeIteminfo.name} consumed`,
+            visibilityTime: 600,
+            autoHide: true,
+          })
+        : Toast.show({
+            position: 'bottom',
+            bottomOffset: 90,
+            type: 'error',
+            text1: fridgeIteminfo.name,
+            text2: 'was removed',
+            visibilityTime: 600,
+            autoHide: true,
+          });
     } else {
       await fridgeItem.update({
         servings: firebase.firestore.FieldValue.increment(-Number(amount)),

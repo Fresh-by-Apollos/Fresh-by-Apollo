@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { View, Text, SafeAreaView, ScrollView, Image } from "react-native";
-import styles from "./single-fridge-item-style";
-import { formatDistance } from "date-fns";
-import { VictoryBar, VictoryLegend } from "victory-native";
+import React, { useState } from 'react';
+import { View, Text, SafeAreaView, ScrollView, Image } from 'react-native';
+import styles from './single-fridge-item-style';
+import { formatDistance } from 'date-fns';
+import { VictoryBar, VictoryLegend } from 'victory-native';
 
 function SingleFridgeItemScreen({ route }) {
   const {
@@ -16,11 +16,12 @@ function SingleFridgeItemScreen({ route }) {
     carbs,
     fat,
   } = route.params;
-  const [ timeToExpire ] = useState(new Date(expirationDate.seconds * 1000) - new Date())
+  const [timeToExpire] = useState(
+    new Date(expirationDate.seconds * 1000) - new Date()
+  );
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <Text style={styles.title}>Selected Item</Text> */}
       <ScrollView>
         <View>
           <SafeAreaView style={styles.dataContainer}>
@@ -31,10 +32,10 @@ function SingleFridgeItemScreen({ route }) {
               <Text style={styles.baseText}>Servings: {servings}</Text>
               <Text> </Text>
               <Text
-              style={{
-                color: timeToExpire > 0 ? 'black' : '#D54C4C',
-                ...styles.baseText,
-              }}
+                style={{
+                  color: timeToExpire > 0 ? 'black' : '#D54C4C',
+                  ...styles.baseText,
+                }}
               >
                 {timeToExpire > 0 ? 'Expires ' : 'Expired '}
                 {formatDistance(
@@ -45,38 +46,41 @@ function SingleFridgeItemScreen({ route }) {
               </Text>
               <Text> </Text>
               <Text style={styles.baseText}>
-                Allergens: {allergens.length ? allergens.join(", ") : "N/A"}
+                Allergens: {allergens.length ? allergens.join(', ') : 'N/A'}
               </Text>
               <Text> </Text>
               <Text style={styles.baseText}>
-                Diet Flags:{' '}
-                {dietFlags.length ? dietFlags.join(', ') : 'N/A'}
+                Diet Flags: {dietFlags.length ? dietFlags.join(', ') : 'N/A'}
               </Text>
             </SafeAreaView>
           </SafeAreaView>
           <SafeAreaView>
             <VictoryLegend
-                x={80} y={10}
-                orientation="horizontal"
-                gutter={20}
-                data={[
-                  { name: "Protein", symbol: { fill: "#5f0f40", type: "square" } },
-                  { name: "Carbs", symbol: { fill: "#0f4c5c", type: "square" } },
-                  { name: "Fat", symbol: { fill: "#fb8b24", type: "square" } }
-                ]}
-                height={30}
-              />
-              <VictoryBar
-                horizontal
-                data={[
-                  { y: protein, fill: '#5f0f40' },
-                  { y: carbs, fill: '#0f4c5c' },
-                  { y: fat, fill: '#fb8b24'}
-                ]}
-                style={{ data: { fill: ({ datum }) => datum.fill }}}
-                barWidth={35}
-                labels={({ datum }) => `${datum.y}g`}
-              />
+              x={80}
+              y={10}
+              orientation="horizontal"
+              gutter={20}
+              data={[
+                {
+                  name: 'Protein',
+                  symbol: { fill: '#5f0f40', type: 'square' },
+                },
+                { name: 'Carbs', symbol: { fill: '#0f4c5c', type: 'square' } },
+                { name: 'Fat', symbol: { fill: '#fb8b24', type: 'square' } },
+              ]}
+              height={30}
+            />
+            <VictoryBar
+              horizontal
+              data={[
+                { y: protein, fill: '#5f0f40' },
+                { y: carbs, fill: '#0f4c5c' },
+                { y: fat, fill: '#fb8b24' },
+              ]}
+              style={{ data: { fill: ({ datum }) => datum.fill } }}
+              barWidth={35}
+              labels={({ datum }) => `${datum.y}g`}
+            />
           </SafeAreaView>
         </View>
       </ScrollView>

@@ -120,6 +120,7 @@ function FridgeScreen({ navigation }) {
               <FridgeItemView
                 key={
                   `${item.barcode}` +
+                  `${item.id}` +
                   new Date(
                     item.expirationDate.seconds * 1000
                   ).toLocaleDateString('en-US')

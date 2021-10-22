@@ -1,11 +1,13 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const deviceWidth = Math.round(Dimensions.get('window').width);
+const deviceHeight = Math.round(Dimensions.get('window').height);
 const offset = 40;
 const radius = 20;
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
+    height: deviceHeight,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },

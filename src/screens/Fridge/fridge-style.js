@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
 
   itemNameText: {
     fontWeight: 'bold',
+    fontSize: 17,
     maxWidth: 200,
   },
 
@@ -162,7 +163,6 @@ const styles = StyleSheet.create({
     marginTop: '7%',
     width: '45%',
   },
-
   buttonOpen: {
     backgroundColor: '#4C956C',
   },
