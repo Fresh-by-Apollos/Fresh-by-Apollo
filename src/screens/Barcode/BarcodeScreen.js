@@ -13,7 +13,7 @@ import {
 
 //  070662035016  <-- Ramen Noodles Barcode:
 export default function BarcodeScreen({ navigation }) {
-  const { dispatch, scannedItem } = useStorage();
+  const { dispatch, scannedItem, userState } = useStorage();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [text, setText] = useState("Scan Barcode");
@@ -33,10 +33,10 @@ export default function BarcodeScreen({ navigation }) {
   }, []);
 
   // What happens when we scan the bar code
-  const handleBarCodeScanned = ({ data }) => {
+  const handleBarCodeScanned = async ({ data }) => {
     // addFridgeItem();
     setScanned(true);
-    getFoodData(data, dispatch);
+    await getFoodData(data, dispatch);
     setModalVisible(true);
   };
 
@@ -62,7 +62,6 @@ export default function BarcodeScreen({ navigation }) {
   // Return the View
   return (
     <View style={modalVisible ? styles.container1 : styles.container}>
-      {/* <TestingScreen /> */}
       <Modal
         animationType="slide"
         transparent={true}

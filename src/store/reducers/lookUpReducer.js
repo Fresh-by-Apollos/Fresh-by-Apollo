@@ -24,8 +24,6 @@ const _removeAll = () => {
 
 export const addLookupItem = async (info) => {
   try {
-    console.log(info, "<-adkfjalkdfja ");
-    // const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2"; // User backup
     const userId = firebase.auth().currentUser.uid;
     const fridgeRef = firebase
       .firestore()
@@ -46,17 +44,14 @@ export const addLookupItem = async (info) => {
 
     const resultArray = result.filter(
       (doc) =>
-        Number(doc.fridgeItemID) === Number(info.fridgeItemID) &&
+        Number(doc.fridgeItemID) === Number(info.fridgeItemId) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
           "en-US"
         ) == dateParsed &&
         doc.fridgeItemID !== 0
     );
 
-    // console.log(resultArray);
-
     if (resultArray.length > 0) {
-      // console.log(resultArray);
       const fridgeItem = firebase
         .firestore()
         .collection(`/users/${userId}/currentFridge`)
@@ -66,9 +61,6 @@ export const addLookupItem = async (info) => {
         servings: firebase.firestore.FieldValue.increment(info.servings),
       });
     } else {
-      console.log(info, "<-adkfjalkdfja ");
-      //   console.log("On new Add <<<<<<<<----------------");
-      // Add a new document in collection "currentFridge"
       firebase
         .firestore()
         .collection(`users/${userId}/currentFridge`)
@@ -108,7 +100,7 @@ export const getLookupItem = async (itemName, dispatch) => {
   const itemInfo = await axios.get(
     `https://api.spoonacular.com/food/ingredients/${item.data.results[0].id}/information?amount=1&apiKey=fb5674256e7b41928221101869eae05c`
   );
-  console.log(item.data.results[0].image);
+
   const itemImageURL = `https://spoonacular.com/cdn/ingredients_100x100/${item.data.results[0].image}`;
 
   const { id, name, nutrition } = itemInfo.data;

@@ -51,13 +51,12 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
 
   const sreachItem = async () => {
     setShowKeyboard(false);
-    console.log(itemInput);
+
     getLookupItem(itemInput, dispatch);
     setItemModalVisible(true);
   };
 
   const addLookupItems = async () => {
-    console.log(sreachedItems, "<-------------------------------");
     removeAllLookupItems(dispatch);
   };
 
@@ -70,7 +69,6 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
       storageType: "pantry",
     };
 
-    console.log("hskjdhfjkshdksj", itemData);
     await addLookupItem(itemData);
     fetchFridgeItems(dispatch);
     removelookUpItem(dispatch);
@@ -105,7 +103,6 @@ export default SreachLookUpModal = ({ setModalVisible, navigation }) => {
             </Text>
             <SafeAreaView style={styles.container2}>
               <View>
-                {console.log("---->>", showKeyboard)}
                 <SafeAreaView style={styles.loginFormContainer}>
                   {/* <SafeAreaView style={styles.titleContainer}>
                     <Text style={styles.titleText}>FRESH</Text>

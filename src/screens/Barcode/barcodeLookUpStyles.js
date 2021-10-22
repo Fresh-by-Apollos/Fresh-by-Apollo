@@ -1,16 +1,9 @@
-import { StyleSheet } from "react-native";
-import { Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 const deviceWidth = Math.round(Dimensions.get("window").width);
 const offset = 40;
 const radius = 20;
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "column",
-    height: "100%",
-    width: "100%",
-  },
-
+const barcodeLookUpStyles = StyleSheet.create({
   title: {
     fontSize: 40,
     paddingTop: 10,
@@ -126,24 +119,16 @@ const styles = StyleSheet.create({
 
   // -----------
   centeredView: {
-    height: "50%",
-    width: "100%",
-    marginTop: "140%",
-    flexDirection: "column",
-    justifyContent: "center",
+    flex: 1,
+    justifyContent: "flex-end",
     alignItems: "center",
   },
-
   modalView: {
     width: deviceWidth,
-    height: "100%",
-    margin: "2%",
+    height: "60%",
     backgroundColor: "white",
-    paddingTop: 0,
-    padding: "10%",
     borderRadius: 20,
     alignItems: "center",
-    justifyContent: "flex-start",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -217,4 +202,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles;
+export default barcodeLookUpStyles;

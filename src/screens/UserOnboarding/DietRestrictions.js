@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, Switch } from 'react-native';
-import styles from './styles';
-import { MaterialIcons } from '@expo/vector-icons';
+import React, { useState } from "react";
+import { SafeAreaView, Text, TouchableOpacity, Switch } from "react-native";
+import styles from "./styles";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const DietRestrictions = ({ navigation }) => {
   const [vegan, setVegan] = useState(false);
@@ -19,7 +19,7 @@ const DietRestrictions = ({ navigation }) => {
         <SafeAreaView style={styles.checkboxItem}>
           <Text style={styles.checkboxDetail}>Vegan</Text>
           <Switch
-            trackColor={{ false: '#767577', true: '#4C956C' }}
+            trackColor={{ false: "#767577", true: "#4C956C" }}
             ios_backgroundColor="#3e3e3e"
             value={vegan}
             onValueChange={setVegan}
@@ -28,7 +28,7 @@ const DietRestrictions = ({ navigation }) => {
         <SafeAreaView style={styles.checkboxItem}>
           <Text style={styles.checkboxDetail}>Vegetarian</Text>
           <Switch
-            trackColor={{ false: '#767577', true: '#4C956C' }}
+            trackColor={{ false: "#767577", true: "#4C956C" }}
             ios_backgroundColor="#3e3e3e"
             value={vegetarian}
             onValueChange={setVegetarian}
@@ -37,7 +37,7 @@ const DietRestrictions = ({ navigation }) => {
         <SafeAreaView style={styles.checkboxItem}>
           <Text style={styles.checkboxDetail}>Gluten-Free</Text>
           <Switch
-            trackColor={{ false: '#767577', true: '#4C956C' }}
+            trackColor={{ false: "#767577", true: "#4C956C" }}
             ios_backgroundColor="#3e3e3e"
             value={gluten_free}
             onValueChange={setGlutenFree}
@@ -46,7 +46,7 @@ const DietRestrictions = ({ navigation }) => {
         <SafeAreaView style={styles.checkboxItem}>
           <Text style={styles.checkboxDetail}>Kosher</Text>
           <Switch
-            trackColor={{ false: '#767577', true: '#4C956C' }}
+            trackColor={{ false: "#767577", true: "#4C956C" }}
             ios_backgroundColor="#3e3e3e"
             value={kosher}
             onValueChange={setKosher}
@@ -55,7 +55,7 @@ const DietRestrictions = ({ navigation }) => {
         <SafeAreaView style={styles.checkboxItem}>
           <Text style={styles.checkboxDetail}>Keto</Text>
           <Switch
-            trackColor={{ false: '#767577', true: '#4C956C' }}
+            trackColor={{ false: "#767577", true: "#4C956C" }}
             ios_backgroundColor="#3e3e3e"
             value={keto}
             onValueChange={setKeto}
@@ -64,7 +64,7 @@ const DietRestrictions = ({ navigation }) => {
         <SafeAreaView style={styles.checkboxItem}>
           <Text style={styles.checkboxDetail}>Dairy-Free</Text>
           <Switch
-            trackColor={{ false: '#767577', true: '#4C956C' }}
+            trackColor={{ false: "#767577", true: "#4C956C" }}
             ios_backgroundColor="#3e3e3e"
             value={dairy_free}
             onValueChange={setDairyFree}
@@ -73,7 +73,7 @@ const DietRestrictions = ({ navigation }) => {
         <SafeAreaView style={styles.checkboxItem}>
           <Text style={styles.checkboxDetail}>Lactose Intolerant</Text>
           <Switch
-            trackColor={{ false: '#767577', true: '#4C956C' }}
+            trackColor={{ false: "#767577", true: "#4C956C" }}
             ios_backgroundColor="#3e3e3e"
             value={lactose_intolerant}
             onValueChange={setLactoseIntolerant}
@@ -85,7 +85,7 @@ const DietRestrictions = ({ navigation }) => {
         <TouchableOpacity
           style={styles.submitButton}
           onPress={() => {
-            navigation.navigate('Allergies', {
+            navigation.navigate("Allergies", {
               vegan,
               vegetarian,
               gluten_free,

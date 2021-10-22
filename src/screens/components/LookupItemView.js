@@ -60,7 +60,7 @@ export default LooupItemView = ({
 
     setAddedItems([...addedItems, itemData]);
     await addLookupItem(itemData);
-    fetchFridgeItems(dispatch);
+    await fetchFridgeItems(dispatch);
     removeAllLookupItems(dispatch);
     setShowKeyboard(true);
   };
@@ -73,7 +73,6 @@ export default LooupItemView = ({
 
   return (
     <View>
-      {console.log(lookUpItem, "jdslkdj")}
       {Object.keys(lookUpItem).length == 0 ? (
         <View>
           <Text style={{ textAlign: "center", fontSize: 18 }}>
@@ -127,10 +126,6 @@ export default LooupItemView = ({
                   onCancel={onCancel}
                   onConfirm={onConfirm}
                 />
-                {/* <View>
-              <Text>{JSON.stringify(dateObj)}</Text>
-              {console.log(dateObj)}
-            </View> */}
               </View>
             </View>
             <View
