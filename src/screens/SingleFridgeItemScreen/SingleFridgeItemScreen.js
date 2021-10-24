@@ -1,116 +1,173 @@
-import React, { useState } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
-  ScrollView,
   Image,
   Modal,
+  ScrollView,
+  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
 import styles from "./single-fridge-item-style";
+import React, { useState, useEffect } from "react";
+
+// Context
+import { useStorage } from "../../store/Context";
+
+// Libraries
 import { formatDistance } from "date-fns";
 import { VictoryBar, VictoryLegend } from "victory-native";
 
+// Modals
+import SingleItemEditModal from "./Modals/SingleItemEditModal";
+
 function SingleFridgeItemScreen({ route }) {
-  const {
-    name,
-    imageUrl,
-    expirationDate,
-    servings,
-    allergens,
-    dietFlags,
-    protein,
-    carbs,
-    fat,
-  } = route.params;
-  const [timeToExpire] = useState(
-    new Date(expirationDate.seconds * 1000) - new Date()
-  );
+  const { id } = route.params;
+  const { fridgeState } = useStorage();
+
+  const [loading, setLoading] = useState(true);
+  const [fridgeItem, setFridgeItem] = useState();
+  const [timeToExpire, setTimeToExpire] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    try {
+      const itemData = fridgeState.filter((item) => item.id === id);
+      const getFridgeItem = () => {
+        setFridgeItem(...itemData);
+      };
+      getFridgeItem();
+      setTimeToExpire(
+        new Date(itemData[0].expirationDate.seconds * 1000) - new Date()
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  }, [fridgeState]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View>
-          <SafeAreaView style={styles.dataContainer}>
-            <Image style={styles.image} source={{ uri: imageUrl }} />
-            <SafeAreaView style={styles.textContainer}>
-              <Text style={styles.baseText}>Name: {name}</Text>
-              <Text> </Text>
-              <Text style={styles.baseText}>Servings: {servings}</Text>
-              <Text> </Text>
-              <Text
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <>
+          <ScrollView>
+            <View>
+              <SafeAreaView style={styles.dataContainer}>
+                <Image
+                  style={styles.image}
+                  source={{ uri: fridgeItem.imageUrl }}
+                />
+                <SafeAreaView style={styles.textContainer}>
+                  <Text style={styles.baseText}>Name: {fridgeItem.name}</Text>
+                  <Text> </Text>
+                  <Text style={styles.baseText}>
+                    Servings: {fridgeItem.servings}
+                  </Text>
+                  <Text> </Text>
+                  <Text
+                    style={{
+                      color: timeToExpire > 0 ? "black" : "#D54C4C",
+                      ...styles.baseText,
+                    }}
+                  >
+                    {timeToExpire > 0 ? "Expires " : "Expired "}
+                    {formatDistance(
+                      new Date(fridgeItem.expirationDate.seconds * 1000),
+                      new Date(),
+                      { addSuffix: true }
+                    )}
+                  </Text>
+                  <Text> </Text>
+                  <Text style={styles.baseText}>
+                    Allergens:{" "}
+                    {fridgeItem.allergens.length
+                      ? fridgeItem.allergens.join(", ")
+                      : "N/A"}
+                  </Text>
+                  <Text> </Text>
+                  <Text style={styles.baseText}>
+                    Diet Flags:{" "}
+                    {fridgeItem.dietFlags.length
+                      ? fridgeItem.dietFlags.join(", ")
+                      : "N/A"}
+                  </Text>
+                </SafeAreaView>
+              </SafeAreaView>
+              <SafeAreaView>
+                <VictoryLegend
+                  x={80}
+                  y={10}
+                  orientation="horizontal"
+                  gutter={20}
+                  data={[
+                    {
+                      name: "Protein",
+                      symbol: { fill: "#5f0f40", type: "square" },
+                    },
+                    {
+                      name: "Carbs",
+                      symbol: { fill: "#0f4c5c", type: "square" },
+                    },
+                    {
+                      name: "Fat",
+                      symbol: { fill: "#fb8b24", type: "square" },
+                    },
+                  ]}
+                  height={30}
+                />
+                <VictoryBar
+                  horizontal
+                  data={[
+                    { y: fridgeItem.protein, fill: "#5f0f40" },
+                    { y: fridgeItem.carbs, fill: "#0f4c5c" },
+                    { y: fridgeItem.fat, fill: "#fb8b24" },
+                  ]}
+                  style={{ data: { fill: ({ datum }) => datum.fill } }}
+                  barWidth={35}
+                  labels={({ datum }) => `${datum.y}g`}
+                />
+              </SafeAreaView>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => setModalVisible(true)}
                 style={{
-                  color: timeToExpire > 0 ? "black" : "#D54C4C",
-                  ...styles.baseText,
+                  borderWidth: 1,
+                  width: "20%",
+                  borderColor: "green",
+                  padding: 10,
                 }}
               >
-                {timeToExpire > 0 ? "Expires " : "Expired "}
-                {formatDistance(
-                  new Date(expirationDate.seconds * 1000),
-                  new Date(),
-                  { addSuffix: true }
-                )}
-              </Text>
-              <Text> </Text>
-              <Text style={styles.baseText}>
-                Allergens: {allergens.length ? allergens.join(", ") : "N/A"}
-              </Text>
-              <Text> </Text>
-              <Text style={styles.baseText}>
-                Diet Flags: {dietFlags.length ? dietFlags.join(", ") : "N/A"}
-              </Text>
-            </SafeAreaView>
-          </SafeAreaView>
-          <SafeAreaView>
-            <VictoryLegend
-              x={80}
-              y={10}
-              orientation="horizontal"
-              gutter={20}
-              data={[
-                {
-                  name: "Protein",
-                  symbol: { fill: "#5f0f40", type: "square" },
-                },
-                { name: "Carbs", symbol: { fill: "#0f4c5c", type: "square" } },
-                { name: "Fat", symbol: { fill: "#fb8b24", type: "square" } },
-              ]}
-              height={30}
-            />
-            <VictoryBar
-              horizontal
-              data={[
-                { y: protein, fill: "#5f0f40" },
-                { y: carbs, fill: "#0f4c5c" },
-                { y: fat, fill: "#fb8b24" },
-              ]}
-              style={{ data: { fill: ({ datum }) => datum.fill } }}
-              barWidth={35}
-              labels={({ datum }) => `${datum.y}g`}
-            />
-          </SafeAreaView>
-        </View>
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <TouchableOpacity
-            style={{
-              borderWidth: 1,
-              width: "20%",
-
-              borderColor: "green",
-              padding: 10,
+                <Text style={{ textAlign: "center", color: "green" }}>
+                  EDIT
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
             }}
           >
-            <Text style={{ textAlign: "center", color: "green" }}>EDIT</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+            <SingleItemEditModal
+              item={fridgeItem}
+              setModalVisible={setModalVisible}
+            />
+          </Modal>
+        </>
+      )}
     </SafeAreaView>
   );
 }

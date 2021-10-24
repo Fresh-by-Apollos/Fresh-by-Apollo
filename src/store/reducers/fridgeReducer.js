@@ -16,6 +16,44 @@ const _setFridge = (items) => {
 };
 
 // Thunks
+export const editFridgeItem = async (id, amount, newDate) => {
+  try {
+    const userId = firebase.auth().currentUser.uid;
+    const fridgeItem = firebase
+      .firestore()
+      .collection(`/users/${userId}/currentFridge`)
+      .doc(id);
+
+    await fridgeItem
+      .update({
+        servings: Number(amount),
+        expirationDate: newDate,
+      })
+      .then(() =>
+        Toast.show({
+          position: "top",
+          topOffset: 80,
+          type: "success",
+          text1: `Item updated successfully!`,
+          visibilityTime: 950,
+          autoHide: true,
+        })
+      )
+      .catch(() =>
+        Toast.show({
+          position: "top",
+          topOffset: 80,
+          type: "error",
+          text1: `Error updating item`,
+          visibilityTime: 950,
+          autoHide: true,
+        })
+      );
+  } catch (error) {
+    return false;
+  }
+};
+
 export const fetchFridgeItems = async (dispatch) => {
   try {
     const userId = firebase.auth().currentUser.uid;
@@ -39,6 +77,8 @@ export const fetchFridgeItems = async (dispatch) => {
         fat: doc.data().fat,
         barcode: doc.data().barcode,
         dateAdded: doc.data().dateAdded,
+        storage: doc.data().storage,
+        fridgeItemID: doc.data().fridgeItemId,
       });
     });
     dispatch(_setFridge(resultArray));
@@ -156,7 +196,7 @@ export const updateFridgeItem = async (
       await fridgeItem.update({
         servings: firebase.firestore.FieldValue.increment(-Number(amount)),
       });
-      console.log(fridgeIteminfo);
+
       Toast.show({
         position: "bottom",
         bottomOffset: 90,

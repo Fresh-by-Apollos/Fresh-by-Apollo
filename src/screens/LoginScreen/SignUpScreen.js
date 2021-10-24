@@ -1,17 +1,7 @@
-import React, { useState } from "react";
-import {
-  SafeAreaView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
 import styles from "./styles";
-import { signUp, getToken } from "../../firebase/auth/auth";
-import Constants from "expo-constants";
-import * as Notifications from "expo-notifications";
-import * as SecureStore from "expo-secure-store";
-import firebase from "../../firebase/firebase";
+import React, { useState } from "react";
+import { signUp } from "../../firebase/auth/auth";
+import { SafeAreaView, Text, TextInput, TouchableOpacity } from "react-native";
 
 const SignUpScreen = ({ navigation }) => {
   const [firstNameInput, setFirstNameInput] = useState("");
@@ -21,7 +11,6 @@ const SignUpScreen = ({ navigation }) => {
 
   async function onSubmit(firstName, lastName, email, password) {
     await signUp(firstName, lastName, email, password);
-    // await registerForPushNotificationsAsync();
   }
 
   return (

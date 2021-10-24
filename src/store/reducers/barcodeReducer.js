@@ -45,8 +45,6 @@ export const addFridgeItem = async (info) => {
         ) == dateParsed
     );
 
-    // console.log(resultArray);
-
     if (resultArray.length > 0) {
       const fridgeItem = firebase
         .firestore()
@@ -131,10 +129,17 @@ export const getFoodData = async (barcode_num, dispatch) => {
         const macros = nutrients.reduce(function (acc, nutrient) {
           const name = nutrient.name;
           if (
+<<<<<<< HEAD
             name == 'Protein' ||
             name == 'Total lipid (fat)' ||
             name == 'Carbohydrate, by difference' ||
             name.includes('Carb')
+=======
+            name == "Protein" ||
+            name == "Total lipid (fat)" ||
+            name == "Carbohydrate, by difference" ||
+            name.includes("Carb")
+>>>>>>> origin/main
           ) {
             !acc[name] && (acc[name] = (nutrient.per_100g / 100) * servingSize);
           }
@@ -151,8 +156,11 @@ export const getFoodData = async (barcode_num, dispatch) => {
 
         const dietFlags = diet_flags.map((additive) => additive.ingredient);
 
+<<<<<<< HEAD
         console.log(dietFlags, dietLabels);
         console.log(dietLabels);
+=======
+>>>>>>> origin/main
         const data = {
           name,
           allergens,
@@ -160,9 +168,15 @@ export const getFoodData = async (barcode_num, dispatch) => {
           dietFlags,
           barcode: barcode,
           dietLabels,
+<<<<<<< HEAD
           protein: macros['Protein'] || 0,
           carbs: macros['Carbohydrate, by difference'] || 0,
           fat: macros['Total lipid (fat)'] || 0,
+=======
+          protein: macros["Protein"] || 0,
+          carbs: macros["Carbohydrate, by difference"] || 0,
+          fat: macros["Total lipid (fat)"] || 0,
+>>>>>>> origin/main
         };
         dispatch(_setScannedItem(data));
       })
@@ -204,8 +218,11 @@ export const getFoodData = async (barcode_num, dispatch) => {
 
     // const dietFlags = diet_flags.map((additive) => additive.ingredient);
 
+<<<<<<< HEAD
     // console.log(dietFlags, dietLabels);
     // console.log(dietLabels);
+=======
+>>>>>>> origin/main
     // const data = {
     //   name,
     //   allergens,
