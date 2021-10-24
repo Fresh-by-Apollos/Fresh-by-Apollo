@@ -1,16 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesome } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-
-import * as Notifications from "expo-notifications";
-
-// This refers to the function defined earlier in this guide, in Push Notifications Set Up
-// import { registerForPushNotificationsAsync } from "../LoginScreen/SignUpScreen";
-
-import Constants from "expo-constants";
-import firebase from "../../firebase/firebase";
-
 import {
   View,
   Text,
@@ -18,11 +5,24 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import styles from "./fridge-style";
+import React, { useEffect } from "react";
+import firebase from "../../firebase/firebase";
+
+// Icons
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+// Libraries
+import Constants from "expo-constants";
+import * as Notifications from "expo-notifications";
+
+// Context
 import { useStorage } from "../../store/Context";
 import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
-import styles from "./fridge-style";
+
+// Components
 import FridgeItemView from "./components/FridgeItemView";
-import Toast, { SuccessToast } from "react-native-toast-message";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -34,8 +34,6 @@ Notifications.setNotificationHandler({
 
 function FridgeScreen({ navigation }) {
   const { fridgeState, dispatch } = useStorage();
-  const [notification, setNotification] = useState({});
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     fetchFridgeItems(dispatch);
@@ -125,9 +123,8 @@ function FridgeScreen({ navigation }) {
                     item.expirationDate.seconds * 1000
                   ).toLocaleDateString("en-US")
                 }
-                item={item}
+                itemInfo={item}
                 navigation={navigation}
-                setModalVisible={setModalVisible}
               />
             ))}
           </View>

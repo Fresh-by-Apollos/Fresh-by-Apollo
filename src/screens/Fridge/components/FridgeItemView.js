@@ -2,14 +2,12 @@ import {
   View,
   Text,
   SafeAreaView,
-  ScrollView,
   Image,
-  Button,
   TouchableOpacity,
   Pressable,
   Modal,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../fridge-style";
 
 // Icons
@@ -30,15 +28,20 @@ import {
 } from "../../../store/reducers/fridgeReducer";
 import { useStorage } from "../../../store/Context";
 
-function FridgeItemView({ item, navigation }) {
+function FridgeItemView({ itemInfo, navigation }) {
   const { dispatch } = useStorage();
   const [showButtons, setShowButtons] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [servings, setServings] = useState(1);
   const [trashing, setTrashing] = useState(false);
+  const [item, setItem] = useState(itemInfo);
   const [timeToExpire] = useState(
     new Date(item.expirationDate.seconds * 1000) - new Date()
   );
+
+  useEffect(() => {
+    setItem(itemInfo);
+  }, [itemInfo]);
 
   const handleAction = async (wasConsumed) => {
     let consumedAll = servings === item.servings || trashing;
@@ -64,17 +67,7 @@ function FridgeItemView({ item, navigation }) {
       <TouchableOpacity
         style={styles.fridgeItems}
         onPress={() => {
-          navigation.navigate("Selected Item", {
-            name: item.name,
-            expirationDate: item.expirationDate,
-            servings: item.servings,
-            allergens: item.allergens,
-            dietFlags: item.dietFlags,
-            protein: item.protein,
-            carbs: item.carbs,
-            fat: item.fat,
-            imageUrl: item.imageUrl,
-          });
+          navigation.navigate("Selected Item", { ...item });
         }}
       >
         <SafeAreaView style={styles.imageContainer}>

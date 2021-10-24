@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Text, Pressable, View, SafeAreaView } from "react-native";
+import React from "react";
 import styles from "../barcodeLookUpStyles";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Text, Pressable, View, SafeAreaView } from "react-native";
 
 export default DietWarningsModal = ({
+  setScanned,
+  setModalVisible,
   setFlagModalVisible,
   dietRestrictWarnings,
-  setModalVisible,
 }) => {
   return (
     <View style={styles.centeredView}>
-      {console.log(dietRestrictWarnings)}
       <View style={styles.modalView}>
         <SafeAreaView
           style={{
@@ -21,7 +21,10 @@ export default DietWarningsModal = ({
           <Pressable
             style={styles.modalCancel}
             onPress={() => {
-              setFlagModalVisible(false);
+              {
+                setFlagModalVisible(false);
+                setScanned(false);
+              }
             }}
           >
             <MaterialIcons name="cancel" size={25} color="white" />
@@ -56,6 +59,7 @@ export default DietWarningsModal = ({
               {
                 setFlagModalVisible(false);
                 setModalVisible(false);
+                setScanned(false);
               }
             }}
           >

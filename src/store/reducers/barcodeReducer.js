@@ -45,8 +45,6 @@ export const addFridgeItem = async (info) => {
         ) == dateParsed
     );
 
-    // console.log(resultArray);
-
     if (resultArray.length > 0) {
       const fridgeItem = firebase
         .firestore()
@@ -115,58 +113,56 @@ export const getFoodData = async (barcode_num, dispatch) => {
   try {
     /*-------- !IMPORTANT! uncomment below to REAL data ---------*/
 
-    // let result = await axios
-    //   .get(
-    //     `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=AzytazSl0UlIf1Kym&code=${barcode_num}`
-    //   )
-    //   .then(async (result) => {
-    //     let imageResult = await axios.get(
-    //       `https://api.barcodespider.com/v1/lookup?token=ea377961c5a80992486d&upc=${barcode_num}`
-    //     );
-    //     const imageUrl = imageResult.data.item_attributes.image;
-    //     const { name, barcode, allergens, nutrients, diet_flags, diet_labels } =
-    //       result.data.items[0];
-    //     const servingSize = Number(result.data.items[0].serving.size);
+    let result = await axios
+      .get(
+        `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=AzytazSl0UlIf1Kym&code=${barcode_num}`
+      )
+      .then(async (result) => {
+        let imageResult = await axios.get(
+          `https://api.barcodespider.com/v1/lookup?token=ea377961c5a80992486d&upc=${barcode_num}`
+        );
+        const imageUrl = imageResult.data.item_attributes.image;
+        const { name, barcode, allergens, nutrients, diet_flags, diet_labels } =
+          result.data.items[0];
+        const servingSize = Number(result.data.items[0].serving.size);
 
-    //     const macros = nutrients.reduce(function (acc, nutrient) {
-    //       const name = nutrient.name;
-    //       if (
-    //         name == "Protein" ||
-    //         name == "Total lipid (fat)" ||
-    //         name == "Carbohydrate, by difference" ||
-    //         name.includes("Carb")
-    //       ) {
-    //         !acc[name] && (acc[name] = (nutrient.per_100g / 100) * servingSize);
-    //       }
-    //       return acc;
-    //     }, {});
+        const macros = nutrients.reduce(function (acc, nutrient) {
+          const name = nutrient.name;
+          if (
+            name == "Protein" ||
+            name == "Total lipid (fat)" ||
+            name == "Carbohydrate, by difference" ||
+            name.includes("Carb")
+          ) {
+            !acc[name] && (acc[name] = (nutrient.per_100g / 100) * servingSize);
+          }
+          return acc;
+        }, {});
 
-    //     // const dietLabels = Object.keys(diet_labels).map(function (label) {
-    //     //   return { [label]: diet_labels[label].is_compatible };
-    //     // });
+        // const dietLabels = Object.keys(diet_labels).map(function (label) {
+        //   return { [label]: diet_labels[label].is_compatible };
+        // });
 
-    //     const dietLabels = Object.keys(diet_labels).filter(
-    //       (label) => diet_labels[label].is_compatible
-    //     );
+        const dietLabels = Object.keys(diet_labels).filter(
+          (label) => diet_labels[label].is_compatible
+        );
 
-    //     const dietFlags = diet_flags.map((additive) => additive.ingredient);
+        const dietFlags = diet_flags.map((additive) => additive.ingredient);
 
-    //     console.log(dietFlags, dietLabels);
-    //     console.log(dietLabels);
-    //     const data = {
-    //       name,
-    //       allergens,
-    //       imageUrl,
-    //       dietFlags,
-    //       barcode: barcode,
-    //       dietLabels,
-    //       protein: macros["Protein"] || 0,
-    //       carbs: macros["Carbohydrate, by difference"] || 0,
-    //       fat: macros["Total lipid (fat)"] || 0,
-    //     };
-    //     dispatch(_setScannedItem(data));
-    //   })
-    //   .catch(dispatch(_setScannedItem()));
+        const data = {
+          name,
+          allergens,
+          imageUrl,
+          dietFlags,
+          barcode: barcode,
+          dietLabels,
+          protein: macros["Protein"] || 0,
+          carbs: macros["Carbohydrate, by difference"] || 0,
+          fat: macros["Total lipid (fat)"] || 0,
+        };
+        dispatch(_setScannedItem(data));
+      })
+      .catch(dispatch(_setScannedItem()));
 
     /*-------- !IMPORTANT! uncomment *Above to REAL data ---------*/
 
@@ -174,50 +170,48 @@ export const getFoodData = async (barcode_num, dispatch) => {
 
     /*-------- !IMPORTANT! uncomment Below to use DUMMY data ---------*/
 
-    let result = barcodeSnapshot;
-    const imageUrl =
-      "https://d2d8wwwkmhfcva.cloudfront.net/800x/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_203d8e83-8084-4983-a480-d87c2662555e.jpeg";
-    const { name, barcode, allergens, nutrients, diet_flags, diet_labels } =
-      result.data.items[0];
-    const servingSize = Number(result.data.items[0].serving.size);
+    // let result = barcodeSnapshot;
+    // const imageUrl =
+    //   "https://d2d8wwwkmhfcva.cloudfront.net/800x/d2lnr5mha7bycj.cloudfront.net/product-image/file/large_203d8e83-8084-4983-a480-d87c2662555e.jpeg";
+    // const { name, barcode, allergens, nutrients, diet_flags, diet_labels } =
+    //   result.data.items[0];
+    // const servingSize = Number(result.data.items[0].serving.size);
 
-    const macros = nutrients.reduce(function (acc, nutrient) {
-      const name = nutrient.name;
-      if (
-        name == "Protein" ||
-        name == "Total lipid (fat)" ||
-        name == "Carbohydrate, by difference" ||
-        name.includes("Carb")
-      ) {
-        !acc[name] && (acc[name] = (nutrient.per_100g / 100) * servingSize);
-      }
-      return acc;
-    }, {});
+    // const macros = nutrients.reduce(function (acc, nutrient) {
+    //   const name = nutrient.name;
+    //   if (
+    //     name == "Protein" ||
+    //     name == "Total lipid (fat)" ||
+    //     name == "Carbohydrate, by difference" ||
+    //     name.includes("Carb")
+    //   ) {
+    //     !acc[name] && (acc[name] = (nutrient.per_100g / 100) * servingSize);
+    //   }
+    //   return acc;
+    // }, {});
 
-    // const dietLabels = Object.keys(diet_labels).map(function (label) {
-    //   return { [label]: diet_labels[label].is_compatible };
-    // });
+    // // const dietLabels = Object.keys(diet_labels).map(function (label) {
+    // //   return { [label]: diet_labels[label].is_compatible };
+    // // });
 
-    const dietLabels = Object.keys(diet_labels).filter(
-      (label) => diet_labels[label].is_compatible
-    );
+    // const dietLabels = Object.keys(diet_labels).filter(
+    //   (label) => diet_labels[label].is_compatible
+    // );
 
-    const dietFlags = diet_flags.map((additive) => additive.ingredient);
+    // const dietFlags = diet_flags.map((additive) => additive.ingredient);
 
-    console.log(dietFlags, dietLabels);
-    console.log(dietLabels);
-    const data = {
-      name,
-      allergens,
-      imageUrl,
-      dietFlags,
-      barcode: barcode,
-      dietLabels,
-      protein: macros["Protein"] || 0,
-      carbs: macros["Carbohydrate, by difference"] || 0,
-      fat: macros["Total lipid (fat)"] || 0,
-    };
-    dispatch(_setScannedItem(data));
+    // const data = {
+    //   name,
+    //   allergens,
+    //   imageUrl,
+    //   dietFlags,
+    //   barcode: barcode,
+    //   dietLabels,
+    //   protein: macros["Protein"] || 0,
+    //   carbs: macros["Carbohydrate, by difference"] || 0,
+    //   fat: macros["Total lipid (fat)"] || 0,
+    // };
+    // dispatch(_setScannedItem(data));
 
     /*-------- !IMPORTANT! uncomment *ABOVE to use DUMMY data ---------*/
   } catch (error) {
