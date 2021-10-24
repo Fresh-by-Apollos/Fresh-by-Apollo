@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useStorage } from "./src/store/Context";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+
+// Icons
 import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+// libraries
 import Toast, {
   SuccessToast,
   ErrorToast,
   InfoToast,
 } from "react-native-toast-message";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 // Navigation
 import FridgeNav from "./src/screens/Fridge/FridgeNav";
-import BarcodeNav from "./src/screens/Barcode/BarcodeNav";
 import LoginNav from "./src/screens/LoginScreen/LoginNav";
+import BarcodeNav from "./src/screens/Barcode/BarcodeNav";
+import SettingsNav from "./src/screens/Settings/SettingsNav";
 import OnBoardingNav from "./src/screens/UserOnboarding/OnBoardingNav";
 
-// Screens
-import SettingsNav from "./src/screens/Settings/SettingsNav";
+// Context
+import { useStorage } from "./src/store/Context";
 
 const Tab = createBottomTabNavigator();
 

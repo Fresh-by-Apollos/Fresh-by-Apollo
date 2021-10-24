@@ -1,22 +1,19 @@
+import styles from "./styles";
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Modal, Alert } from "react-native";
+import { Text, View, Button, Modal, Alert } from "react-native";
+
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { useStorage } from "../../store/Context";
 
 import BarcodeLookUpModal from "./Modals/BarcodeLookUpModal";
-import styles from "./styles";
 
-import {
-  addFridgeItem,
-  getFoodData,
-} from "../../store/reducers/barcodeReducer";
+import { useStorage } from "../../store/Context";
+import { getFoodData } from "../../store/reducers/barcodeReducer";
 
-//  070662035016  <-- Ramen Noodles Barcode:
 export default function BarcodeScreen({ navigation }) {
-  const { dispatch, scannedItem, userState } = useStorage();
+  const { dispatch } = useStorage();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState("Scan Barcode");
+  const [text] = useState("Scan Barcode");
   const [modalVisible, setModalVisible] = useState(false);
 
   const askForCameraPermission = () => {

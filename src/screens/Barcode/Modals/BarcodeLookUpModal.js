@@ -13,7 +13,7 @@ import React, { useState, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-// Libaries
+// Libraries
 import { formatDistance } from "date-fns";
 import NumericInput from "react-native-numeric-input";
 import DatePicker from "react-native-neat-date-picker";
@@ -66,7 +66,7 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
         storageType: "pantry",
       };
       await addFridgeItem(itemData);
-      fetchFridgeItems(dispatch);
+      await fetchFridgeItems(dispatch);
       removeScannedItem(dispatch);
     } else {
       alert("Please input an expiration date");
@@ -183,6 +183,7 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
                 </View>
               </View>
             </View>
+
             <NumericInput
               value={servings}
               onChange={(value) => setServings(value)}
@@ -198,6 +199,7 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
               rightButtonBackgroundColor="gray"
               leftButtonBackgroundColor="lightgray"
             />
+
             <View style={styles.expireContainer}>
               <Pressable
                 style={[styles.expirationBtn, styles.buttonClose]}
@@ -244,6 +246,7 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
           }}
         >
           <DietWarningsModal
+            setScanned={setScanned}
             flagModalVisible={flagModalVisible}
             setFlagModalVisible={setFlagModalVisible}
             dietRestrictWarnings={dietRestrictWarnings}
