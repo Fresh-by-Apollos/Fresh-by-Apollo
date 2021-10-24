@@ -64,7 +64,7 @@ export default LookUpItemView = ({
         ...lookUpItem,
         expirationDate: dateObj,
         servings,
-        storageType: "pantry",
+        storageType: value,
       };
 
       setAddedItems([...addedItems, itemData]);
