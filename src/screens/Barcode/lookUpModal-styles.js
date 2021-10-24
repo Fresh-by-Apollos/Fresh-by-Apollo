@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   modalView1: {
     width: deviceWidth,
-    height: 200,
+    height: 300,
     backgroundColor: "white",
     borderRadius: 20,
     justifyContent: "center",

@@ -88,7 +88,6 @@ export const addLookupItem = async (info) => {
           carbs: info.carbs,
           servings: info.servings,
           storage: info.storageType,
-          freshItem: true,
           fridgeItemID: info.fridgeItemId,
         })
         .then(() => {
