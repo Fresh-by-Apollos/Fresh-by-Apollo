@@ -10,18 +10,31 @@ import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 import firebase from "../../firebase/firebase";
 
-
 import {
   View,
   Text,
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
-} from 'react-native';
-import { useStorage } from '../../store/Context';
-import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
-import styles from './fridge-style';
-import FridgeItemView from './components/FridgeItemView';
+} from "react-native";
+import styles from "./fridge-style";
+import React, { useEffect } from "react";
+import firebase from "../../firebase/firebase";
+
+// Icons
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+// Libraries
+import Constants from "expo-constants";
+import * as Notifications from "expo-notifications";
+
+// Context
+import { useStorage } from "../../store/Context";
+import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
+
+// Components
+import FridgeItemView from "./components/FridgeItemView";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -33,8 +46,6 @@ Notifications.setNotificationHandler({
 
 function FridgeScreen({ navigation }) {
   const { fridgeState, dispatch } = useStorage();
-  const [notification, setNotification] = useState({});
-  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     fetchFridgeItems(dispatch);
@@ -65,11 +76,10 @@ function FridgeScreen({ navigation }) {
       );
       const userId = firebase.auth().currentUser.uid;
       const userRef = firebase.firestore().collection("users");
-      const user = userRef.doc(userId)
-      await user.update({expoPushToken: token })
-        .catch((error) => {
-          alert(error);
-        });
+      const user = userRef.doc(userId);
+      await user.update({ expoPushToken: token }).catch((error) => {
+        alert(error);
+      });
       const updatedUserRef = firebase.firestore().collection("users");
       console.log("Set Expo Notification Token successfully");
     } else {
@@ -95,20 +105,20 @@ function FridgeScreen({ navigation }) {
             name="menu-left"
             size={32}
             color="darkgray"
-            onPress={() => navigation.navigate('StatisticsScreen')}
+            onPress={() => navigation.navigate("StatisticsScreen")}
           />
           <MaterialCommunityIcons
             style={styles.statsIcon}
             name="chart-pie"
             size={32}
             color="darkgray"
-            onPress={() => navigation.navigate('StatisticsScreen')}
+            onPress={() => navigation.navigate("StatisticsScreen")}
           />
         </SafeAreaView>
         {fridgeState.length === 0 ? (
-          <View style={{ alignItems: 'center', marginTop: 60 }}>
+          <View style={{ alignItems: "center", marginTop: 60 }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate('BarcodeScreen')}
+              onPress={() => navigation.navigate("BarcodeScreen")}
             >
               <Ionicons name="md-add-circle-outline" size={50} color="green" />
             </TouchableOpacity>
@@ -116,18 +126,17 @@ function FridgeScreen({ navigation }) {
           </View>
         ) : (
           <View style={styles.notEmpty}>
-            {/* {console.log(fridgeState)} */}
             {fridgeState.map((item) => (
               <FridgeItemView
                 key={
                   `${item.barcode}` +
+                  `${item.id}` +
                   new Date(
                     item.expirationDate.seconds * 1000
-                  ).toLocaleDateString('en-US')
+                  ).toLocaleDateString("en-US")
                 }
-                item={item}
+                itemInfo={item}
                 navigation={navigation}
-                setModalVisible={setModalVisible}
               />
             ))}
           </View>

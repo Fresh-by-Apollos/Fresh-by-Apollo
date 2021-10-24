@@ -1,11 +1,12 @@
-import firebase from "../../firebase/firebase";
+import firebase from '../../firebase/firebase';
+import Toast from 'react-native-toast-message';
 
 // initial State
 export const userState = {};
 
 // Action Types
-const SET_USER = "SET_USER";
-const UPDATE_USER = "UPDATE_USER";
+const SET_USER = 'SET_USER';
+const UPDATE_USER = 'UPDATE_USER';
 
 // Action Creators
 export const _setUser = (user) => {
@@ -26,8 +27,8 @@ export const _updateUser = (user) => {
 export const setUserDietAllergies = async (diet, allergies, dispatch) => {
   try {
     const uid = firebase.auth().currentUser.uid;
-    const usersRef = firebase.firestore().collection("users");
-    const user = firebase.firestore().collection("users").doc(uid);
+    const usersRef = firebase.firestore().collection('users');
+    const user = firebase.firestore().collection('users').doc(uid);
 
     user.update({
       allergies: allergies,
@@ -37,8 +38,6 @@ export const setUserDietAllergies = async (diet, allergies, dispatch) => {
 
     const updatedUser = (await usersRef.doc(uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert("User updated!");
-    console.log(updatedUser);
   } catch (error) {
     console.error(error);
   }
@@ -47,7 +46,7 @@ export const setUserDietAllergies = async (diet, allergies, dispatch) => {
 export const updateUserDetails = async (firstName, lastName, dispatch) => {
   try {
     const uid = firebase.auth().currentUser.uid;
-    const userRef = firebase.firestore().collection("users");
+    const userRef = firebase.firestore().collection('users');
     const user = userRef.doc(uid);
 
     user.update({
@@ -57,7 +56,14 @@ export const updateUserDetails = async (firstName, lastName, dispatch) => {
 
     const updatedUser = (await userRef.doc(uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert("User updated!");
+    Toast.show({
+      position: 'bottom',
+      bottomOffset: 90,
+      type: 'info',
+      text1: `User updated`,
+      visibilityTime: 600,
+      autoHide: true,
+    });
   } catch (error) {
     console.error(error);
   }
@@ -66,7 +72,7 @@ export const updateUserDetails = async (firstName, lastName, dispatch) => {
 export const updateUserEmail = async (email, password, dispatch) => {
   try {
     const currentUser = firebase.auth().currentUser;
-    const userRef = firebase.firestore().collection("users");
+    const userRef = firebase.firestore().collection('users');
     const user = userRef.doc(currentUser.uid);
     const credential = firebase.auth.EmailAuthProvider.credential(
       currentUser.email,
@@ -83,7 +89,14 @@ export const updateUserEmail = async (email, password, dispatch) => {
 
     const updatedUser = (await userRef.doc(currentUser.uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert("Email updated!");
+    Toast.show({
+      position: 'bottom',
+      bottomOffset: 90,
+      type: 'info',
+      text1: `Email updated`,
+      visibilityTime: 600,
+      autoHide: true,
+    });
   } catch (error) {
     console.error(error);
   }
@@ -92,7 +105,7 @@ export const updateUserEmail = async (email, password, dispatch) => {
 export const updateUserPassword = async (newPassword, password, dispatch) => {
   try {
     const currentUser = firebase.auth().currentUser;
-    const userRef = firebase.firestore().collection("users");
+    const userRef = firebase.firestore().collection('users');
     const credential = firebase.auth.EmailAuthProvider.credential(
       currentUser.email,
       password
@@ -103,7 +116,14 @@ export const updateUserPassword = async (newPassword, password, dispatch) => {
     await currentUser.updatePassword(newPassword);
     const updatedUser = (await userRef.doc(currentUser.uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert("Password updated!");
+    Toast.show({
+      position: 'bottom',
+      bottomOffset: 90,
+      type: 'info',
+      text1: `Password updated`,
+      visibilityTime: 600,
+      autoHide: true,
+    });
   } catch (error) {
     console.error(error);
   }
@@ -112,7 +132,7 @@ export const updateUserPassword = async (newPassword, password, dispatch) => {
 export const updateAllergies = async (allergies, dispatch) => {
   try {
     const uid = firebase.auth().currentUser.uid;
-    const userRef = firebase.firestore().collection("users");
+    const userRef = firebase.firestore().collection('users');
     const user = userRef.doc(uid);
 
     user.update({
@@ -121,7 +141,14 @@ export const updateAllergies = async (allergies, dispatch) => {
 
     const updatedUser = (await userRef.doc(uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert("Allergies updated!");
+    Toast.show({
+      position: 'bottom',
+      bottomOffset: 90,
+      type: 'info',
+      text1: `Allergies updated`,
+      visibilityTime: 600,
+      autoHide: true,
+    });
   } catch (error) {
     console.error(error);
   }
@@ -130,7 +157,7 @@ export const updateAllergies = async (allergies, dispatch) => {
 export const updateDietRestrictions = async (diet, dispatch) => {
   try {
     const uid = firebase.auth().currentUser.uid;
-    const userRef = firebase.firestore().collection("users");
+    const userRef = firebase.firestore().collection('users');
     const user = userRef.doc(uid);
 
     user.update({
@@ -139,7 +166,14 @@ export const updateDietRestrictions = async (diet, dispatch) => {
 
     const updatedUser = (await userRef.doc(uid).get()).data();
     dispatch(_updateUser(updatedUser));
-    alert("Diet updated!");
+    Toast.show({
+      position: 'bottom',
+      bottomOffset: 90,
+      type: 'info',
+      text1: `Diet updated`,
+      visibilityTime: 600,
+      autoHide: true,
+    });
   } catch (error) {
     console.error(error);
   }

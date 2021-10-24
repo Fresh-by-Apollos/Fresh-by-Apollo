@@ -10,9 +10,7 @@ const LoginScreen = ({ navigation }) => {
   async function onSubmit(email, password) {
     await login(email, password);
   }
-  // https://spoonacular.com/cdn/ingredients_100x100/
 
-  // https://api.spoonacular.com/food/ingredients/search?query=steak&apiKey=fb5674256e7b41928221101869eae05c
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={styles.titleContainer}>

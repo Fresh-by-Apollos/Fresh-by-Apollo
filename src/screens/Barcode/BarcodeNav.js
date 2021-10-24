@@ -1,14 +1,13 @@
 import * as React from "react";
 import { useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Button, Text, Pressable, Modal } from "react-native";
+import { Pressable, Modal } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+
 // Screens
 import BarcodeScreen from "./BarcodeScreen";
-import InfoScreen from "./Modals/BarcodeLookUpModal";
 import BarcodeLookUpModal from "./Modals/BarcodeLookUpModal";
-import Calender from "./Calender";
-import SreachLookUpModal from "./Modals/SreachLookUpModal";
+import SearchLookUpModal from "./Modals/SearchLookUpModal";
 
 const BarcodeStack = createNativeStackNavigator();
 
@@ -44,7 +43,6 @@ export default function BarcodeNav({ navigation }) {
           name="BarcodeInfoScreen"
           component={BarcodeLookUpModal}
         />
-        <BarcodeStack.Screen name="Calender" component={Calender} />
       </BarcodeStack.Navigator>
       <Modal
         animationType="slide"
@@ -55,7 +53,7 @@ export default function BarcodeNav({ navigation }) {
           setModalVisible(!modalVisible);
         }}
       >
-        <SreachLookUpModal
+        <SearchLookUpModal
           setModalVisible={setModalVisible}
           navigation={navigation}
         />

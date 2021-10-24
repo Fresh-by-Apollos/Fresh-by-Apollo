@@ -2,7 +2,7 @@ import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FridgeScreen from "./FridgeScreen";
 import BarcodeScreen from "../Barcode/BarcodeScreen";
-import StatisticsScreen from '../Statistics/StatisticsScreen'
+import StatisticsScreen from "../Statistics/StatisticsScreen";
 import SingleFridgeItemScreen from "../SingleFridgeItemScreen/SingleFridgeItemScreen";
 import { Button } from "react-native";
 
@@ -13,20 +13,20 @@ export default function FridgeNav() {
     <FridgeStack.Navigator
       screenOptions={{
         headerShown: true,
-        title: 'FRIDGE',
+        title: "FRIDGE",
         headerStyle: {
-          backgroundColor: '#4C956C',
+          backgroundColor: "#4C956C",
         },
-        headerTintColor: '#fff',
+        headerTintColor: "#fff",
         headerTitleStyle: {
-          fontWeight: 'bold',
-        }
+          fontWeight: "bold",
+        },
       }}
     >
       <FridgeStack.Screen name="My Fridge" component={FridgeScreen} />
       <FridgeStack.Screen
         options={{
-          headerTitle: ""
+          headerTitle: "",
         }}
         name="Selected Item"
         component={SingleFridgeItemScreen}
@@ -44,14 +44,11 @@ export default function FridgeNav() {
         options={{
           headerTitle: "STATISTICS",
           headerBackTitleVisible: false,
-          headerLeft: () => (
-            <Button title="" />
-          )
+          headerLeft: () => <Button title="" />,
         }}
         name="StatisticsScreen"
         component={StatisticsScreen}
       />
-
     </FridgeStack.Navigator>
   );
 }
