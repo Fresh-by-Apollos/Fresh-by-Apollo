@@ -1,6 +1,7 @@
 import firebase from "../../firebase/firebase";
 import axios from "axios";
 import { barcodeSnapshot } from "../../../barcodeInfo";
+import { CHOMP_KEY, SPIDER_KEY } from '@env'
 
 // barCode state
 export const scannedItem = {};
@@ -100,10 +101,10 @@ export const getFoodData = async (barcode_num, dispatch) => {
     /*-------- !IMPORTANT! uncomment below to REAL data ---------*/
 
     let result = await axios.get(
-      `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=AzytazSl0UlIf1Kym&code=${barcode_num}`
+      `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=${CHOMP_KEY}&code=${barcode_num}`
     );
     let imageResult = await axios.get(
-      `https://api.barcodespider.com/v1/lookup?token=ea377961c5a80992486d&upc=${barcode_num}`
+      `https://api.barcodespider.com/v1/lookup?token=${SPIDER_KEY}&upc=${barcode_num}`
     );
     const imageUrl = imageResult.data.item_attributes.image;
 
