@@ -109,24 +109,8 @@ export default LookUpItemView = ({
               source={{ uri: lookUpItem.image }}
             />
             <Text style={styles.itemName}>{lookUpItem.name}</Text>
-            <View></View>
           </View>
 
-          <NumericInput
-            value={servings}
-            onChange={(value) => setServings(value)}
-            onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-            totalWidth={100}
-            totalHeight={30}
-            iconSize={25}
-            step={1}
-            valueType="real"
-            rounded
-            textColor="black"
-            iconStyle={{ color: "white" }}
-            rightButtonBackgroundColor="gray"
-            leftButtonBackgroundColor="lightgray"
-          />
           <DropDownPicker
             open={open}
             value={value}
@@ -134,19 +118,40 @@ export default LookUpItemView = ({
             items={items}
             setOpen={setOpen}
             style={{ height: 40 }}
-            containerStyle={{ width: "30%", top: 20, height: "25%" }}
+            containerStyle={{
+              width: "30%",
+              height: "25%",
+              position: "absolute",
+              top: "22%",
+              right: "10%",
+            }}
             setValue={setValue}
             setItems={setItems}
             // defaultValue={value}
-            textStyle={{ textAlign: "left", paddingLeft: "20%" }}
-
+            textStyle={{ textAlign: "left", paddingLeft: "12%" }}
             // placeholder="Storage Type"
             // placeholderStyle={{ textAlign: "center" }}
-          >
-            {" "}
-          </DropDownPicker>
+          />
 
-          <View style={styles.buttonContainer}>
+          <View style={{ top: -20 }}>
+            <NumericInput
+              value={servings}
+              onChange={(value) => setServings(value)}
+              onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+              totalWidth={100}
+              totalHeight={30}
+              iconSize={25}
+              step={1}
+              valueType="real"
+              rounded
+              textColor="black"
+              iconStyle={{ color: "white" }}
+              rightButtonBackgroundColor="gray"
+              leftButtonBackgroundColor="lightgray"
+            />
+          </View>
+
+          <View style={[styles.buttonContainer, { top: -10 }]}>
             <Pressable style={styles.calendarBtn} onPress={openDatePicker}>
               <FontAwesome5 name="calendar" size={24} color="white" />
             </Pressable>

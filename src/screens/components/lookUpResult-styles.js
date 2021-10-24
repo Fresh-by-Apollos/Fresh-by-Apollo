@@ -27,11 +27,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   itemDetailContainer: {
+    flex: 1,
     flexDirection: "row",
     height: "30%",
     width: "80%",
     alignItems: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
+    marginRight: "30%",
   },
   itemName: {
     fontSize: 25,
