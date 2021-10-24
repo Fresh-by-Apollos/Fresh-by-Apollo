@@ -77,6 +77,8 @@ export const fetchFridgeItems = async (dispatch) => {
         fat: doc.data().fat,
         barcode: doc.data().barcode,
         dateAdded: doc.data().dateAdded,
+        storage: doc.data().storage,
+        fridgeItemID: doc.data().fridgeItemId,
       });
     });
     dispatch(_setFridge(resultArray));

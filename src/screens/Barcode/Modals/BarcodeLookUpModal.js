@@ -17,6 +17,8 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { formatDistance } from "date-fns";
 import NumericInput from "react-native-numeric-input";
 import DatePicker from "react-native-neat-date-picker";
+import ModalDropdown from "react-native-modal-dropdown";
+import DropDownPicker from "react-native-dropdown-picker";
 
 // Modals
 import DietWarningsModal from "./DietWarningsModal";
@@ -28,6 +30,7 @@ import {
 } from "../../../store/reducers/barcodeReducer";
 import { useStorage } from "../../../store/Context";
 import { fetchFridgeItems } from "../../../store/reducers/fridgeReducer";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
   const { scannedItem, dispatch, userState } = useStorage();
@@ -41,6 +44,14 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
     dietLabels: [],
     dietFlags: [],
   });
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("pantry");
+  const [items, setItems] = useState([
+    { label: "Fridge", value: "fridge" },
+    { label: "Freezer", value: "freezer" },
+    { label: "Pantry", value: "pantry" },
+  ]);
 
   useEffect(() => {
     checkScannedItem();
@@ -63,7 +74,7 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
         ...scannedItem,
         expirationDate: dateObj,
         servings,
-        storageType: "pantry",
+        storageType: value,
       };
       await addFridgeItem(itemData);
       await fetchFridgeItems(dispatch);
@@ -183,7 +194,15 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
                 </View>
               </View>
             </View>
-
+            {/* 
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "center",
+                width: "50%",
+                backgroundColor: "red",
+              }}
+            > */}
             <NumericInput
               value={servings}
               onChange={(value) => setServings(value)}
@@ -200,7 +219,23 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
               leftButtonBackgroundColor="lightgray"
             />
 
-            <View style={styles.expireContainer}>
+            <DropDownPicker
+              open={open}
+              value={value}
+              zIndex={1000}
+              items={items}
+              setOpen={setOpen}
+              containerStyle={{ width: "50%", top: 20 }}
+              setValue={setValue}
+              setItems={setItems}
+              // defaultValue={value}
+              textStyle={{ textAlign: "left", paddingLeft: "35%" }}
+
+              // placeholder="Storage Type"
+              // placeholderStyle={{ textAlign: "center" }}
+            />
+
+            <View style={[styles.expireContainer, { top: -10 }]}>
               <Pressable
                 style={[styles.expirationBtn, styles.buttonClose]}
                 onPress={openDatePicker}
@@ -228,7 +263,7 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
             </View>
             <View>
               <Pressable
-                style={[styles.button, styles.buttonClose]}
+                style={[styles.button, styles.buttonClose, { top: -30 }]}
                 onPress={addtoFridge}
               >
                 <Text style={styles.textStyle}>Add to Fridge</Text>

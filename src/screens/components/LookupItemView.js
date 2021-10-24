@@ -10,8 +10,9 @@ import {
   Dimensions,
   Keyboard,
   TouchableWithoutFeedback,
+  SafeAreaView,
 } from "react-native";
-
+import DropDownPicker from "react-native-dropdown-picker";
 import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
 import DatePicker from "react-native-neat-date-picker";
 import { formatDistance } from "date-fns";
@@ -27,8 +28,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 import { useStorage } from "../../store/Context";
 
-// Mabye add fresh item flied
-export default LooupItemView = ({
+export default LookUpItemView = ({
   addedItems,
   setItemModalVisible,
   setAddedItems,
@@ -39,11 +39,13 @@ export default LooupItemView = ({
   const [dateObj, setDateObj] = useState();
   const [servings, setServings] = useState(1);
 
-  const DismissKeyboard = ({ children }) => (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      {children}
-    </TouchableWithoutFeedback>
-  );
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("fridge");
+  const [items, setItems] = useState([
+    { label: "Fridge", value: "fridge" },
+    { label: "Freezer", value: "freezer" },
+    { label: "Pantry", value: "pantry" },
+  ]);
 
   const openDatePicker = () => {
     setShowDatePicker(true);
@@ -62,7 +64,7 @@ export default LooupItemView = ({
         ...lookUpItem,
         expirationDate: dateObj,
         servings,
-        storageType: "pantry",
+        storageType: value,
       };
 
       setAddedItems([...addedItems, itemData]);
@@ -107,24 +109,49 @@ export default LooupItemView = ({
               source={{ uri: lookUpItem.image }}
             />
             <Text style={styles.itemName}>{lookUpItem.name}</Text>
-            <View></View>
           </View>
-          <NumericInput
-            value={servings}
-            onChange={(value) => setServings(value)}
-            onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-            totalWidth={100}
-            totalHeight={30}
-            iconSize={25}
-            step={1}
-            valueType="real"
-            rounded
-            textColor="black"
-            iconStyle={{ color: "white" }}
-            rightButtonBackgroundColor="gray"
-            leftButtonBackgroundColor="lightgray"
+
+          <DropDownPicker
+            open={open}
+            value={value}
+            zIndex={1000}
+            items={items}
+            setOpen={setOpen}
+            style={{ height: 40 }}
+            containerStyle={{
+              width: "30%",
+              height: "25%",
+              position: "absolute",
+              top: "22%",
+              right: "10%",
+            }}
+            setValue={setValue}
+            setItems={setItems}
+            // defaultValue={value}
+            textStyle={{ textAlign: "left", paddingLeft: "12%" }}
+            // placeholder="Storage Type"
+            // placeholderStyle={{ textAlign: "center" }}
           />
-          <View style={styles.buttonContainer}>
+
+          <View style={{ top: -20 }}>
+            <NumericInput
+              value={servings}
+              onChange={(value) => setServings(value)}
+              onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+              totalWidth={100}
+              totalHeight={30}
+              iconSize={25}
+              step={1}
+              valueType="real"
+              rounded
+              textColor="black"
+              iconStyle={{ color: "white" }}
+              rightButtonBackgroundColor="gray"
+              leftButtonBackgroundColor="lightgray"
+            />
+          </View>
+
+          <View style={[styles.buttonContainer, { top: -10 }]}>
             <Pressable style={styles.calendarBtn} onPress={openDatePicker}>
               <FontAwesome5 name="calendar" size={24} color="white" />
             </Pressable>
@@ -149,7 +176,7 @@ export default LooupItemView = ({
           </View>
           <View style={styles.buttonContainer}>
             <Pressable
-              style={[styles.button]}
+              style={[styles.button, { backgroundColor: "#D54C4C" }]}
               onPress={() => {
                 setItemModalVisible(false);
                 setShowKeyboard(true);
