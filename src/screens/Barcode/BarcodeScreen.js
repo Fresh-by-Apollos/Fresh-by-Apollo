@@ -15,6 +15,7 @@ export default function BarcodeScreen({ navigation }) {
   const [scanned, setScanned] = useState(false);
   const [text] = useState("Scan Barcode");
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const askForCameraPermission = () => {
     (async () => {
@@ -31,10 +32,12 @@ export default function BarcodeScreen({ navigation }) {
 
   // What happens when we scan the bar code
   const handleBarCodeScanned = async ({ data }) => {
+    setLoading(true);
     // addFridgeItem();
     setScanned(true);
     await getFoodData(data, dispatch);
     setModalVisible(true);
+    setLoading(false);
   };
 
   // Check permissions and return the screens
@@ -72,6 +75,7 @@ export default function BarcodeScreen({ navigation }) {
           setModalVisible={setModalVisible}
           setScanned={setScanned}
           navigation={navigation}
+          loading={loading}
         />
       </Modal>
 
@@ -82,13 +86,13 @@ export default function BarcodeScreen({ navigation }) {
         />
       </View>
       <Text style={styles.maintext}>{text}</Text>
-      {scanned && (
+      {/* {scanned && (
         <Button
           title={"Scan again?"}
           onPress={() => setScanned(false)}
           color="tomato"
         />
-      )}
+      )} */}
     </View>
   );
 }

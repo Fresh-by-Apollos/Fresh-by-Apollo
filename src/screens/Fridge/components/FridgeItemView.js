@@ -16,10 +16,17 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+<<<<<<< HEAD
 // Libaries
 import { formatDistance } from 'date-fns';
 import NumericInput from 'react-native-numeric-input';
 import Toast from 'react-native-toast-message';
+=======
+// Libraries
+import { formatDistance } from "date-fns";
+import NumericInput from "react-native-numeric-input";
+import Toast from "react-native-toast-message";
+>>>>>>> origin/main
 
 // Context
 import {
@@ -94,6 +101,9 @@ function FridgeItemView({ itemInfo, navigation }) {
                 new Date(),
                 { addSuffix: true }
               )}
+            </Text>
+            <Text style={{ fontSize: 14 }}>
+              {item.storage.charAt(0).toUpperCase() + item.storage.slice(1)}
             </Text>
           </SafeAreaView>
         </SafeAreaView>

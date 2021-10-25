@@ -4,8 +4,13 @@ import FridgeScreen from "./FridgeScreen";
 import BarcodeScreen from "../Barcode/BarcodeScreen";
 import StatisticsScreen from "../Statistics/StatisticsScreen";
 import SingleFridgeItemScreen from "../SingleFridgeItemScreen/SingleFridgeItemScreen";
-import { Button } from "react-native";
+import { Button, Pressable, Text } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { Foundation } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
+import Topbar from "./components/Topbar";
 const FridgeStack = createNativeStackNavigator();
 
 export default function FridgeNav() {
@@ -23,7 +28,25 @@ export default function FridgeNav() {
         },
       }}
     >
-      <FridgeStack.Screen name="My Fridge" component={FridgeScreen} />
+      <FridgeStack.Screen
+        options={({ navigation, route }) => ({
+          headerRight: () => (
+            <Pressable
+              style={{ marginRight: 8 }}
+              onPress={(props) => navigation.navigate("StatisticsScreen")}
+            >
+              <Foundation name="graph-bar" size={32} color="black" />
+              {/* <FontAwesome5
+                name="chart-bar"
+                size={32}
+                color="white"
+              ></FontAwesome5> */}
+            </Pressable>
+          ),
+        })}
+        name="My Fridge"
+        component={Topbar}
+      />
       <FridgeStack.Screen
         options={{
           headerTitle: "",
@@ -43,8 +66,8 @@ export default function FridgeNav() {
       <FridgeStack.Screen
         options={{
           headerTitle: "STATISTICS",
-          headerBackTitleVisible: false,
-          headerLeft: () => <Button title="" />,
+          // headerBackTitleVisible: false,
+          // headerLeft: () => <Button title="" />,
         }}
         name="StatisticsScreen"
         component={StatisticsScreen}

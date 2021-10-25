@@ -59,7 +59,13 @@ export const addFridgeItem = async (info) => {
         bottomOffset: 90,
         type: 'success',
         text1: resultArray[0].name,
+<<<<<<< HEAD
         text2: 'added to Fridge',
+=======
+        text2: `added to ${
+          info.storageType.charAt(0).toUpperCase() + info.storageType.slice(1)
+        }`,
+>>>>>>> origin/main
         visibilityTime: 600,
         autoHide: true,
       });
@@ -92,7 +98,14 @@ export const addFridgeItem = async (info) => {
             bottomOffset: 90,
             type: 'success',
             text1: info.name,
+<<<<<<< HEAD
             text2: 'added to Fridge',
+=======
+            text2: `added to ${
+              info.storageType.charAt(0).toUpperCase() +
+              info.storageType.slice(1)
+            }`,
+>>>>>>> origin/main
             visibilityTime: 600,
             autoHide: true,
           });
