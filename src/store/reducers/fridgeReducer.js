@@ -16,7 +16,7 @@ const _setFridge = (items) => {
 };
 
 // Thunks
-export const editFridgeItem = async (id, amount, newDate) => {
+export const editFridgeItem = async (id, amount, newDate, storageType) => {
   try {
     const userId = firebase.auth().currentUser.uid;
     const fridgeItem = firebase
@@ -28,6 +28,7 @@ export const editFridgeItem = async (id, amount, newDate) => {
       .update({
         servings: Number(amount),
         expirationDate: newDate,
+        storage: storageType,
       })
       .then(() =>
         Toast.show({

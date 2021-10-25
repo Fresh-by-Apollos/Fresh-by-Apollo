@@ -4,6 +4,7 @@ import {
   View,
   Image,
   SafeAreaView,
+  ActivityIndicator,
   Modal,
 } from "react-native";
 import styles from "../scanModal-styles";
@@ -32,7 +33,11 @@ import { useStorage } from "../../../store/Context";
 import { fetchFridgeItems } from "../../../store/reducers/fridgeReducer";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
+export default BarcodeLookUpModal = ({
+  setScanned,
+  setModalVisible,
+  loading,
+}) => {
   const { scannedItem, dispatch, userState } = useStorage();
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [dateObj, setDateObj] = useState(null);
@@ -180,19 +185,26 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
               <Text style={styles.headerText}>Add Item</Text>
               <View></View>
             </View>
+            {}
             <View style={styles.container}>
-              <View style={styles.cardContainer}>
-                <Image
-                  style={styles.imageStyle}
-                  source={{ uri: scannedItem.imageUrl }}
-                />
-                <View style={styles.infoStyle}>
-                  <Text style={styles.infoTitle}>{scannedItem.name}</Text>
-                  <Text style={styles.categoryStyle}>
-                    {scannedItem.allergens}
-                  </Text>
-                </View>
-              </View>
+              {loading ? (
+                <ActivityIndicator size="large" color="green" />
+              ) : (
+                <>
+                  <View style={styles.cardContainer}>
+                    <Image
+                      style={styles.imageStyle}
+                      source={{ uri: scannedItem.imageUrl }}
+                    />
+                    <View style={styles.infoStyle}>
+                      <Text style={styles.infoTitle}>{scannedItem.name}</Text>
+                      <Text style={styles.categoryStyle}>
+                        {scannedItem.allergens}
+                      </Text>
+                    </View>
+                  </View>
+                </>
+              )}
             </View>
             {/* 
             <View
@@ -225,11 +237,12 @@ export default BarcodeLookUpModal = ({ setScanned, setModalVisible }) => {
               zIndex={1000}
               items={items}
               setOpen={setOpen}
-              containerStyle={{ width: "50%", top: 20 }}
+              style={{ height: 35 }}
+              containerStyle={{ width: "35%", top: 20 }}
               setValue={setValue}
               setItems={setItems}
               // defaultValue={value}
-              textStyle={{ textAlign: "left", paddingLeft: "35%" }}
+              textStyle={{ textAlign: "left", paddingLeft: "20%" }}
 
               // placeholder="Storage Type"
               // placeholderStyle={{ textAlign: "center" }}

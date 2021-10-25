@@ -10,6 +10,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { formatDistance } from "date-fns";
 import NumericInput from "react-native-numeric-input";
 import DatePicker from "react-native-neat-date-picker";
+import DropDownPicker from "react-native-dropdown-picker";
 
 // Context
 import {
@@ -24,6 +25,14 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
   const [dateObj, setDateObj] = useState(null);
   const [servings, setServings] = useState(item.servings);
 
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(item.storage);
+  const [items, setItems] = useState([
+    { label: "Fridge", value: "fridge" },
+    { label: "Freezer", value: "freezer" },
+    { label: "Pantry", value: "pantry" },
+  ]);
+
   const openDatePicker = () => {
     setShowDatePicker(true);
   };
@@ -37,7 +46,8 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
     await editFridgeItem(
       item.id,
       servings,
-      dateObj ? dateObj : item.expirationDate
+      dateObj ? dateObj : item.expirationDate,
+      value ? value : item.storage
     );
     await fetchFridgeItems(dispatch);
   };
@@ -91,6 +101,24 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
             leftButtonBackgroundColor="lightgray"
             minValue={1}
           />
+
+          <DropDownPicker
+            open={open}
+            value={value}
+            zIndex={1000}
+            items={items}
+            setOpen={setOpen}
+            style={{ height: 35 }}
+            containerStyle={{ width: "35%", top: 20 }}
+            setValue={setValue}
+            setItems={setItems}
+            // defaultValue={value}
+            textStyle={{ textAlign: "left", paddingLeft: "20%" }}
+
+            // placeholder="Storage Type"
+            // placeholderStyle={{ textAlign: "center" }}
+          />
+
           <View style={styles.expireContainer}>
             <Pressable
               style={[styles.expirationBtn, styles.buttonClose]}

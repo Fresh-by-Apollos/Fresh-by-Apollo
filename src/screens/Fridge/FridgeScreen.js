@@ -38,7 +38,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-function FridgeScreen({ navigation }) {
+function FridgeScreen({ navigation, display }) {
   const { fridgeState, dispatch } = useStorage();
 
   useEffect(() => {
@@ -91,36 +91,21 @@ function FridgeScreen({ navigation }) {
   };
 
   return (
+    // <Topbar>
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <SafeAreaView style={styles.statsIcon}>
-          <MaterialCommunityIcons
-            style={styles.statsArrowIcon}
-            name="menu-left"
-            size={32}
-            color="darkgray"
-            onPress={() => navigation.navigate("StatisticsScreen")}
-          />
-          <MaterialCommunityIcons
-            style={styles.statsIcon}
-            name="chart-pie"
-            size={32}
-            color="darkgray"
-            onPress={() => navigation.navigate("StatisticsScreen")}
-          />
-        </SafeAreaView>
-        {fridgeState.length === 0 ? (
+        {display.length === 0 ? (
           <View style={{ alignItems: "center", marginTop: 60 }}>
             <TouchableOpacity
               onPress={() => navigation.navigate("BarcodeScreen")}
             >
               <Ionicons name="md-add-circle-outline" size={50} color="green" />
             </TouchableOpacity>
-            <Text style={{ fontSize: 25 }}>ADD TO FRIDGE</Text>
+            <Text style={{ fontSize: 25 }}>ADD ITEM</Text>
           </View>
         ) : (
           <View style={styles.notEmpty}>
-            {fridgeState.map((item) => (
+            {display.map((item) => (
               <FridgeItemView
                 key={
                   `${item.barcode}` +
@@ -137,6 +122,7 @@ function FridgeScreen({ navigation }) {
         )}
       </ScrollView>
     </SafeAreaView>
+    // </Topbar>
   );
 }
 

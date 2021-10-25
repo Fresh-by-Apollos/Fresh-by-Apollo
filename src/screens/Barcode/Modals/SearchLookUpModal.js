@@ -28,6 +28,7 @@ export default searchLookUpModal = ({ setModalVisible, navigation }) => {
   const [itemModalVisible, setItemModalVisible] = useState(false);
   const [showKeyboard, setShowKeyboard] = useState(true);
   const [addedItems, setAddedItems] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [itemInput, setItemInput] = useState("");
   const { dispatch } = useStorage();
 
@@ -35,9 +36,11 @@ export default searchLookUpModal = ({ setModalVisible, navigation }) => {
     if (!itemInput) {
       alert("Please enter an item to search");
     } else {
+      setLoading(true);
       setShowKeyboard(false);
-      getLookupItem(itemInput, dispatch);
       setItemModalVisible(true);
+      await getLookupItem(itemInput, dispatch);
+      setLoading(false);
     }
   };
 
@@ -130,6 +133,7 @@ export default searchLookUpModal = ({ setModalVisible, navigation }) => {
                     setItemModalVisible={setItemModalVisible}
                     addedItems={addedItems}
                     setShowKeyboard={setShowKeyboard}
+                    loading={loading}
                   />
                 </View>
               </View>

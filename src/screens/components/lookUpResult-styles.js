@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
     width: "80%",
     alignItems: "center",
     justifyContent: "center",
-    marginRight: "30%",
+    marginRight: "50%",
   },
   itemName: {
-    fontSize: 25,
+    fontSize: 17,
     fontWeight: "600",
   },
   button: {
@@ -116,6 +116,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#D54C4C",
     marginTop: "7%",
     width: "45%",
+  },
+  lottie: {
+    width: 100,
+    height: 100,
   },
 });
 
