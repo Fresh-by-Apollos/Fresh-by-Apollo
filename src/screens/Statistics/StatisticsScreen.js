@@ -92,9 +92,9 @@ function StatisticsScreen({ navigation }) {
           />
           <VictoryPie
             data={[
-              { x: `${totalMacros.protein}g`, y: totalMacros.protein },
-              { x: `${totalMacros.carbs}g`, y: totalMacros.carbs },
-              { x: `${totalMacros.fat}g`, y: totalMacros.fat },
+              { x: `${Math.round(totalMacros.protein)}g`, y: totalMacros.protein },
+              { x: `${Math.round(totalMacros.carbs)}g`, y: totalMacros.carbs },
+              { x: `${Math.round(totalMacros.fat)}g`, y: totalMacros.fat },
             ]}
             colorScale={["#5f0f40", "#0f4c5c", "#fb8b24"]}
             padAngle={2}
@@ -129,15 +129,11 @@ function StatisticsScreen({ navigation }) {
           <VictoryPie
             data={[
               {
-                x: `${((totalBreakdown.consumed / totalItems) * 100).toFixed(
-                  2
-                )}%`,
+                x: `${Math.round((totalBreakdown.consumed / totalItems) * 100)}%`,
                 y: (totalBreakdown.consumed / totalItems) * 100,
               },
               {
-                x: `${((totalBreakdown.thrownOut / totalItems) * 100).toFixed(
-                  2
-                )}%`,
+                x: `${Math.round((totalBreakdown.thrownOut / totalItems) * 100)}%`,
                 y: (totalBreakdown.thrownOut / totalItems) * 100,
               },
             ]}

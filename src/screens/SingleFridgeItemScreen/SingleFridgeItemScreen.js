@@ -99,7 +99,7 @@ function SingleFridgeItemScreen({ route }) {
                 </SafeAreaView>
               </SafeAreaView>
               <SafeAreaView style={styles.macroContainer}>
-                <Text style={styles.marcoTitle}>Nutrient Breakdown</Text>
+                <Text style={styles.marcoTitle}>Nutrient Breakdown (per serving)</Text>
                 <VictoryLegend
                   x={80}
                   y={10}
@@ -130,9 +130,9 @@ function SingleFridgeItemScreen({ route }) {
                   <VictoryBar
                     horizontal
                     data={[
-                      { y: fridgeItem.fat, fill: '#fb8b24' },
-                      { y: fridgeItem.carbs, fill: '#0f4c5c' },
-                      { y: fridgeItem.protein, fill: '#5f0f40' },
+                      { y: Math.round(fridgeItem.fat), fill: '#fb8b24' },
+                      { y: Math.round(fridgeItem.carbs), fill: '#0f4c5c' },
+                      { y: Math.round(fridgeItem.protein), fill: '#5f0f40' },
                     ]}
                     style={{ data: { fill: ({ datum }) => datum.fill } }}
                     barWidth={35}
