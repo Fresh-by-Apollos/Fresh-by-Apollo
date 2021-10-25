@@ -6,19 +6,15 @@ const styles = StyleSheet.create({
     paddingBottom: 300,
   },
   currentFridgeContainer: {
-<<<<<<< HEAD
-    top: 60,
-=======
     top: 20,
->>>>>>> origin/main
   },
   statsIcon: {
-    position: "absolute",
+    position: 'absolute',
     top: 10,
     left: 10,
   },
   statsArrowIcon: {
-    position: "absolute",
+    position: 'absolute',
     top: 10,
     left: 30,
   },
@@ -26,12 +22,12 @@ const styles = StyleSheet.create({
     top: 140,
   },
   header: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 30,
     left: 50,
   },
   pastHeader: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 30,
     left: 75,
   },
