@@ -61,20 +61,6 @@ function StatisticsScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <MaterialCommunityIcons
-          style={styles.statsIcon}
-          name="chart-pie"
-          size={32}
-          color="#eb5e28"
-          onPress={() => navigation.navigate("My Fridge")}
-        />
-        <MaterialCommunityIcons
-          style={styles.statsArrowIcon}
-          name="menu-right"
-          size={32}
-          color="#eb5e28"
-          onPress={() => navigation.navigate("My Fridge")}
-        />
         <SafeAreaView style={styles.currentFridgeContainer}>
           <Text style={styles.header}>Current Fridge Stats</Text>
           <View
