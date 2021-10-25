@@ -2,42 +2,46 @@ import {
   View,
   Text,
   SafeAreaView,
-  ScrollView,
   Image,
-  Button,
   TouchableOpacity,
   Pressable,
   Modal,
-} from 'react-native';
-import React, { useState } from 'react';
-import styles from '../fridge-style';
+} from "react-native";
+import React, { useState, useEffect } from "react";
+import styles from "../fridge-style";
 
 // Icons
-import { Ionicons } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-// Libaries
-import { formatDistance } from 'date-fns';
-import NumericInput from 'react-native-numeric-input';
+// Libraries
+import { formatDistance } from "date-fns";
+import NumericInput from "react-native-numeric-input";
+import Toast from "react-native-toast-message";
 
 // Context
 import {
   fetchFridgeItems,
   updateFridgeItem,
-} from '../../../store/reducers/fridgeReducer';
-import { useStorage } from '../../../store/Context';
+} from "../../../store/reducers/fridgeReducer";
+import { useStorage } from "../../../store/Context";
 
-function FridgeItemView({ item, navigation }) {
+function FridgeItemView({ itemInfo, navigation }) {
   const { dispatch } = useStorage();
   const [showButtons, setShowButtons] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [servings, setServings] = useState(1);
   const [trashing, setTrashing] = useState(false);
+  const [item, setItem] = useState(itemInfo);
   const [timeToExpire] = useState(
     new Date(item.expirationDate.seconds * 1000) - new Date()
   );
+
+  useEffect(() => {
+    setItem(itemInfo);
+  }, [itemInfo]);
 
   const handleAction = async (wasConsumed) => {
     let consumedAll = servings === item.servings || trashing;
@@ -63,17 +67,7 @@ function FridgeItemView({ item, navigation }) {
       <TouchableOpacity
         style={styles.fridgeItems}
         onPress={() => {
-          navigation.navigate('Selected Item', {
-            name: item.name,
-            expirationDate: item.expirationDate,
-            servings: item.servings,
-            allergens: item.allergens,
-            dietFlags: item.dietFlags,
-            protein: item.protein,
-            carbs: item.carbs,
-            fat: item.fat,
-            imageUrl: item.imageUrl,
-          });
+          navigation.navigate("Selected Item", { ...item });
         }}
       >
         <SafeAreaView style={styles.imageContainer}>
@@ -84,33 +78,29 @@ function FridgeItemView({ item, navigation }) {
             {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
           </Text>
           <SafeAreaView>
-            <Text>Servings: {item.servings}</Text>
+            <Text style={{ fontSize: 14 }}>Servings: {item.servings}</Text>
             <Text
               style={{
-                color: timeToExpire > 0 ? 'black' : '#D54C4C',
+                color: timeToExpire > 0 ? "black" : "#D54C4C",
                 ...styles.expireText,
+                fontSize: 15,
               }}
             >
-              {timeToExpire > 0 ? 'Expires ' : 'Expired '}
+              {timeToExpire > 0 ? "Expires " : "Expired "}
               {formatDistance(
                 new Date(item.expirationDate.seconds * 1000),
                 new Date(),
                 { addSuffix: true }
               )}
             </Text>
-            <Text style={styles.baseText}>
-              Allergens:{' '}
-              {item.allergens.length ? item.allergens.join(', ') : 'N/A'}
-            </Text>
-            <Text style={styles.baseText}>
-              Diet Flags:{' '}
-              {item.dietFlags.length ? item.dietFlags.join(', ') : 'N/A'}
+            <Text style={{ fontSize: 14 }}>
+              {item.storage.charAt(0).toUpperCase() + item.storage.slice(1)}
             </Text>
           </SafeAreaView>
         </SafeAreaView>
         <SafeAreaView>
           <TouchableOpacity
-            style={showButtons && { display: 'none' }}
+            style={showButtons && { display: "none" }}
             onPress={() => setShowButtons(true)}
           >
             <MaterialCommunityIcons
@@ -120,7 +110,7 @@ function FridgeItemView({ item, navigation }) {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            style={!showButtons && { display: 'none' }}
+            style={!showButtons && { display: "none" }}
             onPress={() => setShowButtons(false)}
           >
             <Ionicons
@@ -129,7 +119,7 @@ function FridgeItemView({ item, navigation }) {
               color="darkgray"
             />
           </TouchableOpacity>
-          <View style={!showButtons ? { display: 'none' } : styles.dotModal}>
+          <View style={!showButtons ? { display: "none" } : styles.dotModal}>
             <TouchableOpacity
               onPress={() => setModalVisible(true)}
               style={styles.dotModalItem}
@@ -157,7 +147,7 @@ function FridgeItemView({ item, navigation }) {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
@@ -167,7 +157,7 @@ function FridgeItemView({ item, navigation }) {
               <>
                 <SafeAreaView
                   style={{
-                    backgroundColor: trashing ? '#D54C4C' : '#4C956C',
+                    backgroundColor: trashing ? "#D54C4C" : "#4C956C",
                     ...styles.modalHeader,
                   }}
                 >
@@ -190,7 +180,11 @@ function FridgeItemView({ item, navigation }) {
                 <SafeAreaView style={styles.throwOutBtnContainer}>
                   <Pressable
                     style={[styles.button, styles.buttonClose1]}
-                    onPress={() => setModalVisible(false)}
+                    onPress={() => {
+                      setModalVisible(!modalVisible);
+                      setServings(1);
+                      setTrashing(false);
+                    }}
                   >
                     <Text style={styles.textStyle}>Cancel</Text>
                   </Pressable>
@@ -206,7 +200,7 @@ function FridgeItemView({ item, navigation }) {
               <>
                 <SafeAreaView
                   style={{
-                    backgroundColor: trashing ? '#D54C4C' : '#4C956C',
+                    backgroundColor: trashing ? "#D54C4C" : "#4C956C",
                     ...styles.modalHeader,
                   }}
                 >
@@ -239,13 +233,15 @@ function FridgeItemView({ item, navigation }) {
                   valueType="real"
                   rounded
                   textColor="black"
-                  iconStyle={{ color: 'white' }}
+                  iconStyle={{ color: "white" }}
                   rightButtonBackgroundColor="gray"
                   leftButtonBackgroundColor="lightgray"
                 />
                 <Pressable
                   style={[styles.button, styles.buttonClose]}
-                  onPress={() => handleAction(true)}
+                  onPress={() => {
+                    handleAction(true);
+                  }}
                 >
                   <Text style={styles.textStyle}>Submit</Text>
                 </Pressable>

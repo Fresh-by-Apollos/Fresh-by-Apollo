@@ -1,23 +1,21 @@
+import styles from "./styles";
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button, Modal, Alert } from "react-native";
+import { Text, View, Button, Modal, Alert } from "react-native";
+
 import { BarCodeScanner } from "expo-barcode-scanner";
-import { useStorage } from "../../store/Context";
 
 import BarcodeLookUpModal from "./Modals/BarcodeLookUpModal";
-import styles from "./styles";
 
-import {
-  addFridgeItem,
-  getFoodData,
-} from "../../store/reducers/barcodeReducer";
+import { useStorage } from "../../store/Context";
+import { getFoodData } from "../../store/reducers/barcodeReducer";
 
-//  070662035016  <-- Ramen Noodles Barcode:
 export default function BarcodeScreen({ navigation }) {
-  const { dispatch, scannedItem } = useStorage();
+  const { dispatch } = useStorage();
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState("Scan Barcode");
+  const [text] = useState("Scan Barcode");
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const askForCameraPermission = () => {
     (async () => {
@@ -33,11 +31,13 @@ export default function BarcodeScreen({ navigation }) {
   }, []);
 
   // What happens when we scan the bar code
-  const handleBarCodeScanned = ({ data }) => {
+  const handleBarCodeScanned = async ({ data }) => {
+    setLoading(true);
     // addFridgeItem();
     setScanned(true);
-    getFoodData(data, dispatch);
+    await getFoodData(data, dispatch);
     setModalVisible(true);
+    setLoading(false);
   };
 
   // Check permissions and return the screens
@@ -62,7 +62,6 @@ export default function BarcodeScreen({ navigation }) {
   // Return the View
   return (
     <View style={modalVisible ? styles.container1 : styles.container}>
-      {/* <TestingScreen /> */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -74,7 +73,9 @@ export default function BarcodeScreen({ navigation }) {
       >
         <BarcodeLookUpModal
           setModalVisible={setModalVisible}
+          setScanned={setScanned}
           navigation={navigation}
+          loading={loading}
         />
       </Modal>
 
@@ -85,13 +86,13 @@ export default function BarcodeScreen({ navigation }) {
         />
       </View>
       <Text style={styles.maintext}>{text}</Text>
-      {scanned && (
+      {/* {scanned && (
         <Button
           title={"Scan again?"}
           onPress={() => setScanned(false)}
           color="tomato"
         />
-      )}
+      )} */}
     </View>
   );
 }

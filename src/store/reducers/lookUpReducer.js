@@ -1,6 +1,7 @@
 import firebase from "../../firebase/firebase";
 import axios from "axios";
 import { SPOONACULAR_KEY } from '@env'
+import Toast from "react-native-toast-message";
 
 // fridgeState
 export const lookUpItem = {};
@@ -25,8 +26,6 @@ const _removeAll = () => {
 
 export const addLookupItem = async (info) => {
   try {
-    console.log(info, "<-adkfjalkdfja ");
-    // const userId = "hYkI13zMlyg3JAi1FL7xBryYydU2"; // User backup
     const userId = firebase.auth().currentUser.uid;
     const fridgeRef = firebase
       .firestore()
@@ -47,17 +46,14 @@ export const addLookupItem = async (info) => {
 
     const resultArray = result.filter(
       (doc) =>
-        Number(doc.fridgeItemID) === Number(info.fridgeItemID) &&
+        Number(doc.fridgeItemID) === Number(info.fridgeItemId) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
           "en-US"
         ) == dateParsed &&
         doc.fridgeItemID !== 0
     );
 
-    // console.log(resultArray);
-
     if (resultArray.length > 0) {
-      // console.log(resultArray);
       const fridgeItem = firebase
         .firestore()
         .collection(`/users/${userId}/currentFridge`)
@@ -66,10 +62,18 @@ export const addLookupItem = async (info) => {
       await fridgeItem.update({
         servings: firebase.firestore.FieldValue.increment(info.servings),
       });
+      Toast.show({
+        position: "top",
+        topOffset: 90,
+        type: "success",
+        text1: resultArray[0].name,
+        text2: `added to ${
+          info.storageType.charAt(0).toUpperCase() + info.storageType.slice(1)
+        }`,
+        visibilityTime: 600,
+        autoHide: true,
+      });
     } else {
-      console.log(info, "<-adkfjalkdfja ");
-      //   console.log("On new Add <<<<<<<<----------------");
-      // Add a new document in collection "currentFridge"
       firebase
         .firestore()
         .collection(`users/${userId}/currentFridge`)
@@ -87,11 +91,22 @@ export const addLookupItem = async (info) => {
           carbs: info.carbs,
           servings: info.servings,
           storage: info.storageType,
-          freshItem: true,
           fridgeItemID: info.fridgeItemId,
         })
         .then(() => {
           console.log("Document successfully written!");
+          Toast.show({
+            position: "top",
+            topOffset: 90,
+            type: "success",
+            text1: info.name,
+            text2: `added to ${
+              info.storageType.charAt(0).toUpperCase() +
+              info.storageType.slice(1)
+            }`,
+            visibilityTime: 600,
+            autoHide: true,
+          });
         })
         .catch((error) => {
           console.error("Error writing document: ", error);
@@ -103,27 +118,31 @@ export const addLookupItem = async (info) => {
 };
 
 export const getLookupItem = async (itemName, dispatch) => {
-  const item = await axios.get(
-    `https://api.spoonacular.com/food/ingredients/search?query=${itemName}&apiKey=${SPOONACULAR_KEY}`
-  );
-  const itemInfo = await axios.get(
-    `https://api.spoonacular.com/food/ingredients/${item.data.results[0].id}/information?amount=1&apiKey=${SPOONACULAR_KEY}`
-  );
-  console.log(item.data.results[0].image);
-  const itemImageURL = `https://spoonacular.com/cdn/ingredients_100x100/${item.data.results[0].image}`;
+  try {
+    const item = await axios.get(
+      `https://api.spoonacular.com/food/ingredients/search?query=${itemName}&apiKey=${SPOONACULAR_KEY}`
+      );
+    const itemInfo = await axios.get(
+      `https://api.spoonacular.com/food/ingredients/${item.data.results[0].id}/information?amount=1&apiKey=${SPOONACULAR_KEY}`
+      );
 
-  const { id, name, nutrition } = itemInfo.data;
+    const itemImageURL = `https://spoonacular.com/cdn/ingredients_100x100/${item.data.results[0].image}`;
 
-  const data = {
-    name,
-    fridgeItemId: id,
-    image: itemImageURL,
-    carbs: nutrition.caloricBreakdown.percentCarbs,
-    protein: nutrition.caloricBreakdown.percentProtein,
-    fat: nutrition.caloricBreakdown.percentFat,
-  };
+    const { id, name, nutrition } = itemInfo.data;
 
-  dispatch(_addLookupItem(item.data.results[0].id ? data : {}));
+    const data = {
+      name,
+      fridgeItemId: id,
+      image: itemImageURL,
+      carbs: nutrition.caloricBreakdown.percentCarbs,
+      protein: nutrition.caloricBreakdown.percentProtein,
+      fat: nutrition.caloricBreakdown.percentFat,
+    };
+
+    dispatch(_addLookupItem(item.data.results[0].id ? data : {}));
+  } catch (error) {
+    dispatch(_addLookupItem({}));
+  }
 };
 
 export const removeAllLookupItems = async (dispatch) => {
