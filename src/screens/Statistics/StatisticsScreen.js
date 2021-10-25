@@ -48,7 +48,7 @@ function StatisticsScreen({ navigation }) {
       return tempDoc;
     });
     snapshot.forEach((item) => {
-      item.wasConsumed ? total.consumed++ : total.thrownOut++;
+      item.wasConsumed ? total.consumed = total.consumed + item.servings : total.thrownOut = total.thrownOut + item.servings;
     });
     setTotalItems(snapshot.length);
     setTotalBreakdown(total);
