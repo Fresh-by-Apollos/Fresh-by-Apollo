@@ -54,6 +54,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     margin: '1%',
   },
+  servingsContainer: {
+    flexDirection: 'row',
+    height: '8%',
+    width: '70%',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
