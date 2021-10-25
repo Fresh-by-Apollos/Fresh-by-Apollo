@@ -35,6 +35,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     marginBottom: '25%',
   },
+  signupInputContainer: {
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
   formTitle: {
     fontSize: 20,
     fontWeight: 'bold',

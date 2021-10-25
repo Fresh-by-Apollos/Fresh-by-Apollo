@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   // Settings Home Styles
   userContainer: {
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     height: '100%',
     width: '100%',
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   inputStyle: {
-    height: '30%',
+    height: '40%',
     width: '100%',
     padding: 10,
     textAlign: 'left',
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#4C956C',
     borderRadius: 15,
-    height: '5%',
+    height: '6%',
     width: '70%',
   },
   // Edit Allergies Container
@@ -175,13 +175,20 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
+  emKeyContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '70%',
+    width: '100%',
+  },
   emInputContainer: {
-    height: '20%',
+    height: '30%',
     width: '80%',
     justifyContent: 'space-evenly',
   },
   emInputStyle: {
-    height: '30%',
+    height: '40%',
     width: '100%',
     padding: 10,
     textAlign: 'left',
