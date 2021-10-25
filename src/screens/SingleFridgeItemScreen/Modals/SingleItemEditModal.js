@@ -156,13 +156,13 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
             }}
           >
             <Pressable
-              style={[styles.button, styles.buttonClose1, { width: 100 }]}
+              style={[styles.button2, styles.buttonClose1, { width: 100 }]}
               onPress={() => setModalVisible(false)}
             >
               <Text style={styles.textStyle}> Cancel </Text>
             </Pressable>
             <Pressable
-              style={[styles.button, styles.buttonClose, { width: 100 }]}
+              style={[styles.button2, styles.buttonClose, { width: 100 }]}
               onPress={() => editItem()}
             >
               <Text style={styles.textStyle}> Confirm </Text>
