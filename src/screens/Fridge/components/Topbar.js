@@ -52,7 +52,6 @@ export default function Topbar({ navigation }) {
       label: "Refrigerated Items",
       type: "RADIO_BUTTON",
       onPress: () => {
-        console.log(refrigeratorItems);
         setFilter(refrigeratorItems);
         setFilterCounter(1);
         setActive({ name: "fridge" });
@@ -64,7 +63,6 @@ export default function Topbar({ navigation }) {
       type: "RADIO_BUTTON",
       onPress: () => {
         setFilter({});
-        console.log(freezerItems);
         setFilter(freezerItems);
         setFilterCounter(1);
         setActive({ name: "freezer" });
