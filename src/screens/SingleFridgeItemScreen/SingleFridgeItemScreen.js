@@ -6,19 +6,20 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
-} from "react-native";
-import styles from "./single-fridge-item-style";
-import React, { useState, useEffect } from "react";
+  Dimensions,
+} from 'react-native';
+import styles from './single-fridge-item-style';
+import React, { useState, useEffect } from 'react';
 
 // Context
-import { useStorage } from "../../store/Context";
+import { useStorage } from '../../store/Context';
 
 // Libraries
-import { formatDistance } from "date-fns";
-import { VictoryBar, VictoryLegend } from "victory-native";
+import { formatDistance } from 'date-fns';
+import { VictoryBar, VictoryLegend } from 'victory-native';
 
 // Modals
-import SingleItemEditModal from "./Modals/SingleItemEditModal";
+import SingleItemEditModal from './Modals/SingleItemEditModal';
 
 function SingleFridgeItemScreen({ route }) {
   const { id } = route.params;
@@ -46,6 +47,8 @@ function SingleFridgeItemScreen({ route }) {
     setLoading(false);
   }, [fridgeState]);
 
+  const deviceWidth = Math.round(Dimensions.get('window').width);
+
   return (
     <SafeAreaView style={styles.container}>
       {loading ? (
@@ -60,42 +63,43 @@ function SingleFridgeItemScreen({ route }) {
                   source={{ uri: fridgeItem.imageUrl }}
                 />
                 <SafeAreaView style={styles.textContainer}>
-                  <Text style={styles.baseText}>Name: {fridgeItem.name}</Text>
-                  <Text> </Text>
+                  <Text style={styles.nameText}>
+                    {fridgeItem.name.split(' ').map((word) => {
+                      return word.charAt(0).toUpperCase() + word.slice(1) + ' ';
+                    })}
+                  </Text>
                   <Text style={styles.baseText}>
                     Servings: {fridgeItem.servings}
                   </Text>
-                  <Text> </Text>
                   <Text
                     style={{
-                      color: timeToExpire > 0 ? "black" : "#D54C4C",
+                      color: timeToExpire > 0 ? 'black' : '#D54C4C',
                       ...styles.baseText,
                     }}
                   >
-                    {timeToExpire > 0 ? "Expires " : "Expired "}
+                    {timeToExpire > 0 ? 'Expires ' : 'Expired '}
                     {formatDistance(
                       new Date(fridgeItem.expirationDate.seconds * 1000),
                       new Date(),
                       { addSuffix: true }
                     )}
                   </Text>
-                  <Text> </Text>
                   <Text style={styles.baseText}>
-                    Allergens:{" "}
+                    Allergens:{' '}
                     {fridgeItem.allergens.length
-                      ? fridgeItem.allergens.join(", ")
-                      : "N/A"}
+                      ? fridgeItem.allergens.join(', ')
+                      : 'N/A'}
                   </Text>
-                  <Text> </Text>
                   <Text style={styles.baseText}>
-                    Diet Flags:{" "}
+                    Diet Flags:{' '}
                     {fridgeItem.dietFlags.length
-                      ? fridgeItem.dietFlags.join(", ")
-                      : "N/A"}
+                      ? fridgeItem.dietFlags.join(', ')
+                      : 'N/A'}
                   </Text>
                 </SafeAreaView>
               </SafeAreaView>
-              <SafeAreaView>
+              <SafeAreaView style={styles.macroContainer}>
+                <Text style={styles.marcoTitle}>Nutrient Breakdown</Text>
                 <VictoryLegend
                   x={80}
                   y={10}
@@ -103,53 +107,62 @@ function SingleFridgeItemScreen({ route }) {
                   gutter={20}
                   data={[
                     {
-                      name: "Protein",
-                      symbol: { fill: "#5f0f40", type: "square" },
+                      name: 'Protein',
+                      symbol: { fill: '#5f0f40', type: 'square' },
                     },
                     {
-                      name: "Carbs",
-                      symbol: { fill: "#0f4c5c", type: "square" },
+                      name: 'Carbs',
+                      symbol: { fill: '#0f4c5c', type: 'square' },
                     },
                     {
-                      name: "Fat",
-                      symbol: { fill: "#fb8b24", type: "square" },
+                      name: 'Fat',
+                      symbol: { fill: '#fb8b24', type: 'square' },
                     },
                   ]}
                   height={30}
+                  width={deviceWidth}
                 />
-                <VictoryBar
-                  horizontal
-                  data={[
-                    { y: fridgeItem.protein, fill: "#5f0f40" },
-                    { y: fridgeItem.carbs, fill: "#0f4c5c" },
-                    { y: fridgeItem.fat, fill: "#fb8b24" },
-                  ]}
-                  style={{ data: { fill: ({ datum }) => datum.fill } }}
-                  barWidth={35}
-                  labels={({ datum }) => `${datum.y}g`}
-                />
+                <SafeAreaView
+                  style={{
+                    width: deviceWidth,
+                  }}
+                >
+                  <VictoryBar
+                    horizontal
+                    data={[
+                      { y: fridgeItem.fat, fill: '#fb8b24' },
+                      { y: fridgeItem.carbs, fill: '#0f4c5c' },
+                      { y: fridgeItem.protein, fill: '#5f0f40' },
+                    ]}
+                    style={{ data: { fill: ({ datum }) => datum.fill } }}
+                    barWidth={35}
+                    labels={({ datum }) => `${datum.y} g`}
+                    width={deviceWidth * 0.9}
+                    padding={deviceWidth * 0.17}
+                  />
+                </SafeAreaView>
               </SafeAreaView>
-            </View>
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => setModalVisible(true)}
+              <View
                 style={{
-                  borderWidth: 1,
-                  width: "20%",
-                  borderColor: "green",
-                  padding: 10,
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
-                <Text style={{ textAlign: "center", color: "green" }}>
-                  EDIT
-                </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(true)}
+                  style={{
+                    borderWidth: 1,
+                    width: '20%',
+                    borderColor: 'green',
+                    padding: 10,
+                  }}
+                >
+                  <Text style={{ textAlign: 'center', color: 'green' }}>
+                    EDIT
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
           <Modal
@@ -157,7 +170,7 @@ function SingleFridgeItemScreen({ route }) {
             transparent={true}
             visible={modalVisible}
             onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
+              Alert.alert('Modal has been closed.');
               setModalVisible(!modalVisible);
             }}
           >

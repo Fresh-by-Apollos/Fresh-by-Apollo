@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {},
@@ -9,12 +9,12 @@ const styles = StyleSheet.create({
     top: 20,
   },
   statsIcon: {
-    position: "absolute",
+    position: 'absolute',
     top: 10,
     left: 10,
   },
   statsArrowIcon: {
-    position: "absolute",
+    position: 'absolute',
     top: 10,
     left: 30,
   },
@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
     top: 140,
   },
   header: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 30,
     left: 50,
   },
   pastHeader: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 30,
     left: 75,
   },
