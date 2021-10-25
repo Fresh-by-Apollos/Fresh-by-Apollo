@@ -16,7 +16,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-// Libaries
+// Libraries
 import { formatDistance } from "date-fns";
 import NumericInput from "react-native-numeric-input";
 import Toast from "react-native-toast-message";

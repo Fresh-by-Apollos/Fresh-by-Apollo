@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 
   notEmpty: {
     flexDirection: "column",
-    marginTop: "15%",
+    // marginTop: "15%",
     height: "100%",
     width: "100%",
   },

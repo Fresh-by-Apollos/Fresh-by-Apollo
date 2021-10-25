@@ -32,7 +32,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-function FridgeScreen({ navigation }) {
+function FridgeScreen({ navigation, display }) {
   const { fridgeState, dispatch } = useStorage();
 
   useEffect(() => {
@@ -85,25 +85,27 @@ function FridgeScreen({ navigation }) {
   };
 
   return (
+    // <Topbar>
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <SafeAreaView style={styles.statsIcon}>
-          <MaterialCommunityIcons
-            style={styles.statsArrowIcon}
-            name="menu-left"
-            size={32}
-            color="darkgray"
-            onPress={() => navigation.navigate("StatisticsScreen")}
-          />
-          <MaterialCommunityIcons
-            style={styles.statsIcon}
-            name="chart-pie"
-            size={32}
-            color="darkgray"
-            onPress={() => navigation.navigate("StatisticsScreen")}
-          />
-        </SafeAreaView>
-        {fridgeState.length === 0 ? (
+        {/* <SafeAreaView style={styles.statsIcon}>
+            <MaterialCommunityIcons
+              style={styles.statsArrowIcon}
+              name="menu-left"
+              size={32}
+              color="darkgray"
+              onPress={() => navigation.navigate("StatisticsScreen")}
+            />
+            <MaterialCommunityIcons
+              style={styles.statsIcon}
+              name="chart-pie"
+              size={32}
+              color="darkgray"
+              onPress={() => navigation.navigate("StatisticsScreen")}
+            />
+          </SafeAreaView> */}
+        {console.log(display, "yo")}
+        {display.length === 0 ? (
           <View style={{ alignItems: "center", marginTop: 60 }}>
             <TouchableOpacity
               onPress={() => navigation.navigate("BarcodeScreen")}
@@ -131,6 +133,7 @@ function FridgeScreen({ navigation }) {
         )}
       </ScrollView>
     </SafeAreaView>
+    // </Topbar>
   );
 }
 
