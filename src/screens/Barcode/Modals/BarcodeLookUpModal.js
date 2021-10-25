@@ -237,11 +237,12 @@ export default BarcodeLookUpModal = ({
               zIndex={1000}
               items={items}
               setOpen={setOpen}
-              containerStyle={{ width: "50%", top: 20 }}
+              style={{ height: 35 }}
+              containerStyle={{ width: "35%", top: 20 }}
               setValue={setValue}
               setItems={setItems}
               // defaultValue={value}
-              textStyle={{ textAlign: "left", paddingLeft: "35%" }}
+              textStyle={{ textAlign: "left", paddingLeft: "20%" }}
 
               // placeholder="Storage Type"
               // placeholderStyle={{ textAlign: "center" }}

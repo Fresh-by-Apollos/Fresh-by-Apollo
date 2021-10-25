@@ -66,7 +66,9 @@ export const addLookupItem = async (info) => {
         topOffset: 90,
         type: "success",
         text1: resultArray[0].name,
-        text2: "added to Fridge",
+        text2: `added to ${
+          info.storageType.charAt(0).toUpperCase() + info.storageType.slice(1)
+        }`,
         visibilityTime: 600,
         autoHide: true,
       });
@@ -97,7 +99,10 @@ export const addLookupItem = async (info) => {
             topOffset: 90,
             type: "success",
             text1: info.name,
-            text2: "added to Fridge",
+            text2: `added to ${
+              info.storageType.charAt(0).toUpperCase() +
+              info.storageType.slice(1)
+            }`,
             visibilityTime: 600,
             autoHide: true,
           });
@@ -112,27 +117,31 @@ export const addLookupItem = async (info) => {
 };
 
 export const getLookupItem = async (itemName, dispatch) => {
-  const item = await axios.get(
-    `https://api.spoonacular.com/food/ingredients/search?query=${itemName}&apiKey=fb5674256e7b41928221101869eae05c`
-  );
-  const itemInfo = await axios.get(
-    `https://api.spoonacular.com/food/ingredients/${item.data.results[0].id}/information?amount=1&apiKey=fb5674256e7b41928221101869eae05c`
-  );
+  try {
+    const item = await axios.get(
+      `https://api.spoonacular.com/food/ingredients/search?query=${itemName}&apiKey=fb5674256e7b41928221101869eae05c`
+    );
+    const itemInfo = await axios.get(
+      `https://api.spoonacular.com/food/ingredients/${item.data.results[0].id}/information?amount=1&apiKey=fb5674256e7b41928221101869eae05c`
+    );
 
-  const itemImageURL = `https://spoonacular.com/cdn/ingredients_100x100/${item.data.results[0].image}`;
+    const itemImageURL = `https://spoonacular.com/cdn/ingredients_100x100/${item.data.results[0].image}`;
 
-  const { id, name, nutrition } = itemInfo.data;
+    const { id, name, nutrition } = itemInfo.data;
 
-  const data = {
-    name,
-    fridgeItemId: id,
-    image: itemImageURL,
-    carbs: nutrition.caloricBreakdown.percentCarbs,
-    protein: nutrition.caloricBreakdown.percentProtein,
-    fat: nutrition.caloricBreakdown.percentFat,
-  };
+    const data = {
+      name,
+      fridgeItemId: id,
+      image: itemImageURL,
+      carbs: nutrition.caloricBreakdown.percentCarbs,
+      protein: nutrition.caloricBreakdown.percentProtein,
+      fat: nutrition.caloricBreakdown.percentFat,
+    };
 
-  dispatch(_addLookupItem(item.data.results[0].id ? data : {}));
+    dispatch(_addLookupItem(item.data.results[0].id ? data : {}));
+  } catch (error) {
+    dispatch(_addLookupItem({}));
+  }
 };
 
 export const removeAllLookupItems = async (dispatch) => {

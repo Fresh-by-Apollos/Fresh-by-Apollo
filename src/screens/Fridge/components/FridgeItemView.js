@@ -93,6 +93,9 @@ function FridgeItemView({ itemInfo, navigation }) {
                 { addSuffix: true }
               )}
             </Text>
+            <Text style={{ fontSize: 14 }}>
+              {item.storage.charAt(0).toUpperCase() + item.storage.slice(1)}
+            </Text>
           </SafeAreaView>
         </SafeAreaView>
         <SafeAreaView>
