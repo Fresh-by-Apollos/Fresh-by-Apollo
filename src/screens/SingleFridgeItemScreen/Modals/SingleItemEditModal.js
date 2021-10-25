@@ -88,6 +88,7 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
           <SafeAreaView style={styles.servingsContainer}>
             <Text style={{ fontSize: 16, fontWeight: '600' }}>Servings</Text>
             <NumericInput
+              minValue={1}
               value={servings}
               onChange={(value) => setServings(value)}
               onLimitReached={(isMax, msg) => console.log(isMax, msg)}
