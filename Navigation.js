@@ -1,4 +1,5 @@
 import React from "react";
+import { ActivityIndicator, View } from "react-native";
 
 // Icons
 import { Ionicons } from "@expo/vector-icons";
@@ -26,7 +27,7 @@ import { useStorage } from "./src/store/Context";
 const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
-  const { userState } = useStorage();
+  const { userState, isLoading, onBoarded } = useStorage();
 
   const toastConfig = {
     success: (props) => (
@@ -54,72 +55,78 @@ export default function Navigation() {
 
   return (
     <>
-      {!userState ? (
-        <NavigationContainer>
-          <LoginNav />
-        </NavigationContainer>
-      ) : !userState.onBoarded ? (
-        <NavigationContainer>
-          <OnBoardingNav />
-        </NavigationContainer>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="green" />
       ) : (
-        <NavigationContainer>
-          <Tab.Navigator
-            screenOptions={{
-              tabBarActiveTintColor: "#4C956C",
-              headerShown: false,
-              headerStyle: {
-                backgroundColor: "#4C956C",
-              },
+        <>
+          {!userState ? (
+            <NavigationContainer>
+              <LoginNav />
+            </NavigationContainer>
+          ) : !onBoarded ? (
+            <NavigationContainer>
+              <OnBoardingNav />
+            </NavigationContainer>
+          ) : (
+            <NavigationContainer>
+              <Tab.Navigator
+                screenOptions={{
+                  tabBarActiveTintColor: "#4C956C",
+                  headerShown: false,
+                  headerStyle: {
+                    backgroundColor: "#4C956C",
+                  },
 
-              tabBarStyle: {
-                paddingBottom: 20,
-                backgroundColor: "white",
-                height: 80,
-              },
-            }}
-          >
-            <Tab.Screen
-              name="Fridge"
-              component={FridgeNav}
-              options={{
-                tabBarLabel: "",
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons
-                    name="fridge"
-                    color={color}
-                    size={40}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Barcode"
-              component={BarcodeNav}
-              options={{
-                tabBarLabel: "",
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons
-                    name="barcode-scan"
-                    color={color}
-                    size={40}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Settings"
-              component={SettingsNav}
-              options={{
-                tabBarLabel: "",
-                tabBarIcon: ({ color }) => (
-                  <Ionicons name="settings" size={40} color={color} />
-                ),
-              }}
-            />
-          </Tab.Navigator>
-          <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
-        </NavigationContainer>
+                  tabBarStyle: {
+                    paddingBottom: 20,
+                    backgroundColor: "white",
+                    height: 80,
+                  },
+                }}
+              >
+                <Tab.Screen
+                  name="Fridge"
+                  component={FridgeNav}
+                  options={{
+                    tabBarLabel: "",
+                    tabBarIcon: ({ color }) => (
+                      <MaterialCommunityIcons
+                        name="fridge"
+                        color={color}
+                        size={40}
+                      />
+                    ),
+                  }}
+                />
+                <Tab.Screen
+                  name="Barcode"
+                  component={BarcodeNav}
+                  options={{
+                    tabBarLabel: "",
+                    tabBarIcon: ({ color }) => (
+                      <MaterialCommunityIcons
+                        name="barcode-scan"
+                        color={color}
+                        size={40}
+                      />
+                    ),
+                  }}
+                />
+                <Tab.Screen
+                  name="Settings"
+                  component={SettingsNav}
+                  options={{
+                    tabBarLabel: "",
+                    tabBarIcon: ({ color }) => (
+                      <Ionicons name="settings" size={40} color={color} />
+                    ),
+                  }}
+                />
+              </Tab.Navigator>
+              <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
+            </NavigationContainer>
+          )}
+        </>
       )}
     </>
   );

@@ -24,11 +24,14 @@ function GlobalProvider({ children }) {
     scannedItem: state.scannedItem,
     userState: state.userState,
     lookUpItem: state.lookUpItem,
+    isLoading: loading,
+    onBoarded: state.userState.onBoarded,
     state,
     dispatch,
   }; // <--- Add all Pieces of state here
 
   useEffect(() => {
+    setLoading(true);
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         const uid = user.uid;
@@ -56,7 +59,7 @@ function GlobalProvider({ children }) {
 
   return (
     <GlobalContext.Provider value={globalState}>
-      {!loading && children}
+      {children}
     </GlobalContext.Provider>
   );
 }
