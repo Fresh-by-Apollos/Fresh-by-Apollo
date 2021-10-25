@@ -8,7 +8,7 @@ import Toast from "react-native-toast-message";
 export const scannedItem = {};
 
 // Action Types
-const SET_SCANNED_ITEM = "SET_SCANNED_ITEM";
+const SET_SCANNED_ITEM = 'SET_SCANNED_ITEM';
 
 // Action Creators
 const _setScannedItem = (item) => {
@@ -42,7 +42,7 @@ export const addFridgeItem = async (info) => {
       (doc) =>
         Number(doc.barcode) === Number(info.barcode) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
-          "en-US"
+          'en-US'
         ) == dateParsed
     );
 
@@ -56,9 +56,9 @@ export const addFridgeItem = async (info) => {
         servings: firebase.firestore.FieldValue.increment(info.servings),
       });
       Toast.show({
-        position: "bottom",
+        position: 'bottom',
         bottomOffset: 90,
-        type: "success",
+        type: 'success',
         text1: resultArray[0].name,
         text2: `added to ${
           info.storageType.charAt(0).toUpperCase() + info.storageType.slice(1)
@@ -89,11 +89,11 @@ export const addFridgeItem = async (info) => {
           fridgeItemID: 0,
         })
         .then(() => {
-          console.log("Document successfully written!");
+          console.log('Document successfully written!');
           Toast.show({
-            position: "bottom",
+            position: 'bottom',
             bottomOffset: 90,
-            type: "success",
+            type: 'success',
             text1: info.name,
             text2: `added to ${
               info.storageType.charAt(0).toUpperCase() +
@@ -104,7 +104,7 @@ export const addFridgeItem = async (info) => {
           });
         })
         .catch((error) => {
-          console.error("Error writing document: ", error);
+          console.error('Error writing document: ', error);
         });
     }
   } catch (error) {
@@ -135,10 +135,10 @@ export const getFoodData = async (barcode_num, dispatch) => {
         const macros = nutrients.reduce(function (acc, nutrient) {
           const name = nutrient.name;
           if (
-            name == "Protein" ||
-            name == "Total lipid (fat)" ||
-            name == "Carbohydrate, by difference" ||
-            name.includes("Carb")
+            name == 'Protein' ||
+            name == 'Total lipid (fat)' ||
+            name == 'Carbohydrate, by difference' ||
+            name.includes('Carb')
           ) {
             !acc[name] && (acc[name] = (nutrient.per_100g / 100) * servingSize);
           }
@@ -162,9 +162,9 @@ export const getFoodData = async (barcode_num, dispatch) => {
           dietFlags,
           barcode: barcode,
           dietLabels,
-          protein: macros["Protein"] || 0,
-          carbs: macros["Carbohydrate, by difference"] || 0,
-          fat: macros["Total lipid (fat)"] || 0,
+          protein: macros['Protein'] || 0,
+          carbs: macros['Carbohydrate, by difference'] || 0,
+          fat: macros['Total lipid (fat)'] || 0,
         };
         dispatch(_setScannedItem(data));
       })
