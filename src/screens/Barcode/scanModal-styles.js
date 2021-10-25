@@ -54,6 +54,15 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 20,
+    height: '30%',
+    padding: '2%',
+    elevation: 2,
+    backgroundColor: '#4C956C',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button2: {
+    borderRadius: 20,
     height: '40%',
     padding: '2%',
     elevation: 2,
