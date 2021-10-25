@@ -25,9 +25,9 @@ function StatisticsScreen({ navigation }) {
       fat: 0,
     };
     items.forEach((item) => {
-      total.protein += item.protein;
-      total.carbs += item.carbs;
-      total.fat += item.fat;
+      total.protein = total.protein + (item.protein * item.servings);
+      total.carbs = total.carbs + (item.carbs * item.servings);
+      total.fat = total.fat + (item.fat * item.servings);
     });
     setTotalMacros(total);
   };
