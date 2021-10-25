@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 import {
   Text,
@@ -12,23 +12,23 @@ import {
   TouchableWithoutFeedback,
   SafeAreaView,
   ActivityIndicator,
-} from "react-native";
+} from 'react-native';
 
-import DropDownPicker from "react-native-dropdown-picker";
-import { fetchFridgeItems } from "../../store/reducers/fridgeReducer";
-import DatePicker from "react-native-neat-date-picker";
-import { formatDistance } from "date-fns";
+import DropDownPicker from 'react-native-dropdown-picker';
+import { fetchFridgeItems } from '../../store/reducers/fridgeReducer';
+import DatePicker from 'react-native-neat-date-picker';
+import { formatDistance } from 'date-fns';
 
-import NumericInput from "react-native-numeric-input";
+import NumericInput from 'react-native-numeric-input';
 import {
   removeAllLookupItems,
   addLookupItem,
-} from "../../store/reducers/lookUpReducer";
-import styles from "./lookUpResult-styles";
-import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
+} from '../../store/reducers/lookUpReducer';
+import styles from './lookUpResult-styles';
+import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
-import { useStorage } from "../../store/Context";
+import { useStorage } from '../../store/Context';
 
 export default LookUpItemView = ({
   addedItems,
@@ -44,11 +44,11 @@ export default LookUpItemView = ({
   const [visible, setVisible] = useState(false);
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("fridge");
+  const [value, setValue] = useState('fridge');
   const [items, setItems] = useState([
-    { label: "Fridge", value: "fridge" },
-    { label: "Freezer", value: "freezer" },
-    { label: "Pantry", value: "pantry" },
+    { label: 'Fridge', value: 'fridge' },
+    { label: 'Freezer', value: 'freezer' },
+    { label: 'Pantry', value: 'pantry' },
   ]);
 
   const openDatePicker = () => {
@@ -61,7 +61,7 @@ export default LookUpItemView = ({
 
   const addtoFridge = async () => {
     if (!dateObj) {
-      alert("Please enter an expiration date");
+      alert('Please enter an expiration date');
     } else {
       setItemModalVisible(false);
       const itemData = {
@@ -99,8 +99,8 @@ export default LookUpItemView = ({
                   <Text
                     style={{
                       fontSize: 20,
-                      fontWeight: "600",
-                      marginLeft: "3%",
+                      fontWeight: '600',
+                      marginLeft: '3%',
                     }}
                   >
                     Item not Found
@@ -134,21 +134,32 @@ export default LookUpItemView = ({
                   setOpen={setOpen}
                   style={{ height: 40 }}
                   containerStyle={{
-                    width: "30%",
-                    height: "25%",
-                    position: "absolute",
-                    top: "22%",
-                    right: "10%",
+                    width: '30%',
+                    height: '25%',
+                    position: 'absolute',
+                    top: '22%',
+                    right: '10%',
                   }}
                   setValue={setValue}
                   setItems={setItems}
                   // defaultValue={value}
-                  textStyle={{ textAlign: "left", paddingLeft: "12%" }}
+                  textStyle={{ textAlign: 'left', paddingLeft: '12%' }}
                   // placeholder="Storage Type"
                   // placeholderStyle={{ textAlign: "center" }}
                 />
 
-                <View style={{ top: -20 }}>
+                <View
+                  style={{
+                    top: -20,
+                    width: '70%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text style={{ fontSize: 16, fontWeight: '600' }}>
+                    Servings
+                  </Text>
                   <NumericInput
                     value={servings}
                     onChange={(value) => setServings(value)}
@@ -160,7 +171,7 @@ export default LookUpItemView = ({
                     valueType="real"
                     rounded
                     textColor="black"
-                    iconStyle={{ color: "white" }}
+                    iconStyle={{ color: 'white' }}
                     rightButtonBackgroundColor="gray"
                     leftButtonBackgroundColor="lightgray"
                   />
@@ -175,14 +186,14 @@ export default LookUpItemView = ({
                   </Pressable>
                   <DatePicker
                     isVisible={showDatePicker}
-                    mode={"single"}
+                    mode={'single'}
                     onCancel={onCancel}
                     onConfirm={onConfirm}
                   />
                   <View style={styles.expirationContainer}>
                     {dateObj ? (
                       <Text style={styles.expirationText}>
-                        Expires{" "}
+                        Expires{' '}
                         {formatDistance(new Date(dateObj), new Date(), {
                           addSuffix: true,
                         })}
@@ -194,7 +205,7 @@ export default LookUpItemView = ({
                 </View>
                 <View style={styles.buttonContainer}>
                   <Pressable
-                    style={[styles.button, { backgroundColor: "#D54C4C" }]}
+                    style={[styles.button, { backgroundColor: '#D54C4C' }]}
                     onPress={() => {
                       setItemModalVisible(false);
                       setShowKeyboard(true);

@@ -1,16 +1,16 @@
-import * as React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import FridgeScreen from "./FridgeScreen";
-import BarcodeScreen from "../Barcode/BarcodeScreen";
-import StatisticsScreen from "../Statistics/StatisticsScreen";
-import SingleFridgeItemScreen from "../SingleFridgeItemScreen/SingleFridgeItemScreen";
-import { Button, Pressable, Text } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-import { Foundation } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
+import * as React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import FridgeScreen from './FridgeScreen';
+import BarcodeScreen from '../Barcode/BarcodeScreen';
+import StatisticsScreen from '../Statistics/StatisticsScreen';
+import SingleFridgeItemScreen from '../SingleFridgeItemScreen/SingleFridgeItemScreen';
+import { Button, Pressable, Text } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { Foundation } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
-import Topbar from "./components/Topbar";
+import Topbar from './components/Topbar';
 const FridgeStack = createNativeStackNavigator();
 
 export default function FridgeNav() {
@@ -18,13 +18,13 @@ export default function FridgeNav() {
     <FridgeStack.Navigator
       screenOptions={{
         headerShown: true,
-        title: "FRIDGE",
+        title: 'FRIDGE',
         headerStyle: {
-          backgroundColor: "#4C956C",
+          backgroundColor: '#4C956C',
         },
-        headerTintColor: "#fff",
+        headerTintColor: '#fff',
         headerTitleStyle: {
-          fontWeight: "bold",
+          fontWeight: 'bold',
         },
       }}
     >
@@ -33,9 +33,9 @@ export default function FridgeNav() {
           headerRight: () => (
             <Pressable
               style={{ marginRight: 8 }}
-              onPress={(props) => navigation.navigate("StatisticsScreen")}
+              onPress={(props) => navigation.navigate('StatisticsScreen')}
             >
-              <Foundation name="graph-bar" size={32} color="black" />
+              <Foundation name="graph-bar" size={32} color="white" />
               {/* <FontAwesome5
                 name="chart-bar"
                 size={32}
@@ -49,14 +49,14 @@ export default function FridgeNav() {
       />
       <FridgeStack.Screen
         options={{
-          headerTitle: "",
+          headerTitle: '',
         }}
         name="Selected Item"
         component={SingleFridgeItemScreen}
       />
       <FridgeStack.Screen
         options={{
-          headerTitle: "",
+          headerTitle: '',
           headerBackTitleVisible: false,
         }}
         name="BarcodeScreen"
@@ -65,7 +65,7 @@ export default function FridgeNav() {
 
       <FridgeStack.Screen
         options={{
-          headerTitle: "STATISTICS",
+          headerTitle: 'STATISTICS',
           // headerBackTitleVisible: false,
           // headerLeft: () => <Button title="" />,
         }}

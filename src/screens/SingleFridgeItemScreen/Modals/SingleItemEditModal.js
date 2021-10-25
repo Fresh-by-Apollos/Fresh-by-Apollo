@@ -1,23 +1,23 @@
-import { Text, Pressable, View, Image, SafeAreaView } from "react-native";
-import styles from "../../Barcode/scanModal-styles";
-import React, { useState } from "react";
+import { Text, Pressable, View, Image, SafeAreaView } from 'react-native';
+import styles from '../../Barcode/scanModal-styles';
+import React, { useState } from 'react';
 
 // Icons
-import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 // Libraries
-import { formatDistance } from "date-fns";
-import NumericInput from "react-native-numeric-input";
-import DatePicker from "react-native-neat-date-picker";
-import DropDownPicker from "react-native-dropdown-picker";
+import { formatDistance } from 'date-fns';
+import NumericInput from 'react-native-numeric-input';
+import DatePicker from 'react-native-neat-date-picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 // Context
 import {
   editFridgeItem,
   fetchFridgeItems,
-} from "../../../store/reducers/fridgeReducer";
-import { useStorage } from "../../../store/Context";
+} from '../../../store/reducers/fridgeReducer';
+import { useStorage } from '../../../store/Context';
 
 export default SingleItemEditModal = ({ item, setModalVisible }) => {
   const { dispatch } = useStorage();
@@ -28,9 +28,9 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(item.storage);
   const [items, setItems] = useState([
-    { label: "Fridge", value: "fridge" },
-    { label: "Freezer", value: "freezer" },
-    { label: "Pantry", value: "pantry" },
+    { label: 'Fridge', value: 'fridge' },
+    { label: 'Freezer', value: 'freezer' },
+    { label: 'Pantry', value: 'pantry' },
   ]);
 
   const openDatePicker = () => {
@@ -63,7 +63,7 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
         <>
           <View style={styles.headerContainer2}>
             <Pressable
-              style={{ marginLeft: "3%" }}
+              style={{ marginLeft: '3%' }}
               onPress={() => {
                 setModalVisible(false);
               }}
@@ -73,7 +73,7 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
             <Text style={styles.headerText}>Edit Item</Text>
             <View></View>
           </View>
-          <View style={{ flex: 1, flexDirection: "row" }}>
+          <View style={{ flex: 1, flexDirection: 'row' }}>
             <View style={styles.cardContainer}>
               <Image
                 style={styles.imageStyle}
@@ -85,22 +85,24 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
               </View>
             </View>
           </View>
-          <NumericInput
-            value={servings}
-            onChange={(value) => setServings(value)}
-            onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-            totalWidth={120}
-            totalHeight={35}
-            iconSize={25}
-            step={1}
-            valueType="real"
-            rounded
-            textColor="black"
-            iconStyle={{ color: "white" }}
-            rightButtonBackgroundColor="gray"
-            leftButtonBackgroundColor="lightgray"
-            minValue={1}
-          />
+          <SafeAreaView style={styles.servingsContainer}>
+            <Text style={{ fontSize: 16, fontWeight: '600' }}>Servings</Text>
+            <NumericInput
+              value={servings}
+              onChange={(value) => setServings(value)}
+              onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+              totalWidth={100}
+              totalHeight={35}
+              iconSize={25}
+              step={1}
+              valueType="real"
+              rounded
+              textColor="black"
+              iconStyle={{ color: 'white' }}
+              rightButtonBackgroundColor="gray"
+              leftButtonBackgroundColor="lightgray"
+            />
+          </SafeAreaView>
 
           <DropDownPicker
             open={open}
@@ -109,11 +111,11 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
             items={items}
             setOpen={setOpen}
             style={{ height: 35 }}
-            containerStyle={{ width: "35%", top: 20 }}
+            containerStyle={{ width: '35%', top: 20 }}
             setValue={setValue}
             setItems={setItems}
             // defaultValue={value}
-            textStyle={{ textAlign: "left", paddingLeft: "20%" }}
+            textStyle={{ textAlign: 'left', paddingLeft: '20%' }}
 
             // placeholder="Storage Type"
             // placeholderStyle={{ textAlign: "center" }}
@@ -128,14 +130,14 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
             </Pressable>
             <DatePicker
               isVisible={showDatePicker}
-              mode={"single"}
+              mode={'single'}
               onCancel={onCancel}
               onConfirm={onConfirm}
             />
             <View style={styles.expirationContainer}>
               {dateObj ? (
                 <Text style={styles.expirationText}>
-                  Expires{" "}
+                  Expires{' '}
                   {formatDistance(new Date(dateObj), new Date(), {
                     addSuffix: true,
                   })}
@@ -148,9 +150,9 @@ export default SingleItemEditModal = ({ item, setModalVisible }) => {
           <View
             style={{
               flex: 1,
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-              width: "100%",
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              width: '100%',
             }}
           >
             <Pressable
