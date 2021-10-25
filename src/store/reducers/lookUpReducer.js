@@ -130,13 +130,18 @@ export const getLookupItem = async (itemName, dispatch) => {
 
     const { id, name, nutrition } = itemInfo.data;
 
+    let protein = nutrition.nutrients.filter((obj) => obj.title === 'Protein')
+    let carbs = nutrition.nutrients.filter((obj) => obj.title === 'Carbohydrates')
+    let fat = nutrition.nutrients.filter((obj) => obj.title === 'Fat')
+
+
     const data = {
       name,
       fridgeItemId: id,
       image: itemImageURL,
-      carbs: nutrition.caloricBreakdown.percentCarbs,
-      protein: nutrition.caloricBreakdown.percentProtein,
-      fat: nutrition.caloricBreakdown.percentFat,
+      carbs: carbs[0].amount,
+      protein: protein[0].amount,
+      fat: fat[0].amount,
     };
 
     dispatch(_addLookupItem(item.data.results[0].id ? data : {}));

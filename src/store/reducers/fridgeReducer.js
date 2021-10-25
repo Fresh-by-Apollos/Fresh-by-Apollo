@@ -114,10 +114,12 @@ const addPastFridgeItem = async (info, amount) => {
         Number(doc.barcode) === Number(info.barcode) &&
         new Date(doc.expirationDate.seconds * 1000).toLocaleDateString(
           "en-US"
-        ) == dateParsed
+        ) == dateParsed &&
+        doc.wasConsumed === info.wasConsumed &&
+        doc.name === info.name
     );
 
-    if (resultArray.length > 0 && info.wasConsumed) {
+    if (resultArray.length > 0) {
       const fridgeItem = firebase
         .firestore()
         .collection(`/users/${userId}/pastFridge`)
