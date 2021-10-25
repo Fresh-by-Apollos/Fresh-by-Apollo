@@ -1,5 +1,6 @@
 import firebase from "../../firebase/firebase";
 import axios from "axios";
+import { SPOONACULAR_KEY } from '@env'
 import Toast from "react-native-toast-message";
 
 // fridgeState
@@ -119,11 +120,11 @@ export const addLookupItem = async (info) => {
 export const getLookupItem = async (itemName, dispatch) => {
   try {
     const item = await axios.get(
-      `https://api.spoonacular.com/food/ingredients/search?query=${itemName}&apiKey=fb5674256e7b41928221101869eae05c`
-    );
+      `https://api.spoonacular.com/food/ingredients/search?query=${itemName}&apiKey=${SPOONACULAR_KEY}`
+      );
     const itemInfo = await axios.get(
-      `https://api.spoonacular.com/food/ingredients/${item.data.results[0].id}/information?amount=1&apiKey=fb5674256e7b41928221101869eae05c`
-    );
+      `https://api.spoonacular.com/food/ingredients/${item.data.results[0].id}/information?amount=1&apiKey=${SPOONACULAR_KEY}`
+      );
 
     const itemImageURL = `https://spoonacular.com/cdn/ingredients_100x100/${item.data.results[0].image}`;
 

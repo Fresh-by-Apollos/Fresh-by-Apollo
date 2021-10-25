@@ -1,3 +1,11 @@
+import React, { useEffect, useState } from "react";
+import { FontAwesome } from "@expo/vector-icons";
+
+// This refers to the function defined earlier in this guide, in Push Notifications Set Up
+// import { registerForPushNotificationsAsync } from "../LoginScreen/SignUpScreen";
+
+import firebase from "../../firebase/firebase";
+
 import {
   View,
   Text,
@@ -6,8 +14,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import styles from "./fridge-style";
-import React, { useEffect } from "react";
-import firebase from "../../firebase/firebase";
 
 // Icons
 import { Ionicons } from "@expo/vector-icons";

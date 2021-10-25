@@ -1,7 +1,8 @@
-import firebase from '../../firebase/firebase';
-import axios from 'axios';
-import { barcodeSnapshot } from '../../../barcodeInfo';
-import Toast from 'react-native-toast-message';
+import firebase from "../../firebase/firebase";
+import axios from "axios";
+import { barcodeSnapshot } from "../../../barcodeInfo";
+import { CHOMP_KEY, SPIDER_KEY } from '@env'
+import Toast from "react-native-toast-message";
 
 // barCode state
 export const scannedItem = {};
@@ -120,12 +121,12 @@ export const getFoodData = async (barcode_num, dispatch) => {
 
     let result = await axios
       .get(
-        `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=AzytazSl0UlIf1Kym&code=${barcode_num}`
-      )
+        `https://chompthis.com/api/v2/food/branded/barcode.php?api_key=${CHOMP_KEY}&code=${barcode_num}`
+        )
       .then(async (result) => {
         let imageResult = await axios.get(
-          `https://api.barcodespider.com/v1/lookup?token=ea377961c5a80992486d&upc=${barcode_num}`
-        );
+          `https://api.barcodespider.com/v1/lookup?token=${SPIDER_KEY}&upc=${barcode_num}`
+          );
         const imageUrl = imageResult.data.item_attributes.image;
         const { name, barcode, allergens, nutrients, diet_flags, diet_labels } =
           result.data.items[0];

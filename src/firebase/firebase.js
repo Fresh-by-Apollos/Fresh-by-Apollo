@@ -1,10 +1,11 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import { FIREBASE_KEY } from '@env'
 
 const firebaseConfig = {
   // Main database
-  apiKey: 'AIzaSyCtr3OW8A5usTTRiP-yDg4tWaRW1uP8ASc',
+  apiKey: FIREBASE_KEY,
   authDomain: 'fresh-by-apollos.firebaseapp.com',
   projectId: 'fresh-by-apollos',
   storageBucket: 'fresh-by-apollos.appspot.com',
