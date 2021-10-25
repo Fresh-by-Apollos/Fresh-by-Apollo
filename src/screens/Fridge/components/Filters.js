@@ -22,11 +22,8 @@ export default class Filters extends Component {
 
   scrollViewRef = React.createRef();
 
-  //   handleClick = () => {};
-
   onFiltersScroll = (event) => {
     const eventX = event.nativeEvent.contentOffset.x;
-
     const direction = eventX > 0 ? 1 : -1;
     const offsetX = Math.min(
       Math.abs(eventX),
@@ -35,24 +32,12 @@ export default class Filters extends Component {
     this.animatedWidth.setValue(FILTERS_BUTTON_WIDTH - offsetX * direction);
   };
 
-  onScrollEndSnapToEdge = (event) => {
-    const offsetX = event.nativeEvent.contentOffset.x;
-
-    const maxOffset = FILTERS_BUTTON_WIDTH - FILTERS_ICON_WIDTH;
-    const velocityFactor = Math.abs(event.nativeEvent.velocity.x * 30);
-
-    if (offsetX > 0 && offsetX < maxOffset / 2 - velocityFactor) {
-      this.scrollViewRef.scrollTo({ x: 0 });
-    }
-  };
-
   render() {
     const { filters, activeFiltersCount, activeFiltersMap } = this.props;
     const scrollViewPaddingLeft = FILTERS_BUTTON_WIDTH - 18;
 
     return (
       <View style={styles.container}>
-        {console.log(activeFiltersMap, "--------------------")}
         <View style={styles.stickyItem}>
           <Animated.View
             style={[
@@ -111,11 +96,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingLeft: 10,
     backgroundColor: "white",
+    marginTop: 12,
+    paddingBottom: 0,
   },
   stickyItem: {
     position: "absolute",
     zIndex: 1,
     left: 10,
+    top: 0,
     paddingRight: 8,
     backgroundColor: "white",
   },

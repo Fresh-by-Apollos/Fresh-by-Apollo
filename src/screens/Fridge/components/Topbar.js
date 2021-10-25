@@ -1,29 +1,33 @@
-import React, { useState } from "react";
-import {
-  Dimensions,
-  Linking,
-  Text,
-  View,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
-
+import React, { useState, useEffect } from "react";
+import { View, Platform, StyleSheet, Text } from "react-native";
+import { SearchBar } from "react-native-elements";
 import FridgeScreen from "../FridgeScreen";
 
-import IconMediumLogo from "./IconMediumLogo";
 import Filters from "./Filters";
 
 import { useStorage } from "../../../store/Context";
-
-const MEDIUM_ARTICLE_URL = "https://medium.com/p/2bdde7a4f16c/";
-const SCREEN_WIDTH = Dimensions.get("screen").width;
 
 export default function Topbar({ navigation }) {
   const { fridgeState } = useStorage();
   const [filter, setFilter] = useState(fridgeState);
   const [filterCounter, setFilterCounter] = useState(0);
   const [active, setActive] = useState({ name: "all" });
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    console.log("infinite loop?");
+    setFilter(fridgeState);
+    setActive({ name: "all" });
+  }, [fridgeState]);
+
+  const findItem = () => {
+    setActive({});
+    setFilterCounter(0);
+    let result = fridgeState.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase())
+    );
+    setFilter(result);
+  };
 
   const refrigeratorItems = fridgeState.filter(
     (item) => item.storage === "fridge"
@@ -48,6 +52,7 @@ export default function Topbar({ navigation }) {
       label: "Refrigerated Items",
       type: "RADIO_BUTTON",
       onPress: () => {
+        console.log(refrigeratorItems);
         setFilter(refrigeratorItems);
         setFilterCounter(1);
         setActive({ name: "fridge" });
@@ -58,6 +63,8 @@ export default function Topbar({ navigation }) {
       label: "Freezer Items",
       type: "RADIO_BUTTON",
       onPress: () => {
+        setFilter({});
+        console.log(freezerItems);
         setFilter(freezerItems);
         setFilterCounter(1);
         setActive({ name: "freezer" });
@@ -78,7 +85,34 @@ export default function Topbar({ navigation }) {
   return (
     <View style={styles.container}>
       {/* do not remove this line underneath*/}
-      <View style={styles.header}></View>
+      <View style={styles.header}>
+        <SearchBar
+          // showCancel={true}
+          // showLoading={true}
+          inputStyle={{ color: "black" }}
+          inputContainerStyle={{
+            borderRadius: 12,
+            backgroundColor: "white",
+            width: "95%",
+            height: 38,
+            alignItems: "center",
+          }}
+          onClear={() => {
+            setFilter(fridgeState);
+            setFilterCounter(0);
+            setActive({ name: "all" });
+          }}
+          containerStyle={{
+            backgroundColor: "#4C956C",
+            height: 72,
+            paddingTop: 16,
+          }}
+          placeholder="Search an item..."
+          onChangeText={setSearch}
+          value={search}
+          onChange={findItem}
+        />
+      </View>
       <Filters
         filters={filters}
         activeFiltersCount={filterCounter}
@@ -91,44 +125,24 @@ export default function Topbar({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    height: "100%",
     flex: 1,
     backgroundColor: "#fff",
+    paddingBottom: "30%",
     alignItems: "center",
     justifyContent: "flex-start",
   },
   header: {
     width: "100%",
     alignItems: "center",
-    paddingTop: Platform.select({ web: 1, default: 10 }),
-    paddingBottom: 0,
-    backgroundColor: "white",
+    justifyContent: "center",
+    // paddingBottom: 0,
+    backgroundColor: "#4C956C",
   },
   title: {
     fontSize: 20,
     fontWeight: "500",
-    lineHeight: 20,
+    // lineHeight: 20,
     color: "#FFFFFF",
-  },
-  body: {
-    flex: 1,
-    justifyContent: "center",
-    paddingBottom: 30,
-  },
-  link: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  linkText: {
-    paddingLeft: 10,
-    fontSize: 24,
-    fontWeight: "500",
-    fontFamily: Platform.select({ web: "Serif", default: undefined }),
-    textDecorationLine: "underline",
-  },
-  tip: {
-    width: 400,
-    marginTop: 100,
-    textAlign: "center",
-    color: "#777",
   },
 });

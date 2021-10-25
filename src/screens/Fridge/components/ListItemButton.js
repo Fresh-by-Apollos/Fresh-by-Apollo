@@ -34,7 +34,7 @@ const ListItemButton = ({ active, onPress, text, icon }) => {
     >
       <View style={containerStyle}>
         {icon && icon}
-        {console.log(onPress)}
+        {/* {console.log(onPress)} */}
         <Text numberOfLines={1} ellipsizeMode="clip" style={textStyle}>
           {text}
         </Text>

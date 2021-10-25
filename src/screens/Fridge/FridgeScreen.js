@@ -88,23 +88,6 @@ function FridgeScreen({ navigation, display }) {
     // <Topbar>
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
-        {/* <SafeAreaView style={styles.statsIcon}>
-            <MaterialCommunityIcons
-              style={styles.statsArrowIcon}
-              name="menu-left"
-              size={32}
-              color="darkgray"
-              onPress={() => navigation.navigate("StatisticsScreen")}
-            />
-            <MaterialCommunityIcons
-              style={styles.statsIcon}
-              name="chart-pie"
-              size={32}
-              color="darkgray"
-              onPress={() => navigation.navigate("StatisticsScreen")}
-            />
-          </SafeAreaView> */}
-        {console.log(display, "yo")}
         {display.length === 0 ? (
           <View style={{ alignItems: "center", marginTop: 60 }}>
             <TouchableOpacity
@@ -112,11 +95,11 @@ function FridgeScreen({ navigation, display }) {
             >
               <Ionicons name="md-add-circle-outline" size={50} color="green" />
             </TouchableOpacity>
-            <Text style={{ fontSize: 25 }}>ADD TO FRIDGE</Text>
+            <Text style={{ fontSize: 25 }}>ADD ITEM</Text>
           </View>
         ) : (
           <View style={styles.notEmpty}>
-            {fridgeState.map((item) => (
+            {display.map((item) => (
               <FridgeItemView
                 key={
                   `${item.barcode}` +
