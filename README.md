@@ -32,19 +32,19 @@ npm start
 ## Team
 
 Apollos Severe: <br/>
-https://www.linkedin.com/in/apollos-severe/
+https://www.linkedin.com/in/apollos-severe/ <br />
 https://github.com/ApollosSevere
 
 Francis Yu: <br />
-https://www.linkedin.com/in/francisjyu/
+https://www.linkedin.com/in/francisjyu/ <br />
 https://github.com/frankmakesthecode
 
 Eric Nguyen: <br />
-https://www.linkedin.com/in/ericdaonguyen/
+https://www.linkedin.com/in/ericdaonguyen/ <br />
 https://github.com/EricDaoNguyen
 
 Franklin Yin: <br />
-https://www.linkedin.com/in/franklin-yin/
+https://www.linkedin.com/in/franklin-yin/ <br />
 https://github.com/franklinyin1
 
 ## Current Features
