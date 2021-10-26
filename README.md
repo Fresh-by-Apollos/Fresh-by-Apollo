@@ -22,7 +22,7 @@ cd <DIRECTORY_YOU_WANT_TO_DOWNLOAD_TO>
 
 git clone https://github.com/Fresh-by-Apollos/Fresh-by-Apollo.git
 
-(May need to nvm install 14.17.6 before npm instakk)
+(May need to nvm install 14.17.6 before npm install)
 
 npm install
 
