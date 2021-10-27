@@ -29,7 +29,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "",
+    "description": "Your personal fridge and pantry management application!",
     "githubUrl": "https://github.com/Fresh-by-Apollos/Fresh-by-Apollo"
   }
 }
