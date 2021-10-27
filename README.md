@@ -1,5 +1,9 @@
 ## Fresh By Apollos
 
+```
+Video Walkthrough: https://youtu.be/mI6g0BOzG1Y
+```
+
 ## Description
 
 Fresh by Apollos is a mobile app that allows you to minimize food waste by keeping track of all your items in the fridge, freezer, and pantry. It also tracks and alerts you when an item does not follow your personal diet restrictions and allergies. Lastly, the app tracks the total macronutrients (carbs, fat, protein) of all items in your fridge. Users can add items to their "fridge" by scanning the barcode, or using our manual search feature. They would then add the number of servings, storage type (pantry, fridge, freezer) and the expiration date. The app will send push notifications to remind users about their expiring items.
@@ -9,8 +13,8 @@ Fresh by Apollos is a mobile app that allows you to minimize food waste by keepi
 1. Download <a href="https://expo.dev/client">Expo Go</a> on your mobile device or tablet
 
 2. Log into the taste not waste account
-   <br /> <strong > username: </strong>
-   <br /> <strong > password: </strong>
+   <br /> <strong > username: </strong> freshbyapollos
+   <br /> <strong > password: </strong> freshbyapollosapp
 3. Go to this url and scan the QR code https://expo.dev/@fresh-by-apollos/fresh-by-apollos
    <br /> OR <br />
    Tap on Profile, open up Recent Projects, and tap Fresh By Apollos
