@@ -1,7 +1,7 @@
 ## Fresh By Apollos
 
 ```
-Video Walkthrough: https://youtu.be/mI6g0BOzG1Y
+Video Overview: https://youtu.be/mI6g0BOzG1Y
 ```
 
 ## Description
