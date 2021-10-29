@@ -1,12 +1,12 @@
 ## Fresh By Apollos
 
 
-## Video Overview: 
+## Video Overview:
 https://youtu.be/mI6g0BOzG1Y
 
 ## Description
 
-Fresh by Apollos is a mobile app that allows you to minimize food waste by keeping track of all your items in the fridge, freezer, and pantry. It also tracks and alerts you when an item does not follow your personal diet restrictions and allergies. Lastly, the app tracks the total macronutrients (carbs, fat, protein) of all items in your fridge. Users can add items to their "fridge" by scanning the barcode, or using our manual search feature. They would then add the number of servings, storage type (pantry, fridge, freezer) and the expiration date. The app will send push notifications to remind users about their expiring items.
+Fresh is a fridge & pantry management tool that tracks food expiration dates, allergens, diet restrictions, macronutrients, and more. Users can add items to their fridge through barcodes scans and search, track important data about their food, and will receive notifications from the app when their food is about to expire. Through Fresh's sleek and intuitive design, users can eliminate many of the common concerns associated with grocery shopping.
 
 ## Use Our App On Our Expo Go Account
 
@@ -69,7 +69,7 @@ https://github.com/franklinyin1
 - The user has access to the fridge statistics page that shows:
   - Total macronutrients of items in their fridge
   - Report of items consumed vs thrown out
-- The app will notify users up to 5 days prior to an item expiring, reminding them to eat it
+- On a daily basis (at 3pm EST), Fresh notifies users of any items that are about to expire
 
 ## Tech Stack
 
