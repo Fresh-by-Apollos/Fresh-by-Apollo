@@ -12,7 +12,7 @@ Fresh is a fridge & pantry management tool that tracks food expiration dates, al
 
 1. Download <a href="https://expo.dev/client">Expo Go</a> on your mobile device or tablet
 
-2. Log into the taste not waste account
+2. Log into the Fresh By Apollos account
    <br /> <strong > username: </strong> freshbyapollos
    <br /> <strong > password: </strong> freshbyapollosapp
 3. Go to this url and scan the QR code https://expo.dev/@fresh-by-apollos/fresh-by-apollos
